@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+part-1-agent/node_modules/
+part-1-agent/dist/
+part-1-agent/runs/*
+!part-1-agent/runs/sample-report.md
+!part-1-agent/runs/sample-report.json
+Home Assignment - AI Engineer.pdf
+first_prompt.txt
+*.zip

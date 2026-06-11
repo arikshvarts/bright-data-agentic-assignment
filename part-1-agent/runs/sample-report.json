@@ -1,0 +1,177 @@
+{
+  "company": "Bright Data",
+  "decision": "next coding-agent integration",
+  "region": "us",
+  "generatedAt": "2026-06-12T08:50:58.225Z",
+  "summary": "Bright Data should treat \"next coding-agent integration\" as an integration-capacity decision, not a broad market-research task. The strongest selected signal points to GitHub Copilot, with priority based on source count, official-like evidence, community evidence, competitor mentions, and developer-pain terms.",
+  "toolsUsed": [
+    "search_engine",
+    "discover",
+    "scrape_as_markdown"
+  ],
+  "currentCapabilities": [
+    {
+      "capability": "VS Code / GitHub Copilot MCP connection",
+      "status": "already_exists",
+      "implication": "Do not recommend a generic VS Code MCP setup as the main bet; recommend packaging, validation, recipes, or an ecosystem-specific kit on top.",
+      "evidenceUrls": [
+        "https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data"
+      ]
+    },
+    {
+      "capability": "Broad Bright Data MCP tool surface",
+      "status": "already_exists",
+      "implication": "The gap is not raw capability; it is discoverability, first-run setup, ecosystem-specific instructions, and proof that the tools work inside coding-agent workflows.",
+      "evidenceUrls": [
+        "https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data"
+      ]
+    }
+  ],
+  "competitorAnalysis": [
+    {
+      "competitor": "CopilotKit",
+      "shipped": "CopilotKit shipped agent-oriented coding workflow support or content.",
+      "whatWorksWell": "It packages agent building as developer-facing docs and reusable project skills.",
+      "weaknessOrGap": "It is not primarily a web data infrastructure provider.",
+      "implicationForBrightData": "Bright Data should ship copy-paste recipes and project skills, not only platform documentation.",
+      "evidenceUrls": [
+        "https://docs.copilotkit.ai/google-adk/build-with-agents"
+      ]
+    }
+  ],
+  "rankedOpportunities": [
+    {
+      "opportunity": "GitHub Copilot integration kit",
+      "ecosystem": "GitHub Copilot",
+      "evidenceStrength": "high",
+      "developerPain": "high",
+      "adoptionSignal": "high",
+      "implementationEffort": "medium",
+      "priority": 1,
+      "rationale": "GitHub Copilot has 3 selected evidence source(s), 1 official-like signal(s), 0 community signal(s), and 2 developer-pain signal(s).",
+      "evidenceUrls": [
+        "https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data",
+        "https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B",
+        "https://docs.copilotkit.ai/google-adk/build-with-agents"
+      ],
+      "contradictorySignals": [],
+      "confidence": 0.75
+    },
+    {
+      "opportunity": "Codex integration kit",
+      "ecosystem": "Codex",
+      "evidenceStrength": "medium",
+      "developerPain": "high",
+      "adoptionSignal": "high",
+      "implementationEffort": "medium",
+      "priority": 2,
+      "rationale": "Codex has 2 selected evidence source(s), 0 official-like signal(s), 0 community signal(s), and 2 developer-pain signal(s).",
+      "evidenceUrls": [
+        "https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B",
+        "https://docs.copilotkit.ai/google-adk/build-with-agents"
+      ],
+      "contradictorySignals": [
+        "No official source was selected for this ecosystem."
+      ],
+      "confidence": 0.6366666666666666
+    },
+    {
+      "opportunity": "Claude Code integration kit",
+      "ecosystem": "Claude Code",
+      "evidenceStrength": "medium",
+      "developerPain": "high",
+      "adoptionSignal": "high",
+      "implementationEffort": "medium",
+      "priority": 3,
+      "rationale": "Claude Code has 2 selected evidence source(s), 0 official-like signal(s), 0 community signal(s), and 2 developer-pain signal(s).",
+      "evidenceUrls": [
+        "https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B",
+        "https://docs.copilotkit.ai/google-adk/build-with-agents"
+      ],
+      "contradictorySignals": [
+        "No official source was selected for this ecosystem."
+      ],
+      "confidence": 0.6066666666666667
+    },
+    {
+      "opportunity": "Cursor integration kit",
+      "ecosystem": "Cursor",
+      "evidenceStrength": "medium",
+      "developerPain": "high",
+      "adoptionSignal": "high",
+      "implementationEffort": "medium",
+      "priority": 4,
+      "rationale": "Cursor has 2 selected evidence source(s), 0 official-like signal(s), 0 community signal(s), and 2 developer-pain signal(s).",
+      "evidenceUrls": [
+        "https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B",
+        "https://docs.copilotkit.ai/google-adk/build-with-agents"
+      ],
+      "contradictorySignals": [
+        "No official source was selected for this ecosystem."
+      ],
+      "confidence": 0.5766666666666667
+    }
+  ],
+  "recommendedBet": {
+    "title": "Build a first-party GitHub Copilot integration kit",
+    "targetDeveloper": "Developer relations, platform engineers, and coding-agent power users",
+    "problemSolved": "Reduce setup friction for reliable Bright Data live-web access inside coding-agent workflows.",
+    "whyNow": "Coding-agent ecosystems are competing on tool access, MCP interoperability, and first-run developer experience.",
+    "minimumViableScope": [
+      "Preconfigured Bright Data MCP setup",
+      "Reusable agent instructions for the target ecosystem",
+      "Three production recipes using search, discovery, and scraping",
+      "Connectivity validation command",
+      "Short troubleshooting guide for common MCP failures"
+    ],
+    "successMetric": "50 successful first-run demos and 10 external developer feedback sessions within 30 days of release.",
+    "whatNotToBuildYet": [
+      "A full native SDK before validating activation",
+      "A broad UI before proving command-line workflow demand",
+      "Pro-mode-only features that block free-account evaluation"
+    ],
+    "evidenceUrls": [
+      "https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data",
+      "https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B",
+      "https://docs.copilotkit.ai/google-adk/build-with-agents"
+    ],
+    "confidence": 0.75
+  },
+  "evidenceSources": [
+    {
+      "url": "https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B",
+      "title": "Claude Code and Codex do not replace Copilot and Cursor.",
+      "sourceType": "discover",
+      "signal": "Even better, you can use these with MCP servers to integrate directly with your IDE. You can record a session, test your changes, and if ...",
+      "confidence": 0.72,
+      "scrapeStatus": "ok",
+      "content": "``` Claude Code and Codex do not replace Copilot and Cursor. | Santiago Valdarrama ``` Agree & Join LinkedIn By clicking Continue to join or sign in, you agree to LinkedIn's [User Agreement](/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement), [Privacy Policy](/legal/privacy-policy?trk=linkedin-tc_auth-button_privacy-policy), and [Cookie Policy](/legal/cookie-policy?trk=linkedin-tc_auth-button_cookie-policy). [Skip to main content](#main-content) [LinkedIn](/?trk=public_post_nav-header-logo) [Top Content](https://www.linkedin.com/top-content?trk=public_post_guest_nav_menu_topContent) [People](https://www.linkedin.com/pub/dir/+/+?trk=public_post_guest_nav_menu_people) [Learning](https://www.linkedin.com/learning/search?trk=public_post_guest_nav_menu_learning) [Jobs](https://www.linkedin.com/jobs/search?trk=public_post_guest_nav_menu_jobs) [Games](https://www.linkedin.com/games?trk=public_post_guest_nav_menu_games) [Get the app](ms-windows-store://pdp/?ProductId=9WZDNCRFJ4Q7\\&mode=mini\\&cid=guest_nav_upsell\\&trk=public_post_guest_nav_menu_windows) [Sign in](https://www.linkedin.com/login?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&fromSignIn=true\\&trk=public_post_nav-header-signin) [Join now](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public_post_nav-header-join) [](https://www.linkedin.com/login?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&fromSignIn=true\\&trk=public_post_nav-header-signin) Claude Code and Codex vs Copilot: Two AI modes for coding This title was summarized by AI from the post below. [](https://www.linkedin.com/in/svpino?trk=public_post_feed-actor-image) [Santiago Valdarrama](https://www.linkedin.com/in/svpino?trk=public_post_feed-actor-name) 7mo [Report this post](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public_post_ellipsis-menu-semaphore-sign-in-redirect\\&guestReportContentType=POST&_f=guest-reporting) Claude Code and Codex do not replace Copilot and Cursor. I've already heard multiple people make this argument, and I think it comes from the vibe-coding community because of the way they use these tools. First, Claude Code and Codex are agentic coding tools. They are good at following instructions and generating a ton of code at once. Second, you have Copilot, Cursor Tab, and similar AI assistants. They help with interactive development, where a human writes the code, and the tool autocompletes and suggests what to type next. A way to think about this: • Mode 1: AI writes the code, and the human copilots. • Mode 2: The human writes the code, and AI copilots. These two are very different. One doesn't replace the other. Professional developers use both. The IDE is still king. [69](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public_post_social-actions-reactions) [17 Comments](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public_post_social-actions-comments) [Like](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public_post_like-cta) [Comment](https://www.linkedin.com/signup/cold-join?session_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public_post_comment-cta) Share Copy LinkedIn Facebook X [](https://cz.linkedin.com/in/matejholy?trk=public_post_comment_actor-image) [Matej Holý](https://cz.linkedin.com/in/matejholy?trk=public_post_comment_actor-name) People-Oriented Software Developer and Web Enthusiast. I write about efficient software development and self-actualization. 🌊 Drowning in legacy Java code? There are tools and books I can recommend. 👋 Say hello. 7mo [Report this comment](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fsvpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public_post_comment_ellipsis-menu-semaphore-sign-in-redirect\\&guestReportContentType=COMMENT&_f=guest-reporting) A good distinction, Santiago. Personally, I find it interesting that most of the time I use the AI assistant inside the IDE, giving it context and having a discussion about different approaches to a given problem. I use the agentic mode to gather context throughout the code base, generating project descriptions and onboarding documents for both developers and AI. Or doing some sort of batch processing on multiple files/large parts of the code base. \\[ Like ]\\(https://www.linkedin.com/signup/cold-join?session\\_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino\\_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public\\_post\\_comment\\_like)\\[ Reply ]\\(https://www.linkedin.com/signup/cold-join?session\\_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fposts%2Fsvpino\\_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B\\&trk=public\\_post\\_comment\\_reply)1 Reaction [](https://www.linkedin.com/in/abelmohler?trk=public_post_comment_actor-image) [Abel Mohler](https://www.linkedin.com/in/abelmohler?trk=public_post_comment_actor-name) 7mo [Report this comment](/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Fposts%2Fsvpino_claude-code-and"
+    },
+    {
+      "url": "https://docs.copilotkit.ai/google-adk/build-with-agents",
+      "title": "Build with agents",
+      "sourceType": "search",
+      "signal": "This installs the skills into your project, where any coding agent working there (Claude Code, Codex, Cursor, or Gemini CLI) discovers them automatically.Read more",
+      "confidence": 0.62,
+      "scrapeStatus": "ok",
+      "content": "Build with agents [CopilotKitDocs](/) [Docs](/) [Reference](/reference) [Cookbook](/cookbook) [Get Intelligence free](https://dashboard.operations.copilotkit.ai/?utm_source=docs\\&utm_medium=cta\\&utm_campaign=intelligence\\&utm_content=navbar)Talk to an engineer [CopilotKitDocs](/) [Docs](/)[Reference](/reference)[Cookbook](/cookbook) [](https://dashboard.operations.copilotkit.ai/?utm_source=docs\\&utm_medium=cta\\&utm_campaign=intelligence\\&utm_content=navbar \"Get Intelligence free\") [](/) [Docs](/)[Reference](/reference)[Cookbook](/cookbook) Google ADKAgentic backend Get Started [Introduction](/google-adk)[Quickstart](/google-adk/quickstart)[Build with agents](/google-adk/build-with-agents) Concepts [Architecture](/google-adk/concepts/architecture)[Generative UI](/google-adk/concepts/generative-ui-overview)[Which Hook for Which Job](/google-adk/concepts/which-hook)[OSS vs Enterprise](/google-adk/concepts/oss-vs-enterprise) [Agentic Protocols](/google-adk/agentic-protocols) Build Chat UIs Prebuilt Components Custom Look and Feel [Multimodal Attachments](/google-adk/multimodal-attachments)[Voice](/google-adk/voice)[Reasoning](/google-adk/generative-ui/reasoning) Build Generative UI Controlled [Components as Tools](/google-adk/generative-ui/tool-based)[Tool Call Rendering](/google-adk/generative-ui/tool-rendering)[State Rendering](/google-adk/generative-ui/state-rendering) Declarative [A2UI](/google-adk/generative-ui/a2ui) Open-Ended [MCP Apps](/google-adk/generative-ui/mcp-apps) Add Agent Powers [Frontend Tools](/google-adk/frontend-tools) Shared State [Human-in-the-Loop](/google-adk/human-in-the-loop) [Sub-Agents](/google-adk/multi-agent/subagents)[Agent Config](/google-adk/agent-config)[Programmatic Control](/google-adk/programmatic-control) Google ADK Shared state Runtime [Copilot Runtime](/google-adk/backend/copilot-runtime)[Runtime HTTP endpoints](/google-adk/backend/runtime-endpoints)[Use any model router](/google-adk/backend/custom-agent)[AgentRunner and persistence](/google-adk/backend/agent-runner)[Self-managed agents](/google-adk/backend/self-managed-agents)[Connect AG-UI agents](/google-adk/backend/ag-ui)[Deploy to any runtime](/google-adk/runtime-server-adapter)[Authentication](/google-adk/auth) Observe & Operate [Inspector](/google-adk/inspector)[VS Code Extension](/google-adk/vs-code-extension) Enterprise [How the Enterprise Intelligence Platform Works](/google-adk/premium/intelligence-platform)[How Threads & Persistence Work](/google-adk/premium/threads-explained)[Observability](/google-adk/premium/observability)[Self-Hosting Intelligence](/google-adk/premium/self-hosting)[Threads](/google-adk/threads) Deploy [AWS AgentCore](/google-adk/deploy/agentcore) Platforms [Slack](/google-adk/slack)[Microsoft Teams](/google-adk/microsoft-teams)[React Native](/google-adk/react-native) Other Contributing [Anonymous Telemetry](/google-adk/\\(other\\)/telemetry) Troubleshooting What's New Migrate Talk to an engineer [](https://github.com/copilotkit/copilotkit)[](https://discord.gg/6dffbvGU3D) [Google ADK](/google-adk)Build with agents Build with agents Give your AI coding agent up-to-date knowledge of CopilotKit's APIs, patterns, and best practices. Copy MarkdownOpen AI coding agents may not have up-to-date knowledge of CopilotKit's APIs, patterns, and best practices. The resources on this page give them accurate, current knowledge directly in their context. CopilotKit Skills[#](#copilotkit-skills) Skills are folders of instructions, references, and scripts that coding agents can discover and use to work with CopilotKit accurately. Installing them gives your agent authoritative guidance on setup, development, debugging, integration, and upgrades - without relying on potentially outdated training data. Skills are the recommended way to give your agent CopilotKit knowledge. They work natively in Claude Code, Cursor, Codex, Gemini CLI, and any tool supporting the [agentskills.io](https://agentskills.io) standard. Most of these skills help you build with CopilotKit. If you're just getting started, these three cover the most common tasks: Skill Use it to `copilotkit-setup` Add CopilotKit to a project and get a chat working `copilotkit-develop` Build AI features - chat UI, frontend tools, and shared agent context `copilotkit-integrations` Connect an agent framework (LangGraph, CrewAI, Mastra, and more) The full [skills directory](https://github.com/CopilotKit/CopilotKit/tree/main/skills) adds more for specific tasks - like `copilotkit-debug` and `copilotkit-upgrade` - plus `copilotkit-contribute`, which is for working on the CopilotKit project itself rather than building with it. You don't need to memorize the list; your agent discovers the installed skills and picks the right one for each task. Install the skills[#](#install-the-skills) Run this from the root of the project you're building in: ``` npx skills add CopilotKit/CopilotKit/skills -y ``` This installs the skills into your project, where any coding agent working there (Claude Code, Codex, Cursor, or Gemini CLI) discovers them automatically. There's no per-agent configuration to do. Want to choose what gets installed? Run `npx skills add CopilotKit/CopilotKit/skills` without `-y` to pick specific skills, target agents, and scope interactively - or add `-g` to install globally for every project. Start building[#](#start-building) Open a new agent session and use a starter prompt to put the skills to work: ``` Help me build a CopilotKit app. Use the copilotkit-setup skill to get started. ``` Your agent will discover the installed skills and use the right one for each task - setup, development, debugging, or integration. MCP Docs Server[#](#mcp-docs-server) The CopilotKit MCP server equips AI coding agents with deep knowledge about CopilotKit's APIs, patterns, and best practices. When connected to your development environment, it enables AI assistants to: Provide expert guidance Generate accurate code Give your AI agents a user interface Hel"
+    },
+    {
+      "url": "https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data",
+      "title": "Boost GitHub Copilot CLI with Bright Data's Web MCP Server",
+      "sourceType": "discover",
+      "signal": "May 27, 2026 - Learn how to connect Bright Data's MCP server and Agent Skills to GitHub Copilot CLI for real-time web search, scraping, ...",
+      "confidence": 0.72,
+      "scrapeStatus": "partial",
+      "content": "",
+      "error": "Scrape returned less than 400 characters of usable content."
+    }
+  ],
+  "tradeoff": "Used free-tier-friendly Bright Data MCP tools for reproducibility, then applied deterministic ecosystem scoring before LLM synthesis.",
+  "nextSteps": [
+    "Manually review the top evidence URLs for source quality and official-vs-community status.",
+    "Prototype the recommended integration kit with a one-command connectivity check.",
+    "Recruit five developers from the target ecosystem to run the kit cold and report setup friction.",
+    "Track activation, successful MCP tool calls, and time-to-first-useful-report."
+  ]
+}

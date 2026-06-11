@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+.env
+runs/*
+!runs/sample-report.md
+!runs/sample-report.json
+
