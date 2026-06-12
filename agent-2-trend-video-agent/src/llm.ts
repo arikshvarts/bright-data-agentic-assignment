@@ -177,13 +177,22 @@ function fallbackReportShape(options: AgentOptions, candidates: TrendCandidate[]
 }
 
 function completeReportShape(report: ReportShape, candidates: TrendCandidate[], options: AgentOptions): ReportShape {
+  const candidateByName = new Map(candidates.map((candidate) => [candidate.name.toLowerCase(), candidate]));
   const seen = new Set(report.rankedTrends.map((trend) => trend.name.toLowerCase()));
-  const filledTrends = [...report.rankedTrends];
+  const filledTrends: TrendCandidate[] = report.rankedTrends.map((trend) => {
+    const source = candidateByName.get(trend.name.toLowerCase());
+    return {
+      ...trend,
+      trendStage: trend.trendStage ?? source?.trendStage ?? "unclear",
+      validationLevel: trend.validationLevel ?? source?.validationLevel ?? "weak",
+      sourceDiversity: (trend.sourceDiversity ?? source?.sourceDiversity ?? new Set(trend.exampleUrls.map((url) => urlDomain(url))).size) || 1
+    };
+  });
 
   for (const candidate of candidates) {
     if (filledTrends.length >= Math.min(options.maxTrends, 3)) break;
     if (seen.has(candidate.name.toLowerCase())) continue;
-    filledTrends.push(candidate);
+    filledTrends.push(normalizeTrend(candidate));
     seen.add(candidate.name.toLowerCase());
   }
 
@@ -191,6 +200,23 @@ function completeReportShape(report: ReportShape, candidates: TrendCandidate[], 
     ...report,
     rankedTrends: filledTrends.slice(0, options.maxTrends)
   };
+}
+
+function normalizeTrend(trend: TrendCandidate): TrendCandidate {
+  return {
+    ...trend,
+    trendStage: trend.trendStage ?? "unclear",
+    validationLevel: trend.validationLevel ?? "weak",
+    sourceDiversity: (trend.sourceDiversity ?? new Set(trend.exampleUrls.map((url) => urlDomain(url))).size) || 1
+  };
+}
+
+function urlDomain(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
 }
 
 function buildConceptFromCandidate(options: AgentOptions, candidate: TrendCandidate): CreativeConcept {

@@ -1,4 +1,4 @@
-import type { AgentOptions, Platform, ProductionMode, TrendCandidate, TrendEvidence } from "./types.js";
+import type { AgentOptions, Platform, ProductionMode, TrendCandidate, TrendEvidence, TrendStage, ValidationLevel } from "./types.js";
 
 type TopicPattern = {
   name: string;
@@ -84,6 +84,9 @@ function buildCandidate(options: AgentOptions, evidence: TrendEvidence[], patter
   const brandSafety = pattern.risk ? "medium" : "high";
   const socialBoost = matching.filter((source) => ["tiktok", "youtube", "creative_center"].includes(source.platform)).length * 2;
   const score = evidenceScore + socialBoost + fitValue(nicheFit) + fitValue(locationFit) + fitValue(productionFit) + fitValue(brandSafety);
+  const validationLevel = inferValidationLevel(matching);
+  const trendStage = inferTrendStage(matching);
+  const sourceDiversity = new Set(matching.map((source) => source.platform)).size;
 
   return {
     name: pattern.name,
@@ -96,6 +99,9 @@ function buildCandidate(options: AgentOptions, evidence: TrendEvidence[], patter
     locationFit,
     productionFit,
     brandSafety,
+    trendStage,
+    validationLevel,
+    sourceDiversity,
     fitRationale: `${pattern.name} fits ${options.profile.businessName} because it maps the trend format to ${options.profile.niche}, ${options.profile.audience}, and the goal to ${options.profile.goal}.`,
     risks: pattern.risk ? [pattern.risk] : [],
     exampleUrls: [...new Set(matching.map((source) => source.url))].slice(0, 4),
@@ -115,6 +121,9 @@ function fallbackCandidates(options: AgentOptions, evidence: TrendEvidence[]): T
     locationFit: evidenceText(source).toLowerCase().includes(options.profile.location.toLowerCase().split(",")[0]) ? "high" : "low",
     productionFit: "high",
     brandSafety: "medium",
+    trendStage: source.recencyHint ? "rising" : "unclear",
+    validationLevel: source.url.includes("/video/") || source.url.includes("youtube.com/shorts") ? "direct_video" : source.platform === "tiktok" ? "platform_discovery" : "supporting_signal",
+    sourceDiversity: 1,
     fitRationale: `Selected as a fallback because the source survived discovery and can be adapted to ${options.profile.niche}.`,
     risks: ["Trend label is inferred from limited evidence; manually review before posting."],
     exampleUrls: [source.url],
@@ -146,6 +155,21 @@ function evidenceQuality(source: TrendEvidence): number {
   const recencyScore = source.recencyHint ? 2 : 0;
   const engagementScore = source.engagementHint ? 2 : 0;
   return scrapeScore + platformScore + recencyScore + engagementScore;
+}
+
+function inferValidationLevel(sources: TrendEvidence[]): ValidationLevel {
+  if (sources.some((source) => /\/video\/|youtube\.com\/shorts/i.test(source.url))) return "direct_video";
+  if (sources.some((source) => source.platform === "tiktok" && /\/discover\//i.test(source.url))) return "platform_discovery";
+  if (sources.some((source) => ["trend_intel", "reddit", "article", "youtube"].includes(source.platform))) return "supporting_signal";
+  return "weak";
+}
+
+function inferTrendStage(sources: TrendEvidence[]): TrendStage {
+  const text = sources.map(evidenceText).join(" ").toLowerCase();
+  if (/\b(today|this week|4 days ago|new|latest|new to top|emerging)\b/.test(text)) return "emerging";
+  if (/\b(2026|recent|rising|trendline|growth|popular now)\b/.test(text)) return "rising";
+  if (/\b(guide|evergreen|how to|best|tips)\b/.test(text)) return "evergreen";
+  return "unclear";
 }
 
 function evidenceText(source: TrendEvidence): string {

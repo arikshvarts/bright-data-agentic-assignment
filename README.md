@@ -11,6 +11,7 @@ This repository contains the Bright Data AI Engineer home assignment deliverable
 - `PART_1_AGENT_WRITEUP.md` - Detailed writeup for Agent 1.
 - `PART_1_AGENT_2_WRITEUP.md` - Detailed writeup for Agent 2.
 - `AGENT_2_SOURCE_QUALITY_VALIDATION.md` - Practical live-run validation and source-quality improvements for Agent 2.
+- `AGENT_2_BRIGHT_DATA_PRO_UPGRADE_PATH.md` - How Agent 2 should use more of Bright Data's structured/social tool surface next.
 - `PART_2_COMPETITOR_MEMO_WRITEUP.md` - Detailed Part 2 explanation and memo reasoning.
 - `MISSION_1_IDEA_COMPARISON.md` - Comparison of Agent 1 and Agent 2.
 - `SUBMISSION_EVALUATION.md` - Reviewer-style self-evaluation and requirement coverage.

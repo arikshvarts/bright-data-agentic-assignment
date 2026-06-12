@@ -21,6 +21,12 @@ export function renderMarkdownReport(report: TrendVideoReport): string {
 
 **Brand safety:** ${trend.brandSafety}
 
+**Trend stage:** ${trend.trendStage ?? "unclear"}
+
+**Validation level:** ${trend.validationLevel ?? "weak"}
+
+**Source diversity:** ${trend.sourceDiversity ?? 1} platform/source type(s)
+
 **Why it fits:** ${trend.fitRationale}
 
 **Risks / conflicts:** ${trend.risks.length ? trend.risks.join("; ") : "None found in selected evidence."}

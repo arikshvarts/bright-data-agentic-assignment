@@ -16,7 +16,7 @@
     ]
   },
   "region": "il",
-  "generatedAt": "2026-06-12T14:35:39.891Z",
+  "generatedAt": "2026-06-12T14:46:12.390Z",
   "toolsUsed": [
     "search_engine",
     "discover",
@@ -29,39 +29,21 @@
       "platform": "cross_platform",
       "format": "neighborhood discovery",
       "topic": "position the business as a local place worth finding",
-      "score": 66,
+      "score": 58,
       "evidenceStrength": "high",
       "nicheFit": "high",
       "locationFit": "high",
       "productionFit": "high",
       "brandSafety": "high",
+      "trendStage": "rising",
+      "validationLevel": "direct_video",
+      "sourceDiversity": 2,
       "fitRationale": "Local hidden gem fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
       "risks": [],
       "exampleUrls": [
         "https://www.tiktok.com/@yallabikestlv/video/7513606960726445358",
         "https://www.tiktok.com/@adeenasussman/video/7204921672607026434",
-        "https://www.tiktok.com/@telaviv_city/video/7072346924862508290",
-        "https://www.youtube.com/shorts/kpBiwndwrmA"
-      ],
-      "confidence": 0.9
-    },
-    {
-      "name": "Cozy work/study POV",
-      "platform": "cross_platform",
-      "format": "POV micro-vlog",
-      "topic": "show the cafe as a tiny weekday productivity escape",
-      "score": 50,
-      "evidenceStrength": "high",
-      "nicheFit": "high",
-      "locationFit": "high",
-      "productionFit": "high",
-      "brandSafety": "high",
-      "fitRationale": "Cozy work/study POV fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
-      "risks": [],
-      "exampleUrls": [
-        "https://www.tiktok.com/@yallabikestlv/video/7513606960726445358",
-        "https://www.tiktok.com/@telaviv_city/video/7072346924862508290",
-        "https://www.youtube.com/shorts/kpBiwndwrmA",
+        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070",
         "https://www.tiktok.com/discover/coffee-in-tel-aviv"
       ],
       "confidence": 0.9
@@ -77,13 +59,39 @@
       "locationFit": "high",
       "productionFit": "high",
       "brandSafety": "high",
+      "trendStage": "rising",
+      "validationLevel": "direct_video",
+      "sourceDiversity": 2,
       "fitRationale": "Mini guide / listicle fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
       "risks": [],
       "exampleUrls": [
         "https://www.tiktok.com/@yallabikestlv/video/7513606960726445358",
-        "https://www.youtube.com/shorts/kpBiwndwrmA",
+        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070",
         "https://www.tiktok.com/discover/coffee-in-tel-aviv",
-        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070"
+        "https://www.youtube.com/shorts/kpBiwndwrmA"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "name": "Cozy work/study POV",
+      "platform": "cross_platform",
+      "format": "POV micro-vlog",
+      "topic": "show the cafe as a tiny weekday productivity escape",
+      "score": 42,
+      "evidenceStrength": "high",
+      "nicheFit": "high",
+      "locationFit": "high",
+      "productionFit": "high",
+      "brandSafety": "high",
+      "trendStage": "rising",
+      "validationLevel": "direct_video",
+      "sourceDiversity": 2,
+      "fitRationale": "Cozy work/study POV fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
+      "risks": [],
+      "exampleUrls": [
+        "https://www.tiktok.com/@yallabikestlv/video/7513606960726445358",
+        "https://www.tiktok.com/discover/coffee-in-tel-aviv",
+        "https://www.youtube.com/shorts/kpBiwndwrmA"
       ],
       "confidence": 0.9
     },
@@ -98,12 +106,15 @@
       "locationFit": "high",
       "productionFit": "high",
       "brandSafety": "high",
+      "trendStage": "rising",
+      "validationLevel": "direct_video",
+      "sourceDiversity": 2,
       "fitRationale": "Behind-the-counter ASMR fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
       "risks": [],
       "exampleUrls": [
-        "https://www.youtube.com/shorts/kpBiwndwrmA",
+        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070",
         "https://www.tiktok.com/discover/coffee-in-tel-aviv",
-        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070"
+        "https://www.youtube.com/shorts/kpBiwndwrmA"
       ],
       "confidence": 0.9
     }
@@ -164,12 +175,12 @@
       "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
     },
     {
-      "url": "https://www.tiktok.com/@telaviv_city/video/7072346924862508290",
+      "url": "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070",
       "platform": "tiktok",
-      "title": "Discover 4 Free Coworking Spaces in Tel Aviv",
-      "sourceType": "discover",
-      "snippet": "These four locations - Mazeh 9, The Platform, Beit Ariela Library, and Beit Habe'er - represent excellent choices for anyone looking to work in ...Read more",
-      "confidence": 0.72,
+      "title": "Exploring Coffee Recommendations in Tel Aviv",
+      "sourceType": "search",
+      "snippet": "Join us in discovering the best coffee spots in Tel Aviv recommended by locals. #BirthrightIsrael #treatyourself #thingstodo #israeltiktok # ...",
+      "confidence": 0.62,
       "scrapeStatus": "metadata_only",
       "regionHint": "Tel Aviv",
       "qualityNotes": [
@@ -179,14 +190,13 @@
       "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
     },
     {
-      "url": "https://www.youtube.com/shorts/kpBiwndwrmA",
-      "platform": "youtube",
-      "title": "These are the best coffee shops to work from in Tel Aviv",
+      "url": "https://ads.tiktok.com/creative/creativeCenter",
+      "platform": "creative_center",
+      "title": "TikTok One Creative Suite",
       "sourceType": "search",
-      "snippet": "Are you looking for a perfect blend of productivity and caffeine in Tel Aviv? We're exploring the coziest and tastiest coffee shops for ...",
+      "snippet": "Analyze successful campaigns and understand the creative triggers that drive audience engagement and conversion. Try now.Read more",
       "confidence": 0.62,
       "scrapeStatus": "metadata_only",
-      "regionHint": "Tel Aviv",
       "qualityNotes": [
         "metadata-only social source"
       ],
@@ -198,7 +208,7 @@
       "platform": "tiktok",
       "title": "Coffee in Tel Aviv",
       "sourceType": "discover",
-      "snippet": "Mar 23, 2026 - My fav coffee shops in #TelAviv <3 #morning #israel #riseandgrind #nabicoffee #zomer #travel #sweettreats # ...",
+      "snippet": "Mar 23, 2026 - My fav coffee shops in #TelAviv <3 #morning #israel #riseandgrind #nabicoffee #zomer #travel #sweettreats # ...Read more",
       "confidence": 0.72,
       "scrapeStatus": "metadata_only",
       "recencyHint": "2026",
@@ -210,12 +220,12 @@
       "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
     },
     {
-      "url": "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070",
-      "platform": "tiktok",
-      "title": "Exploring Coffee Recommendations in Tel Aviv",
-      "sourceType": "search",
-      "snippet": "Join us in discovering the best coffee spots in Tel Aviv recommended by locals. Which one would you visit first? #BirthrightIsrael # ...",
-      "confidence": 0.62,
+      "url": "https://www.youtube.com/shorts/kpBiwndwrmA",
+      "platform": "youtube",
+      "title": "These are the best coffee shops to work from in Tel Aviv",
+      "sourceType": "discover",
+      "snippet": "Are you looking for a perfect blend of productivity and caffeine in Tel Aviv? We're exploring the coziest and tastiest coffee shops for ...",
+      "confidence": 0.72,
       "scrapeStatus": "metadata_only",
       "regionHint": "Tel Aviv",
       "qualityNotes": [

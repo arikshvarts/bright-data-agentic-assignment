@@ -12,6 +12,8 @@ export type Platform =
   | "unknown";
 
 export type ProductionMode = "human_shot" | "ai_generated" | "hybrid";
+export type TrendStage = "emerging" | "rising" | "evergreen" | "unclear";
+export type ValidationLevel = "direct_video" | "platform_discovery" | "supporting_signal" | "weak";
 
 export type CreatorProfile = {
   businessName: string;
@@ -58,6 +60,9 @@ export type TrendCandidate = {
   locationFit: "low" | "medium" | "high";
   productionFit: "low" | "medium" | "high";
   brandSafety: "low" | "medium" | "high";
+  trendStage?: TrendStage;
+  validationLevel?: ValidationLevel;
+  sourceDiversity?: number;
   fitRationale: string;
   risks: string[];
   exampleUrls: string[];

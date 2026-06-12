@@ -1,0 +1,67 @@
+# Agent 2 Bright Data Pro Upgrade Path
+
+Date: June 12, 2026
+
+Agent 2 intentionally stays free-tier runnable for assignment reproducibility. The best production upgrade is not a new unofficial TikTok dependency; it is deeper Bright Data usage.
+
+## Why This Matters
+
+The live MVP already proves the agent flow:
+
+```text
+profile -> Bright Data search/discover -> evidence normalization -> scrape/metadata status -> trend scoring -> video concept
+```
+
+The main weakness is that public TikTok/YouTube pages often return limited scrapeable text. Bright Data's structured social tools and skills are the right next layer because they can provide metadata that free-form scraping cannot reliably infer.
+
+Relevant Bright Data references:
+
+- Bright Data MCP / skills repository: https://github.com/brightdata/skills
+- Bright Data MCP tool surface: https://docs.brightdata.com/ai/mcp-server/tools
+- Bright Data MCP tools reference: https://github.com/brightdata/brightdata-mcp/blob/main/assets/Tools.md
+
+## Pro-Mode Sources to Add
+
+Add optional adapters behind a `--pro-social` flag:
+
+- TikTok profiles and posts for direct video metadata.
+- YouTube videos and comments for cleaner video evidence.
+- Reddit posts/comments for pain language, objections, jokes, and repeated questions.
+- X/Twitter search for fast-moving meme phrasing when relevant.
+
+Do not replace the current Rapid/free flow. Use Pro Mode to enrich evidence after `search_engine` and `discover` find candidate URLs.
+
+## Additional Source Adapters Inspired by Research
+
+These are product references or future adapters, not required MVP dependencies:
+
+- **TikTok Creative Center / TikTok One:** hashtags, songs, creators, top ads, trend analytics, regional popularity, and industry filters.
+- **Google Trends / Trending Now:** local topic momentum, related searches, and emerging-versus-declining validation. The official Google Trends API is alpha/limited, so use public pages or Bright Data extraction for now.
+- **Reddit Pro Trends pattern:** keyword monitoring, communities, related terms, conversation volume, and repeated questions.
+- **Pinterest Trends:** stronger for fashion, food, beauty, travel, weddings, interiors, and seasonal visual aesthetics.
+- **Meta Ad Library:** useful for creative-format intelligence and competitor ad hooks, not organic virality.
+
+## Ranking Improvements
+
+The current agent now includes:
+
+- `trendStage`: `emerging`, `rising`, `evergreen`, or `unclear`
+- `validationLevel`: `direct_video`, `platform_discovery`, `supporting_signal`, or `weak`
+- `sourceDiversity`: number of represented platforms/source types
+
+With Pro/social metadata, these should become quantitative:
+
+- views, likes, comments, shares
+- upload date / trend age
+- sound/hashtag growth
+- creator authority
+- comment sentiment
+- country/language match
+- duplicate-video clustering
+
+## What Not To Add Yet
+
+- Do not make unofficial TikTok wrappers the core dependency. They are useful for experiments but can be brittle.
+- Do not integrate MoneyPrinterTurbo until the creative brief schema is stable.
+- Do not over-index on Google Trends for immediate short-form formats; use it as a validation layer for broader local interest.
+- Do not let the LLM choose sources before deterministic filtering.

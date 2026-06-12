@@ -22,6 +22,13 @@ Sources reviewed:
 - https://www.brandwatch.com/
 - https://github.com/harry0703/MoneyPrinterTurbo
 
+Additional research from the improvement prompt was selectively incorporated:
+
+- Google Trends is treated as a future local-momentum adapter rather than a hard MVP dependency because official API access remains limited.
+- Reddit Pro Trends inspired future keyword/community monitoring but is not required for this CLI demo.
+- Pinterest Trends and Meta Ad Library are documented as future vertical-specific creative-intelligence sources.
+- Unofficial TikTok/Instagram wrappers are intentionally avoided as core dependencies.
+
 ## What Was Improved
 
 ### 1. Removed Instagram From Default Evidence
@@ -73,6 +80,16 @@ npm run demo:live
 npm run demo:fitness
 npm run demo:b2b
 ```
+
+### 6. Trend Stage and Validation Level
+
+The report now carries extra decision metadata:
+
+- `trendStage`: `emerging`, `rising`, `evergreen`, or `unclear`
+- `validationLevel`: `direct_video`, `platform_discovery`, `supporting_signal`, or `weak`
+- `sourceDiversity`: number of represented platforms/source types
+
+This makes the report more honest when a recommendation is supported by direct video URLs versus weaker platform discovery pages.
 
 ## Live Profiles Tested
 

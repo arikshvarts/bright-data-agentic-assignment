@@ -80,6 +80,12 @@ Those runs exposed real source-quality problems and led to stricter TikTok-first
 AGENT_2_SOURCE_QUALITY_VALIDATION.md
 ```
 
+The production upgrade path is documented in:
+
+```text
+AGENT_2_BRIGHT_DATA_PRO_UPGRADE_PATH.md
+```
+
 Committed sample output:
 
 ```text
