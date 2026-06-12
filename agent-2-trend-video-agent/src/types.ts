@@ -2,12 +2,12 @@ export type ScrapeStatus = "not_attempted" | "ok" | "partial" | "failed" | "meta
 
 export type Platform =
   | "tiktok"
-  | "instagram"
   | "youtube"
   | "reddit"
   | "x"
   | "google"
   | "article"
+  | "trend_intel"
   | "creative_center"
   | "unknown";
 
@@ -44,6 +44,7 @@ export type TrendEvidence = {
   recencyHint?: string;
   regionHint?: string;
   engagementHint?: string;
+  qualityNotes?: string[];
 };
 
 export type TrendCandidate = {

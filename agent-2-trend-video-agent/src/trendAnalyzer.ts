@@ -82,7 +82,7 @@ function buildCandidate(options: AgentOptions, evidence: TrendEvidence[], patter
   const locationFit = matching.some((source) => evidenceText(source).toLowerCase().includes(options.profile.location.toLowerCase().split(",")[0])) ? "high" : "medium";
   const productionFit = pattern.productionMode === "human_shot" && hasHumanShotCapability(options) ? "high" : pattern.productionMode === "hybrid" ? "medium" : "low";
   const brandSafety = pattern.risk ? "medium" : "high";
-  const socialBoost = matching.filter((source) => ["tiktok", "instagram", "youtube", "creative_center"].includes(source.platform)).length * 2;
+  const socialBoost = matching.filter((source) => ["tiktok", "youtube", "creative_center"].includes(source.platform)).length * 2;
   const score = evidenceScore + socialBoost + fitValue(nicheFit) + fitValue(locationFit) + fitValue(productionFit) + fitValue(brandSafety);
 
   return {
@@ -138,7 +138,11 @@ function buildFailureNotes(options: AgentOptions, evidence: TrendEvidence[], can
 
 function evidenceQuality(source: TrendEvidence): number {
   const scrapeScore = source.scrapeStatus === "ok" ? 5 : source.scrapeStatus === "partial" ? 3 : source.scrapeStatus === "metadata_only" ? 2 : 0;
-  const platformScore = ["tiktok", "instagram", "youtube", "creative_center"].includes(source.platform) ? 4 : ["reddit", "article"].includes(source.platform) ? 2 : 1;
+  const platformScore = ["tiktok", "youtube", "creative_center"].includes(source.platform)
+    ? 4
+    : ["trend_intel", "reddit", "article"].includes(source.platform)
+      ? 2
+      : 1;
   const recencyScore = source.recencyHint ? 2 : 0;
   const engagementScore = source.engagementHint ? 2 : 0;
   return scrapeScore + platformScore + recencyScore + engagementScore;

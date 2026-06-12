@@ -45,7 +45,7 @@ The live agent uses three distinct Bright Data MCP tools:
 2. `queryPlanner.ts` creates TikTok-first, location-aware trend queries.
 3. `agent.ts` calls Bright Data MCP `search_engine` and `discover`.
 4. `sourceNormalizer.ts` normalizes result shapes into `TrendEvidence`.
-5. `platformClassifier.ts` detects TikTok, Instagram, YouTube, Reddit, X, Creative Center, article, and unknown sources.
+5. `platformClassifier.ts` detects TikTok, YouTube, Reddit, X, Creative Center, trend-intelligence articles, and unknown sources.
 6. `scrapePolicy.ts` calls `scrape_as_markdown` and marks evidence as `ok`, `partial`, `metadata_only`, or `failed`.
 7. `trendAnalyzer.ts` clusters/scored trend candidates deterministically.
 8. `llm.ts` synthesizes the final creative strategy, with fallback if the LLM returns malformed JSON.
@@ -53,7 +53,7 @@ The live agent uses three distinct Bright Data MCP tools:
 
 ## Real Failure Modes Actually Hit
 
-- **Social pages returned thin scrape content.** TikTok and Instagram often returned little public scrapeable text. The agent now keeps those as `metadata_only` instead of pretending they are full scrapes.
+- **Social pages returned thin scrape content.** TikTok and YouTube social pages often returned little public scrapeable text. The agent now keeps those as `metadata_only` instead of pretending they are full scrapes.
 - **Generic platform results polluted the evidence.** Search returned TikTok homepage, App Store, and Wikipedia pages. I added relevance filtering to remove those low-value sources.
 - **Malformed LLM JSON.** Anthropic returned invalid JSON in live runs. The agent falls back to deterministic trend scoring and concept generation.
 - **Encoding artifacts.** Some search/scrape snippets contained mojibake. I added text repair before rendering.
@@ -68,6 +68,17 @@ The final live validation used:
 - `scrape_as_markdown`
 
 It produced a live sample report for the local cafe profile. The report recommended a **Local hidden gem** / **Cozy work-study POV** direction, with a phone-shot vertical concept, hook, caption, scene plan, shot list, and future video-pipeline payload.
+
+I also validated two additional profiles:
+
+- **Maya Moves**, a boutique fitness coach, which produced a practical desk-stretch/listicle concept.
+- **LedgerPilot**, a B2B AI bookkeeping SaaS, which produced a non-obvious admin-chaos-to-AI-calm concept.
+
+Those runs exposed real source-quality problems and led to stricter TikTok-first filtering, stable profile-specific demo scripts, and ranked-trend backfill. Details are in:
+
+```text
+AGENT_2_SOURCE_QUALITY_VALIDATION.md
+```
 
 Committed sample output:
 
@@ -94,7 +105,7 @@ Agent 1 is a strong product-decision agent. Agent 2 is more visual, consumer-fac
 
 ## What I Would Improve Next
 
-- Use Bright Data Pro/social extractors for structured TikTok, Instagram, YouTube, X, and Reddit data.
+- Use Bright Data Pro/social extractors for structured TikTok, YouTube, X, and Reddit data.
 - Add engagement extraction and creator-profile analysis.
 - Add comments/sentiment analysis to identify what viewers liked or rejected.
 - Add a weekly trend monitor by niche/location.

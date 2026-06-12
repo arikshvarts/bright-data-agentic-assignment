@@ -18,13 +18,13 @@ The recommended final demo is **Agent 2** because it is more visual, more creati
 | Parameter | Score | Evaluation |
 | --- | ---: | --- |
 | Assignment fit | 10/10 | Meets the repo structure, runnable agent, README, memo, and video-readiness requirements. Agent 2 uses three Bright Data MCP tools. |
-| Live-web authenticity | 9/10 | Agent 2 generated a live report from TikTok/Instagram/search evidence using `search_engine`, `discover`, and `scrape_as_markdown`. |
+| Live-web authenticity | 9.5/10 | Agent 2 generated live reports across cafe, fitness, and B2B SaaS profiles using TikTok/YouTube/search evidence from `search_engine`, `discover`, and `scrape_as_markdown`. |
 | Agent originality | 9.5/10 | Trend-to-video from business profile, location, trend evidence, and production capabilities is more memorable than a generic research agent. |
 | Bright Data MCP usage | 9/10 | Meaningfully composes MCP discovery and scraping tools. Pro/social extractors are documented as a production upgrade path. |
-| Failure-mode handling | 9.5/10 | Real failures were hit and handled: metadata-only social pages, generic source pollution, malformed LLM JSON, text encoding artifacts, and weak evidence thresholds. |
+| Failure-mode handling | 9.5/10 | Real failures were hit and handled: metadata-only social pages, generic source pollution, malformed LLM JSON, text encoding artifacts, npm argument forwarding, non-JSON search responses, and weak evidence thresholds. |
 | Engineering quality | 8.5/10 | Clean TypeScript modules, typed shapes, tests, build, audit, lockfile, gitignore, sample outputs, and deterministic fallback. |
 | Demo quality | 9.5/10 | `npm run demo:live` gives a clear one-command run after env setup. The output is a concrete video concept, not an abstract memo. |
-| Current trend awareness | 9/10 | Agent 2 is TikTok-first, validates across Instagram/Reels/social/search signals, and anticipates optional social extractor and video-pipeline integrations. |
+| Current trend awareness | 9/10 | Agent 2 is TikTok-first, validates across TikTok/YouTube/social/search signals, and anticipates optional social extractor and video-pipeline integrations. |
 | Competitor memo quality | 9/10 | Firecrawl memo uses current public traction metrics, recent product launches, Bright Data capability awareness, and a differentiated Agent Reliability Kit recommendation. |
 | Business judgment | 9/10 | The tradeoff is explicit: free-tier reproducibility over Pro-only social datasets. The next steps are credible and production-oriented. |
 
@@ -45,7 +45,7 @@ The recommended final demo is **Agent 2** because it is more visual, more creati
 Agent 2 reflects current creator/social tooling trends:
 
 - Brands and creators increasingly need trend adaptation, not generic trend lists.
-- TikTok/Reels/Shorts formats move faster than manual social calendars.
+- TikTok/Shorts formats move faster than manual social calendars.
 - Location and niche fit matter more than raw trend popularity.
 - AI video generation is useful only after a strong creative brief exists.
 - Social pages are often hard to scrape directly, so metadata retention and source-quality notes matter.

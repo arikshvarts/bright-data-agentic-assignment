@@ -10,6 +10,7 @@ This repository contains the Bright Data AI Engineer home assignment deliverable
 - `part-2-competitor-memo.md` - One-page memo on Firecrawl's competitive position.
 - `PART_1_AGENT_WRITEUP.md` - Detailed writeup for Agent 1.
 - `PART_1_AGENT_2_WRITEUP.md` - Detailed writeup for Agent 2.
+- `AGENT_2_SOURCE_QUALITY_VALIDATION.md` - Practical live-run validation and source-quality improvements for Agent 2.
 - `PART_2_COMPETITOR_MEMO_WRITEUP.md` - Detailed Part 2 explanation and memo reasoning.
 - `MISSION_1_IDEA_COMPARISON.md` - Comparison of Agent 1 and Agent 2.
 - `SUBMISSION_EVALUATION.md` - Reviewer-style self-evaluation and requirement coverage.
@@ -24,6 +25,13 @@ npm install
 Copy-Item .env.example .env
 # Fill BRIGHT_DATA_API_TOKEN and either ANTHROPIC_API_KEY or OPENAI_API_KEY in .env
 npm run demo:live
+```
+
+Optional Agent 2 validation demos:
+
+```powershell
+npm run demo:fitness
+npm run demo:b2b
 ```
 
 Agent 1 demo:

@@ -12,11 +12,13 @@ export async function runTrendVideoAgent(options: AgentOptions, client: ToolClie
   const queries = planTrendQueries(options);
   const searchResults = await safeToolCalls(client, [
     { name: "search_engine", args: { query: queries[0] } },
-    { name: "search_engine", args: { query: queries[2] } }
+    { name: "search_engine", args: { query: queries[2] } },
+    { name: "search_engine", args: { query: queries[4] } }
   ]);
   const discoverResults = await safeToolCalls(client, [
     { name: "discover", args: { query: queries[1] } },
-    { name: "discover", args: { query: queries[3] } }
+    { name: "discover", args: { query: queries[3] } },
+    { name: "discover", args: { query: queries[5] } }
   ]);
 
   const searchEvidence = searchResults.flatMap((result) => normalizeToolResult(result, "search"));
@@ -71,12 +73,25 @@ function isRelevantEvidence(source: TrendEvidence, options: AgentOptions): boole
     .toLowerCase()
     .split(/[^a-z0-9]+/)
     .filter((term) => term.length > 3);
+  const isLocalMarket = options.profile.location.includes(",") && !/united states|united kingdom|europe|global/i.test(options.profile.location);
 
   if (/job|hiring|salary|login|sign in|privacy policy|terms of service/.test(text)) return false;
   if (/real estate|multiple listing service|movie cast|netflix/.test(text)) return false;
-  if (/wikipedia\.org\/wiki\/tiktok|apps\.apple\.com|play\.google\.com|tiktok\.com\/en\/?$/.test(text)) return false;
+  if (/dictionary|merriam-webster|specialtymarketing|yellowpages|tripadvisor|booking\.com|maps\.google/.test(text)) return false;
+  if (/bleacherreport|chelseafc|thehistorysource/.test(text)) return false;
+  if (/baddie|concert recap|top artists/.test(text)) return false;
+  if (/instagram\.com|facebook\.com/.test(text)) return false;
+  if (/wikipedia\.org|apps\.apple\.com|play\.google\.com|tiktok\.com\/en\/?$/.test(text)) return false;
   if (/tiktok - make your day|videos, shop & live|global discovery platform/.test(text)) return false;
-  if (source.platform === "unknown" && !businessTerms.some((term) => text.includes(term)) && !text.includes(locationRoot)) return false;
+  if (source.platform === "tiktok" && !/(\/@[^/]+\/video\/|\/discover\/)/.test(text)) return false;
+  if (isLocalMarket && source.platform === "tiktok") {
+    const stableDiscoveryText = `${source.url} ${source.title}`.toLowerCase();
+    if (!stableDiscoveryText.includes(locationRoot)) return false;
+  }
+  if (isLocalMarket && ["tiktok", "youtube", "reddit"].includes(source.platform) && !text.includes(locationRoot)) return false;
+  if (source.platform === "unknown") return false;
+  if (source.platform === "article" && !/(trend|tiktok|short-form|creator|social|video)/.test(text)) return false;
+  if (!businessTerms.some((term) => text.includes(term)) && !text.includes(locationRoot) && !/(trend|tiktok|creator|short-form|video)/.test(text)) return false;
   return true;
 }
 

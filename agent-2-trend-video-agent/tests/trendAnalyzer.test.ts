@@ -7,7 +7,7 @@ describe("analyzeTrends", () => {
   it("clusters evidence into scored trend candidates", () => {
     const evidence: TrendEvidence[] = [
       source("https://www.tiktok.com/@a/video/1", "POV study cafe in Tel Aviv", "POV cozy coffee shop work spot"),
-      source("https://www.instagram.com/reel/1", "Coffee ASMR", "Barista latte satisfying process"),
+      source("https://www.youtube.com/shorts/1", "Coffee ASMR", "Barista latte satisfying process"),
       source("https://www.reddit.com/r/telaviv/comments/1", "Local hidden gem", "Tel Aviv coffee places")
     ];
 
@@ -22,7 +22,7 @@ describe("analyzeTrends", () => {
 function source(url: string, title: string, snippet: string): TrendEvidence {
   return {
     url,
-    platform: url.includes("instagram") ? "instagram" : url.includes("reddit") ? "reddit" : "tiktok",
+    platform: url.includes("youtube") ? "youtube" : url.includes("reddit") ? "reddit" : "tiktok",
     title,
     sourceType: "search",
     snippet,

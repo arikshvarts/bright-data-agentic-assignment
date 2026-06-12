@@ -22,7 +22,11 @@ export async function synthesizeTrendVideoReport(
   candidates: TrendCandidate[],
   failureNotes: string[]
 ): Promise<TrendVideoReport> {
-  const parsed = repairReportShape(await synthesizeReportShapeWithFallback(options, evidence, candidates, failureNotes));
+  const parsed = completeReportShape(
+    repairReportShape(await synthesizeReportShapeWithFallback(options, evidence, candidates, failureNotes)),
+    candidates,
+    options
+  );
   const futureVideoPipelineDraft = buildFuturePipelineDraft(options, parsed.recommendedConcept);
 
   return {
@@ -36,7 +40,7 @@ export async function synthesizeTrendVideoReport(
     evidenceLog: evidence,
     failureNotes,
     tradeoff:
-      "Defaulted to Bright Data MCP free-tier tools for reproducibility. Pro/social extractors would improve structured TikTok, Instagram, YouTube, X, and Reddit metadata in production.",
+      "Defaulted to Bright Data MCP free-tier tools for reproducibility. Pro/social extractors would improve structured TikTok, YouTube, X, and Reddit metadata in production.",
     nextSteps: parsed.nextSteps,
     futureVideoPipelineDraft
   };
@@ -166,9 +170,26 @@ function fallbackReportShape(options: AgentOptions, candidates: TrendCandidate[]
     nextSteps: [
       "Open the top evidence links and manually review the visual format before posting.",
       "Film a 20-35 second vertical version with the hook in the first two seconds.",
-      "Post the same concept to TikTok and Instagram Reels, then compare saves, comments, and profile visits.",
+      "Post the same concept to TikTok and optionally YouTube Shorts, then compare saves, comments, and profile visits.",
       "Rerun the agent weekly to avoid stale trend copying."
     ]
+  };
+}
+
+function completeReportShape(report: ReportShape, candidates: TrendCandidate[], options: AgentOptions): ReportShape {
+  const seen = new Set(report.rankedTrends.map((trend) => trend.name.toLowerCase()));
+  const filledTrends = [...report.rankedTrends];
+
+  for (const candidate of candidates) {
+    if (filledTrends.length >= Math.min(options.maxTrends, 3)) break;
+    if (seen.has(candidate.name.toLowerCase())) continue;
+    filledTrends.push(candidate);
+    seen.add(candidate.name.toLowerCase());
+  }
+
+  return {
+    ...report,
+    rankedTrends: filledTrends.slice(0, options.maxTrends)
   };
 }
 
@@ -397,4 +418,4 @@ const reportSchema = {
 } as const;
 
 const creativeSystemPrompt =
-  "You are a senior social creative strategist and evidence-driven web agent. Use only the provided evidence and ranked candidates. Do not produce a generic trend list. Explain why each trend fits the business, audience, location, goal, and production capabilities. Prefer practical TikTok-first concepts validated by Instagram Reels, YouTube Shorts, Reddit, articles, or Creative Center sources. Include conflict/weak evidence notes. Recommend exactly one production-ready concept with hook, format, caption, scene plan, shot list, execution style, production mode, and an AI-video prompt only when useful for ai_generated or hybrid production. Return only valid JSON matching the schema.";
+  "You are a senior social creative strategist and evidence-driven web agent. Use only the provided evidence and ranked candidates. Do not produce a generic trend list. Explain why each trend fits the business, audience, location, goal, and production capabilities. Prefer practical TikTok-first concepts validated by TikTok Discover/video URLs, YouTube Shorts, Reddit, reputable trend-intelligence sources, or Creative Center-style sources. Include conflict/weak evidence notes. Recommend exactly one production-ready concept with hook, format, caption, scene plan, shot list, execution style, production mode, and an AI-video prompt only when useful for ai_generated or hybrid production. Return only valid JSON matching the schema.";

@@ -69,7 +69,7 @@ export function defaultProfile(): CreatorProfile {
       "staff can appear on camera",
       "can film drinks and pastries",
       "no paid creator budget",
-      "can post TikTok and Instagram Reels"
+      "can post TikTok and YouTube Shorts"
     ]
   };
 }

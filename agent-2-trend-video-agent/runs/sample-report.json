@@ -12,11 +12,11 @@
       "staff can appear on camera",
       "can film drinks and pastries",
       "no paid creator budget",
-      "can post TikTok and Instagram Reels"
+      "can post TikTok and YouTube Shorts"
     ]
   },
   "region": "il",
-  "generatedAt": "2026-06-12T13:06:01.210Z",
+  "generatedAt": "2026-06-12T14:35:39.891Z",
   "toolsUsed": [
     "search_engine",
     "discover",
@@ -29,7 +29,7 @@
       "platform": "cross_platform",
       "format": "neighborhood discovery",
       "topic": "position the business as a local place worth finding",
-      "score": 61,
+      "score": 66,
       "evidenceStrength": "high",
       "nicheFit": "high",
       "locationFit": "high",
@@ -38,10 +38,10 @@
       "fitRationale": "Local hidden gem fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
       "risks": [],
       "exampleUrls": [
-        "https://www.tiktok.com/@elexmichaelson/video/7539299705461673246",
-        "https://www.instagram.com/reel/DZXhaZ2NbNF/",
-        "https://www.tiktok.com/discover/hi-im-from-tel-aviv-and-this-is-my-art",
-        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070"
+        "https://www.tiktok.com/@yallabikestlv/video/7513606960726445358",
+        "https://www.tiktok.com/@adeenasussman/video/7204921672607026434",
+        "https://www.tiktok.com/@telaviv_city/video/7072346924862508290",
+        "https://www.youtube.com/shorts/kpBiwndwrmA"
       ],
       "confidence": 0.9
     },
@@ -50,7 +50,7 @@
       "platform": "cross_platform",
       "format": "POV micro-vlog",
       "topic": "show the cafe as a tiny weekday productivity escape",
-      "score": 53,
+      "score": 50,
       "evidenceStrength": "high",
       "nicheFit": "high",
       "locationFit": "high",
@@ -59,31 +59,10 @@
       "fitRationale": "Cozy work/study POV fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
       "risks": [],
       "exampleUrls": [
-        "https://www.tiktok.com/@elexmichaelson/video/7539299705461673246",
-        "https://www.instagram.com/reel/DZXhaZ2NbNF/",
-        "https://www.tiktok.com/discover/hi-im-from-tel-aviv-and-this-is-my-art",
-        "https://www.tiktok.com/@jazinspo__/video/7610191584138710285"
-      ],
-      "confidence": 0.9
-    },
-    {
-      "name": "Behind-the-counter ASMR",
-      "platform": "cross_platform",
-      "format": "sensory process video",
-      "topic": "close-up drink and pastry preparation",
-      "score": 53,
-      "evidenceStrength": "high",
-      "nicheFit": "high",
-      "locationFit": "high",
-      "productionFit": "high",
-      "brandSafety": "high",
-      "fitRationale": "Behind-the-counter ASMR fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
-      "risks": [],
-      "exampleUrls": [
-        "https://www.instagram.com/reel/DZXhaZ2NbNF/",
-        "https://www.tiktok.com/discover/hi-im-from-tel-aviv-and-this-is-my-art",
-        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070",
-        "https://www.tiktok.com/@jazinspo__/video/7610191584138710285"
+        "https://www.tiktok.com/@yallabikestlv/video/7513606960726445358",
+        "https://www.tiktok.com/@telaviv_city/video/7072346924862508290",
+        "https://www.youtube.com/shorts/kpBiwndwrmA",
+        "https://www.tiktok.com/discover/coffee-in-tel-aviv"
       ],
       "confidence": 0.9
     },
@@ -92,7 +71,7 @@
       "platform": "cross_platform",
       "format": "3 reasons / 3 spots / 3 orders",
       "topic": "convert trend evidence into practical local recommendations",
-      "score": 53,
+      "score": 50,
       "evidenceStrength": "high",
       "nicheFit": "high",
       "locationFit": "high",
@@ -101,10 +80,30 @@
       "fitRationale": "Mini guide / listicle fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
       "risks": [],
       "exampleUrls": [
-        "https://www.instagram.com/reel/DZXhaZ2NbNF/",
-        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070",
-        "https://www.tiktok.com/@jazinspo__/video/7610191584138710285",
-        "https://www.instagram.com/p/DUDrCGEiNdu/"
+        "https://www.tiktok.com/@yallabikestlv/video/7513606960726445358",
+        "https://www.youtube.com/shorts/kpBiwndwrmA",
+        "https://www.tiktok.com/discover/coffee-in-tel-aviv",
+        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "name": "Behind-the-counter ASMR",
+      "platform": "cross_platform",
+      "format": "sensory process video",
+      "topic": "close-up drink and pastry preparation",
+      "score": 42,
+      "evidenceStrength": "high",
+      "nicheFit": "high",
+      "locationFit": "high",
+      "productionFit": "high",
+      "brandSafety": "high",
+      "fitRationale": "Behind-the-counter ASMR fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.",
+      "risks": [],
+      "exampleUrls": [
+        "https://www.youtube.com/shorts/kpBiwndwrmA",
+        "https://www.tiktok.com/discover/coffee-in-tel-aviv",
+        "https://www.tiktok.com/@birthrightisrael/video/7257549736591265070"
       ],
       "confidence": 0.9
     }
@@ -135,38 +134,78 @@
   },
   "evidenceLog": [
     {
-      "url": "https://www.tiktok.com/@elexmichaelson/video/7539299705461673246",
+      "url": "https://www.tiktok.com/@yallabikestlv/video/7513606960726445358",
       "platform": "tiktok",
-      "title": "My final sign off from the @FOX 11 Los Angeles News at ...",
-      "sourceType": "discover",
-      "snippet": "... Tel Aviv. ... * Study/Work Friendly: The cafe offers free Wi-Fi and plenty of outlets, making it a popular spot for students and remote workers.Read more",
-      "confidence": 0.72,
+      "title": "Top Coworking Cafe in Tel Aviv: Haachim",
+      "sourceType": "search",
+      "snippet": "Discover Haachim, the ideal cafe for working in Tel Aviv with spacious seating and delicious breakfast options. Perfect for remote workers!",
+      "confidence": 0.62,
       "scrapeStatus": "metadata_only",
       "regionHint": "Tel Aviv",
+      "qualityNotes": [
+        "metadata-only social source"
+      ],
       "content": "",
       "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
     },
     {
-      "url": "https://www.instagram.com/reel/DZXhaZ2NbNF/",
-      "platform": "instagram",
-      "title": "This new cafe in Tel Aviv is so cool and the coffee and matcha ...",
+      "url": "https://www.tiktok.com/@adeenasussman/video/7204921672607026434",
+      "platform": "tiktok",
+      "title": "Exploring Carmel Market: A Day in Tel Aviv's Shuk",
       "sourceType": "search",
-      "snippet": "Beautiful trees, shaded tables and some of the best pastries and baked goods in the city. The second you step inside, the sound of honking ...",
+      "snippet": "Join me as I discover the flavors and vendors of Carmel Market. Enjoy tasty treats, great finds, and local chats! #shukhacarmel #carmelmarket # ...",
       "confidence": 0.62,
-      "scrapeStatus": "ok",
-      "recencyHint": "new",
+      "scrapeStatus": "metadata_only",
       "regionHint": "Tel Aviv",
-      "content": "Instagram \\[ Instagram ]\\(/) [Iniciar sesin](/accounts/login/?next=%2Freel%2FDZXhaZ2NbNF%2F\\&source=desktop_nav) [Registrarte](/accounts/emailsignup/) Cerrar Foto del perfil de yallabikes No te pierdas ninguna publicacin de yallabikes Regstrate en Instagram para estar siempre al da. [Registrarte](/accounts/emailsignup/) [Iniciar sesin](/accounts/login/?source=desktop_dynamic_landing_dialog) Video by Jake Teper on June 09, 2026. Puede ser una imagen de exhibidor y texto que dice \" Cool new cafe in inTel Coolnew.cafeinTelAviv Tel Aviv\". Foto del perfil de yallabikes \\[ yallabikes ]\\(/yallabikes/) Seguir Ms opciones [Foto del perfil de yallabikes](/yallabikes/) \\[ yallabikes ]\\(/yallabikes/)2 d This new cafe in Tel Aviv is so cool and the coffee and matcha are delicious. The vibes here are amazing inside and outside and it opened just last month! Send this to a friend you want to get a coffee with at Fugazi before everyone else finds out! Cargar ms comentarios [Foto del perfil de shimon\\_meshulam](/shimon_meshulam/) \\[ shimon\\_meshulam ]\\(/shimon\\_meshulam/)[1 d](/p/DZXhaZ2NbNF/c/18170654824447017/) [@michal.kolodny](/michal.kolodny/) ? Me gusta Responder [Foto del perfil de yuliwilde](/yuliwilde/) \\[ yuliwilde Verificado ]\\(/yuliwilde/)[2 d](/p/DZXhaZ2NbNF/c/18189825370340688/) I've tried to come here twice, but I keep forgetting that they're closed on Shabbat 1 Me gusta Responder [Foto del perfil de guywithcorgis](/guywithcorgis/) \\[ guywithcorgis ]\\(/guywithcorgis/)[2 d](/p/DZXhaZ2NbNF/c/18080917088217748/) All those pastries were only available at the opening and weren't even made there. The menu itself is very minimalistic and offers only a few toasts, brioche and freaking fruit loops 1 Me gusta Responder Me gusta 243 Comentar 3 Compartir Guardar [Hace 2 das](/yallabikes/reel/DZXhaZ2NbNF/) [Inicia sesin](/accounts/login/?next=%2Freel%2FDZXhaZ2NbNF%2F\\&source=post_comment_input) para indicar que te gusta o comentar. Ms publicaciones de [yallabikes](/yallabikes/) \\[ Photo by Jake Teper on June 03, 2026. Secuencia ]\\(/yallabikes/p/DZIXD07Dcc-/) \\[ Video by Jake Teper on May 14, 2026. Puede ser una imagen de texto que dice \"thisisinIsrael this is in Israel 1a\". Clip ]\\(/yallabikes/reel/DYU1yegN7DQ/) \\[ Video by Jake Teper on June 12, 2026. Puede ser una imagen de iluminacin, mesa de cocina, utensilios de cocina, aciano, en interiores, cocina y texto que dice \"3 new cafes-in TehAviv new.cafesinTelAviv Tel Aviv\". Clip ]\\(/yallabikes/reel/DZe\\_uh3tsJq/) \\[ Video by Jake Teper on June 11, 2026. Puede ser una imagen de salmn y texto que dice \"starofthmeal star of the meal\". Clip ]\\(/yallabikes/reel/DZc1ZWzNPFI/) \\[ Video by Rami Tal on June 10, 2026. Puede ser una imagen de sushi y texto que dice \" For me, it's the bestbitein best bite in Israel\". Clip ]\\(/cookingwithrami/reel/DZaU1X\\_MXfO/) \\[ Video by Jake Teper on June 09, 2026. Puede ser una imagen de templo y texto que dice \"this thisTelAvivneighborhood Tel Aviv neighborhood 88 \". Clip ]\\(/yallabikes/reel/DZXsARotB2-/) \\[ Photo by Jake Teper on June 07, 2026. Secuencia ]\\(/yallabikes/p/DZSvkfuDcN4/) \\[ Video by Jake Teper on June 06, 2026. Puede ser una imagen de cascada y texto que dice \"this is Nahal thissNahalElAI El Al\". Clip ]\\(/yallabikes/reel/DZQH5YuNPYf/) \\[ Photo by Jake Teper on June 05, 2026. Secuencia ]\\(/yallabikes/p/DZMx87ADb2D/) [Ver ms publicaciones](/yallabikes/) [Meta](https://about.meta.com/) [Informacin](https://about.instagram.com/) [Blog](https://about.instagram.com/blog/) [Empleo](https://about.instagram.com/about-us/careers) [Ayuda](https://help.instagram.com/) [API](https://developers.facebook.com/docs/instagram) [Privacidad](/legal/privacy/) [Privacidad de salud del consumidor](/legal/privacy/health_privacy_policy/) [Condiciones](/legal/terms/) [Ubicaciones](/explore/locations/) [Popular](/popular/) [Instagram Lite](/web/lite/) [MetaAI](https://www.meta.ai/?utm_source=foa_web_footer) [Threads](https://www.threads.com/) [Importacin de contactos y no usuarios](https://www.facebook.com/help/instagram/261704639352628) [Meta Verified](/accounts/meta_verified/?entrypoint=web_footer) Espaol cono de comilla angular abajo AfrikaansetinaDanskDeutschEnglishEnglish (UK)Espaol (Espaa)EspaolSuomiFranaisBahasa IndonesiaItalianoBahasa MelayuNorskNederlandsPolskiPortugus (Brasil)Portugus (Portugal)SvenskaFilipinoTrke()()"
+      "qualityNotes": [
+        "metadata-only social source"
+      ],
+      "content": "",
+      "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
     },
     {
-      "url": "https://www.tiktok.com/discover/hi-im-from-tel-aviv-and-this-is-my-art",
+      "url": "https://www.tiktok.com/@telaviv_city/video/7072346924862508290",
       "platform": "tiktok",
-      "title": "Hi Im from Tel Aviv and This Is My Art",
+      "title": "Discover 4 Free Coworking Spaces in Tel Aviv",
       "sourceType": "discover",
-      "snippet": "public cafe known as Vesper. This cafe not only serves quality coffee but also acts as a collaborative space for freelancers and entrepreneurs. innovation and ...",
+      "snippet": "These four locations - Mazeh 9, The Platform, Beit Ariela Library, and Beit Habe'er - represent excellent choices for anyone looking to work in ...Read more",
       "confidence": 0.72,
       "scrapeStatus": "metadata_only",
       "regionHint": "Tel Aviv",
+      "qualityNotes": [
+        "metadata-only social source"
+      ],
+      "content": "",
+      "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
+    },
+    {
+      "url": "https://www.youtube.com/shorts/kpBiwndwrmA",
+      "platform": "youtube",
+      "title": "These are the best coffee shops to work from in Tel Aviv",
+      "sourceType": "search",
+      "snippet": "Are you looking for a perfect blend of productivity and caffeine in Tel Aviv? We're exploring the coziest and tastiest coffee shops for ...",
+      "confidence": 0.62,
+      "scrapeStatus": "metadata_only",
+      "regionHint": "Tel Aviv",
+      "qualityNotes": [
+        "metadata-only social source"
+      ],
+      "content": "",
+      "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
+    },
+    {
+      "url": "https://www.tiktok.com/discover/coffee-in-tel-aviv",
+      "platform": "tiktok",
+      "title": "Coffee in Tel Aviv",
+      "sourceType": "discover",
+      "snippet": "Mar 23, 2026 - My fav coffee shops in #TelAviv <3 #morning #israel #riseandgrind #nabicoffee #zomer #travel #sweettreats # ...",
+      "confidence": 0.72,
+      "scrapeStatus": "metadata_only",
+      "recencyHint": "2026",
+      "regionHint": "Tel Aviv",
+      "qualityNotes": [
+        "metadata-only social source"
+      ],
       "content": "",
       "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
     },
@@ -179,41 +218,21 @@
       "confidence": 0.62,
       "scrapeStatus": "metadata_only",
       "regionHint": "Tel Aviv",
+      "qualityNotes": [
+        "metadata-only social source"
+      ],
       "content": "",
-      "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
-    },
-    {
-      "url": "https://www.tiktok.com/@jazinspo__/video/7610191584138710285",
-      "platform": "tiktok",
-      "title": "Work Friendly Coffee Shop: Best Brews for Productivity",
-      "sourceType": "discover",
-      "snippet": "Discover the perfect coffee shop for remote work, featuring coffee, matcha, and refreshing drinks. #coffee #matcha #refreshers #wfh # ...Read more",
-      "confidence": 0.72,
-      "scrapeStatus": "metadata_only",
-      "content": "",
-      "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
-    },
-    {
-      "url": "https://www.instagram.com/p/DUDrCGEiNdu/",
-      "platform": "instagram",
-      "title": "The only caf guide you need Tel Aviv has so many ...",
-      "sourceType": "search",
-      "snippet": "The only caf guide you need Tel Aviv has so many incredible cafs and Florentin has amazing ones on almost every corner.Read more",
-      "confidence": 0.62,
-      "scrapeStatus": "metadata_only",
-      "regionHint": "Tel Aviv",
-      "content": "Instagram",
       "error": "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
     }
   ],
   "failureNotes": [
-    "5 social source(s) were retained as metadata-only because the public page had limited scrapeable text."
+    "6 social source(s) were retained as metadata-only because the public page had limited scrapeable text."
   ],
-  "tradeoff": "Defaulted to Bright Data MCP free-tier tools for reproducibility. Pro/social extractors would improve structured TikTok, Instagram, YouTube, X, and Reddit metadata in production.",
+  "tradeoff": "Defaulted to Bright Data MCP free-tier tools for reproducibility. Pro/social extractors would improve structured TikTok, YouTube, X, and Reddit metadata in production.",
   "nextSteps": [
     "Open the top evidence links and manually review the visual format before posting.",
     "Film a 20-35 second vertical version with the hook in the first two seconds.",
-    "Post the same concept to TikTok and Instagram Reels, then compare saves, comments, and profile visits.",
+    "Post the same concept to TikTok and optionally YouTube Shorts, then compare saves, comments, and profile visits.",
     "Rerun the agent weekly to avoid stale trend copying."
   ],
   "futureVideoPipelineDraft": {

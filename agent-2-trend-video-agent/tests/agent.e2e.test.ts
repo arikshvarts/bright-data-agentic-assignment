@@ -16,9 +16,9 @@ describe("runTrendVideoAgent", () => {
                 snippet: "Tel Aviv coffee shop work/study POV video with 250K views"
               },
               {
-                url: "https://www.instagram.com/reel/coffeeasmr",
-                title: "Coffee ASMR Reel",
-                snippet: "Barista process satisfying coffee trend"
+                url: "https://www.tiktok.com/discover/coffee-asmr",
+                title: "Tel Aviv Coffee ASMR TikTok discovery",
+                snippet: "Barista process satisfying coffee trend in Tel Aviv"
               }
             ]
           } as T;
@@ -31,9 +31,9 @@ describe("runTrendVideoAgent", () => {
               description: "People recommend quiet Tel Aviv cafes for students and remote workers",
               score: 0.8
             },
-            {
-              url: "https://www.vogue.com/article/the-vogue-business-tiktok-trend-tracker",
-              title: "TikTok trend tracker",
+              {
+                url: "https://www.vogue.com/article/the-vogue-business-tiktok-trend-tracker",
+                title: "TikTok trend tracker",
               description: "POV, nostalgia, aura, and cozy lifestyle trend examples"
             }
           ] as T;

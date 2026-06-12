@@ -9,11 +9,12 @@ export function planTrendQueries(options: AgentOptions): string[] {
   const goal = profile.goal.trim();
 
   return [
-    `TikTok trends ${niche} ${location} ${language} ${goal} example videos`,
-    `site:tiktok.com ${niche} ${location} trend video ${audience}`,
-    `Instagram Reels YouTube Shorts TikTok trend ${niche} ${location} ${audience}`,
+    `site:tiktok.com/@ ${niche} ${location} trend video ${audience}`,
+    `site:tiktok.com/discover ${niche} ${location} trending ${audience}`,
+    `TikTok Creative Center trends hashtags sounds ${niche} ${location}`,
     `TikTok Creative Center trends ${niche} ${location} hashtags sounds`,
-    `Reddit ${location} ${niche} trending cafe student remote worker social video ideas`,
-    `2026 social media trends ${niche} TikTok Reels Shorts local business`
+    `TikTok trend tracker ${niche} ${location} creators formats examples`,
+    `2026 TikTok trends ${niche} short form video ideas local business ${goal}`,
+    `Reddit ${location} ${niche} TikTok trend video ideas audience ${audience}`
   ];
 }

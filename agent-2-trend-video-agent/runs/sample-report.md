@@ -1,6 +1,6 @@
 # Trend-to-Video Agent: Nook & Pour
 
-Generated: 2026-06-12T13:06:01.210Z  
+Generated: 2026-06-12T14:35:39.891Z  
 Location: Tel Aviv, Israel  
 Language: English  
 Goal: increase weekday visits  
@@ -12,7 +12,7 @@ A cozy independent specialty coffee shop with pastries, two quiet work tables, a
 
 **Niche:** specialty coffee, pastries, cozy work/study spot  
 **Audience:** students, remote workers, young professionals  
-**Capabilities:** phone-shot vertical video; staff can appear on camera; can film drinks and pastries; no paid creator budget; can post TikTok and Instagram Reels
+**Capabilities:** phone-shot vertical video; staff can appear on camera; can film drinks and pastries; no paid creator budget; can post TikTok and YouTube Shorts
 
 ## Decision Summary
 
@@ -77,7 +77,7 @@ Nook & Pour should adapt "Local hidden gem" into a short neighborhood discovery 
 
 **Confidence:** 90%
 
-**Examples:** [source](https://www.tiktok.com/@elexmichaelson/video/7539299705461673246), [source](https://www.instagram.com/reel/DZXhaZ2NbNF/), [source](https://www.tiktok.com/discover/hi-im-from-tel-aviv-and-this-is-my-art), [source](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070)
+**Examples:** [source](https://www.tiktok.com/@yallabikestlv/video/7513606960726445358), [source](https://www.tiktok.com/@adeenasussman/video/7204921672607026434), [source](https://www.tiktok.com/@telaviv_city/video/7072346924862508290), [source](https://www.youtube.com/shorts/kpBiwndwrmA)
 
 ## 2. Cozy work/study POV
 
@@ -103,35 +103,9 @@ Nook & Pour should adapt "Local hidden gem" into a short neighborhood discovery 
 
 **Confidence:** 90%
 
-**Examples:** [source](https://www.tiktok.com/@elexmichaelson/video/7539299705461673246), [source](https://www.instagram.com/reel/DZXhaZ2NbNF/), [source](https://www.tiktok.com/discover/hi-im-from-tel-aviv-and-this-is-my-art), [source](https://www.tiktok.com/@jazinspo__/video/7610191584138710285)
+**Examples:** [source](https://www.tiktok.com/@yallabikestlv/video/7513606960726445358), [source](https://www.tiktok.com/@telaviv_city/video/7072346924862508290), [source](https://www.youtube.com/shorts/kpBiwndwrmA), [source](https://www.tiktok.com/discover/coffee-in-tel-aviv)
 
-## 3. Behind-the-counter ASMR
-
-**Platform:** cross_platform
-
-**Format:** sensory process video
-
-**Topic:** close-up drink and pastry preparation
-
-**Evidence strength:** high
-
-**Niche fit:** high
-
-**Location fit:** high
-
-**Production fit:** high
-
-**Brand safety:** high
-
-**Why it fits:** Behind-the-counter ASMR fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.
-
-**Risks / conflicts:** None found in selected evidence.
-
-**Confidence:** 90%
-
-**Examples:** [source](https://www.instagram.com/reel/DZXhaZ2NbNF/), [source](https://www.tiktok.com/discover/hi-im-from-tel-aviv-and-this-is-my-art), [source](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070), [source](https://www.tiktok.com/@jazinspo__/video/7610191584138710285)
-
-## 4. Mini guide / listicle
+## 3. Mini guide / listicle
 
 **Platform:** cross_platform
 
@@ -155,20 +129,46 @@ Nook & Pour should adapt "Local hidden gem" into a short neighborhood discovery 
 
 **Confidence:** 90%
 
-**Examples:** [source](https://www.instagram.com/reel/DZXhaZ2NbNF/), [source](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070), [source](https://www.tiktok.com/@jazinspo__/video/7610191584138710285), [source](https://www.instagram.com/p/DUDrCGEiNdu/)
+**Examples:** [source](https://www.tiktok.com/@yallabikestlv/video/7513606960726445358), [source](https://www.youtube.com/shorts/kpBiwndwrmA), [source](https://www.tiktok.com/discover/coffee-in-tel-aviv), [source](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070)
+
+## 4. Behind-the-counter ASMR
+
+**Platform:** cross_platform
+
+**Format:** sensory process video
+
+**Topic:** close-up drink and pastry preparation
+
+**Evidence strength:** high
+
+**Niche fit:** high
+
+**Location fit:** high
+
+**Production fit:** high
+
+**Brand safety:** high
+
+**Why it fits:** Behind-the-counter ASMR fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.
+
+**Risks / conflicts:** None found in selected evidence.
+
+**Confidence:** 90%
+
+**Examples:** [source](https://www.youtube.com/shorts/kpBiwndwrmA), [source](https://www.tiktok.com/discover/coffee-in-tel-aviv), [source](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070)
 
 ## Evidence Log
 
-- METADATA_ONLY | tiktok | discover | [My final sign off from the @FOX 11 Los Angeles News at ...](https://www.tiktok.com/@elexmichaelson/video/7539299705461673246) | ... Tel Aviv. ... * Study/Work Friendly: The cafe offers free Wi-Fi and plenty of outlets, making it a popular spot for students and remote workers.Read more | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
-- OK | instagram | search | [This new cafe in Tel Aviv is so cool and the coffee and matcha ...](https://www.instagram.com/reel/DZXhaZ2NbNF/) | Beautiful trees, shaded tables and some of the best pastries and baked goods in the city. The second you step inside, the sound of honking ...
-- METADATA_ONLY | tiktok | discover | [Hi Im from Tel Aviv and This Is My Art](https://www.tiktok.com/discover/hi-im-from-tel-aviv-and-this-is-my-art) | public cafe known as Vesper. This cafe not only serves quality coffee but also acts as a collaborative space for freelancers and entrepreneurs. innovation and ... | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+- METADATA_ONLY | tiktok | search | [Top Coworking Cafe in Tel Aviv: Haachim](https://www.tiktok.com/@yallabikestlv/video/7513606960726445358) | Discover Haachim, the ideal cafe for working in Tel Aviv with spacious seating and delicious breakfast options. Perfect for remote workers! | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+- METADATA_ONLY | tiktok | search | [Exploring Carmel Market: A Day in Tel Aviv's Shuk](https://www.tiktok.com/@adeenasussman/video/7204921672607026434) | Join me as I discover the flavors and vendors of Carmel Market. Enjoy tasty treats, great finds, and local chats! #shukhacarmel #carmelmarket # ... | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+- METADATA_ONLY | tiktok | discover | [Discover 4 Free Coworking Spaces in Tel Aviv](https://www.tiktok.com/@telaviv_city/video/7072346924862508290) | These four locations - Mazeh 9, The Platform, Beit Ariela Library, and Beit Habe'er - represent excellent choices for anyone looking to work in ...Read more | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+- METADATA_ONLY | youtube | search | [These are the best coffee shops to work from in Tel Aviv](https://www.youtube.com/shorts/kpBiwndwrmA) | Are you looking for a perfect blend of productivity and caffeine in Tel Aviv? We're exploring the coziest and tastiest coffee shops for ... | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+- METADATA_ONLY | tiktok | discover | [Coffee in Tel Aviv](https://www.tiktok.com/discover/coffee-in-tel-aviv) | Mar 23, 2026 - My fav coffee shops in #TelAviv <3 #morning #israel #riseandgrind #nabicoffee #zomer #travel #sweettreats # ... | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
 - METADATA_ONLY | tiktok | search | [Exploring Coffee Recommendations in Tel Aviv](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070) | Join us in discovering the best coffee spots in Tel Aviv recommended by locals. Which one would you visit first? #BirthrightIsrael # ... | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
-- METADATA_ONLY | tiktok | discover | [Work Friendly Coffee Shop: Best Brews for Productivity](https://www.tiktok.com/@jazinspo__/video/7610191584138710285) | Discover the perfect coffee shop for remote work, featuring coffee, matcha, and refreshing drinks. #coffee #matcha #refreshers #wfh # ...Read more | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
-- METADATA_ONLY | instagram | search | [The only caf guide you need Tel Aviv has so many ...](https://www.instagram.com/p/DUDrCGEiNdu/) | The only caf guide you need Tel Aviv has so many incredible cafs and Florentin has amazing ones on almost every corner.Read more | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
 
 ## Failure / Uncertainty Notes
 
-- 5 social source(s) were retained as metadata-only because the public page had limited scrapeable text.
+- 6 social source(s) were retained as metadata-only because the public page had limited scrapeable text.
 
 ## Future Video Pipeline Draft
 
@@ -203,11 +203,11 @@ This is compatible with a future MoneyPrinterTurbo-style pipeline, but no video 
 
 ## Tradeoff
 
-Defaulted to Bright Data MCP free-tier tools for reproducibility. Pro/social extractors would improve structured TikTok, Instagram, YouTube, X, and Reddit metadata in production.
+Defaulted to Bright Data MCP free-tier tools for reproducibility. Pro/social extractors would improve structured TikTok, YouTube, X, and Reddit metadata in production.
 
 ## Next Steps
 
 - Open the top evidence links and manually review the visual format before posting.
 - Film a 20-35 second vertical version with the hook in the first two seconds.
-- Post the same concept to TikTok and Instagram Reels, then compare saves, comments, and profile visits.
+- Post the same concept to TikTok and optionally YouTube Shorts, then compare saves, comments, and profile visits.
 - Rerun the agent weekly to avoid stale trend copying.

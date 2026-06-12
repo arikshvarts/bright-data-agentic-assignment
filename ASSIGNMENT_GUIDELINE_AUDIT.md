@@ -29,7 +29,7 @@ It stays inside the assignment scope: it is a web agent, uses Bright Data MCP as
 | Runnable end-to-end with one command after install/env setup | `npm run demo:live` runs the full live flow. | `agent-2-trend-video-agent/package.json` |
 | Handle at least one real failure mode actually hit | Agent 2 handles metadata-only social pages, generic source pollution, malformed LLM JSON, broken text encoding, and weak evidence. These were encountered during live validation, not invented after the fact. | `scrapePolicy.ts`, `agent.ts`, `llm.ts`, `textRepair.ts`, sample report failure notes |
 | Produce clear output | Agent 2 writes console summary, Markdown report, and JSON report. | `agent-2-trend-video-agent/runs/sample-report.md` and `.json` |
-| Include evidence and links | The sample report includes TikTok/Instagram evidence URLs and an evidence log with source status. | `agent-2-trend-video-agent/runs/sample-report.md` |
+| Include evidence and links | The sample report includes TikTok/YouTube/trend evidence URLs and an evidence log with source status. | `agent-2-trend-video-agent/runs/sample-report.md` |
 | Explain tradeoff | The README and report explain the free-tier reproducibility tradeoff versus Pro/social extractors. | `agent-2-trend-video-agent/README.md`, sample report |
 | Keep deliverables organized | The root README explains Agent 2, Agent 1, Part 2 memo, writeups, comparison, and evaluation. | `README.md` |
 | Part 2 competitor memo | Firecrawl memo exists with current metrics, recent launches, and a 90-day Bright Data recommendation. | `part-2-competitor-memo.md` |
@@ -46,6 +46,8 @@ npm test
 npm run build
 npm audit
 npm run demo:live
+npm run demo:fitness
+npm run demo:b2b
 ```
 
 Results:
@@ -56,6 +58,8 @@ Results:
 - `npm run build`: passed.
 - `npm audit`: passed, 0 vulnerabilities.
 - `npm run demo:live`: passed with live Bright Data MCP.
+- `npm run demo:fitness`: passed with live Bright Data MCP.
+- `npm run demo:b2b`: passed with live Bright Data MCP.
 
 The live run used:
 
@@ -87,11 +91,13 @@ The preserved Agent 1 copy exists in `agent-1-ecosystem-radar/` without local `.
 
 | Failure actually hit | What happened | Handling added |
 | --- | --- | --- |
-| Social pages returned little scrapeable text | TikTok/Instagram pages often returned empty or tiny scrape output. | Keep source as `metadata_only`, preserve URL/snippet, show uncertainty in report. |
+| Social pages returned little scrapeable text | TikTok/YouTube pages often returned empty or tiny scrape output. | Keep source as `metadata_only`, preserve URL/snippet, show uncertainty in report. |
 | Generic platform results polluted evidence | Search returned TikTok homepage, App Store, and Wikipedia pages. | Relevance filtering excludes generic platform/app/encyclopedia pages. |
 | Malformed LLM JSON | Anthropic returned invalid JSON during live runs. | Deterministic fallback report from scored trend candidates. |
 | Encoding artifacts | Some snippets had mojibake such as broken cafe/quote characters. | Text repair utility normalizes common mojibake and punctuation before rendering. |
 | Weak or indirect regional evidence | Some evidence was location-related but not perfect for the exact business. | Report includes failure/uncertainty notes and confidence values. |
+| Generic/non-JSON Bright Data search response | One live `search_engine` call returned an unexpected non-JSON response. | The agent continued with the remaining MCP calls and produced a report. |
+| PowerShell/npm argument forwarding | One custom profile validation accidentally reused the default profile. | Added stable `demo:fitness` and `demo:b2b` scripts. |
 | Secrets in local env | Existing Agent 1 `.env` was needed for live testing but must not be committed. | `.env` ignored; Agent 1 archive excludes `.env`; only `.env.example` committed. |
 
 ## What I Did, Step by Step
@@ -103,7 +109,7 @@ The preserved Agent 1 copy exists in `agent-1-ecosystem-radar/` without local `.
 5. Reused the proven Bright Data MCP stdio approach from Agent 1.
 6. Added TikTok-first, location-aware query planning.
 7. Added source normalization for messy `search_engine` and `discover` result shapes.
-8. Added platform classification for TikTok, Instagram, YouTube, Reddit, X, Creative Center, articles, and unknown sources.
+8. Added platform classification for TikTok, YouTube, Reddit, X, Creative Center, trend-intelligence articles, articles, and unknown sources.
 9. Added scrape policy with `ok`, `partial`, `failed`, and `metadata_only` statuses.
 10. Added trend candidate scoring by evidence quality, niche fit, location fit, production fit, and brand safety.
 11. Added LLM synthesis through Anthropic/OpenAI with deterministic fallback.

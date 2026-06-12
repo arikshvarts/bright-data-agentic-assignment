@@ -6,7 +6,7 @@ It answers a practical content decision:
 
 > What recent trend should this specific business adapt into a short-form video, and exactly how should they shoot it?
 
-The default demo is TikTok-first because TikTok is the most natural place to show trend-to-video reasoning. Instagram Reels, YouTube Shorts, Reddit, search results, TikTok Creative Center-style pages, and social/trend articles are used as validation signals when available.
+The default demo is TikTok-first because TikTok is the most natural place to show trend-to-video reasoning. YouTube Shorts, Reddit, search results, TikTok Creative Center-style pages, and reputable social/trend-intelligence articles are used as validation signals when available.
 
 ## Run It
 
@@ -30,6 +30,13 @@ Then run the live demo:
 npm run demo:live
 ```
 
+Additional validation demos:
+
+```powershell
+npm run demo:fitness
+npm run demo:b2b
+```
+
 Custom profile:
 
 ```powershell
@@ -41,7 +48,7 @@ Outputs are written to `runs/report-*.md` and `runs/report-*.json`.
 ## What It Produces
 
 - Ranked trend candidates.
-- Evidence links to videos, social pages, or trend sources.
+- Evidence links to TikTok videos, TikTok Discover pages, YouTube Shorts, or trend-intelligence sources.
 - Fit reasoning for the business, audience, location, goal, and capabilities.
 - Conflict and uncertainty notes.
 - One recommended content opportunity.
@@ -95,7 +102,7 @@ The code handles those concretely:
 
 ## Biggest Tradeoff
 
-The default demo uses Bright Data MCP free-tier-friendly tools for reproducibility. Bright Data Pro/social extractors for TikTok, Instagram, YouTube, X, and Reddit would improve structured metadata, engagement signals, creator profiles, and comment extraction in a production version.
+The default demo uses Bright Data MCP free-tier-friendly tools for reproducibility. Bright Data Pro/social extractors for TikTok, YouTube, X, and Reddit would improve structured metadata, engagement signals, creator profiles, and comment extraction in a production version.
 
 ## MoneyPrinterTurbo Compatibility
 

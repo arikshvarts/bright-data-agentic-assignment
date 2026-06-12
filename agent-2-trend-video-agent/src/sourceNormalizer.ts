@@ -48,7 +48,8 @@ function toEvidence(record: UnknownRecord, sourceType: TrendEvidence["sourceType
     scrapeStatus: "not_attempted",
     recencyHint: extractRecency(cleanTitle, cleanSnippet),
     regionHint: extractRegion(cleanTitle, cleanSnippet),
-    engagementHint: extractEngagement(cleanTitle, cleanSnippet)
+    engagementHint: extractEngagement(cleanTitle, cleanSnippet),
+    qualityNotes: []
   };
 }
 

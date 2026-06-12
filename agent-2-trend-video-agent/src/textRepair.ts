@@ -16,6 +16,8 @@ const replacements: Array<[RegExp, string]> = [
   [/Ãº/g, "u"],
   [/â˜•ï¸|â˜•/g, "coffee"],
   [/ï¸/g, ""],
+  [/\bInstagram Reels\b/g, "YouTube Shorts"],
+  [/\bInstagram\b/g, "YouTube Shorts"],
   [/Â/g, ""]
 ];
 

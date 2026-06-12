@@ -18,7 +18,8 @@ export async function scrapeEvidence(client: ToolClient, sources: TrendEvidence[
           ...source,
           content,
           scrapeStatus: "metadata_only",
-          error: "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence."
+          error: "Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.",
+          qualityNotes: [...(source.qualityNotes ?? []), "metadata-only social source"]
         });
         continue;
       }
@@ -28,7 +29,8 @@ export async function scrapeEvidence(client: ToolClient, sources: TrendEvidence[
           ...source,
           content,
           scrapeStatus: "partial",
-          error: "Scrape returned less than 400 characters of usable content."
+          error: "Scrape returned less than 400 characters of usable content.",
+          qualityNotes: [...(source.qualityNotes ?? []), "partial scrape"]
         });
         continue;
       }
@@ -36,13 +38,18 @@ export async function scrapeEvidence(client: ToolClient, sources: TrendEvidence[
       enriched.push({
         ...source,
         content: content.slice(0, 7000),
-        scrapeStatus: "ok"
+        scrapeStatus: "ok",
+        qualityNotes: [...(source.qualityNotes ?? []), "scrape ok"]
       });
     } catch (error) {
       enriched.push({
         ...source,
         scrapeStatus: isSocialPlatform(source.platform) ? "metadata_only" : "failed",
-        error: sanitizeError(error)
+        error: sanitizeError(error),
+        qualityNotes: [
+          ...(source.qualityNotes ?? []),
+          isSocialPlatform(source.platform) ? "scrape failed but direct social URL retained" : "scrape failed"
+        ]
       });
     }
   }
