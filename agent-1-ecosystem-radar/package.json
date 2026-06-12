@@ -1,0 +1,30 @@
+{
+  "name": "agent-ecosystem-opportunity-radar",
+  "version": "1.0.0",
+  "description": "A Bright Data MCP-powered decision agent for ranking coding-agent ecosystem integrations.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "demo": "tsx src/cli.ts",
+    "demo:live": "tsx src/cli.ts --company \"Bright Data\" --decision \"next coding-agent integration\" --max-sources 3",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.0",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.7",
+    "openai": "^4.104.0",
+    "zod": "^3.25.64"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.8"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

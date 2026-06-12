@@ -2,57 +2,50 @@
 
 ## Summary
 
-I compared the original **Agentic GTM Radar** idea against the new **Agent Ecosystem Opportunity Radar** implementation.
+The repo now contains two Mission 1 options:
 
-The original idea researched a market and generated GTM plays. The new idea ranks coding-agent ecosystem integrations and recommends one concrete 90-day product bet for Bright Data.
+- **Agent 1:** Agent Ecosystem Opportunity Radar, a product/DevRel decision agent.
+- **Agent 2:** Trend-to-Video Agent, a TikTok-first social trend agent for location-aware video concepts.
 
-My conclusion: **the new idea is stronger for this assignment** because it is more specific, more decision-oriented, more aligned with Bright Data's agentic GTM role, and harder to fake with a generic LLM prompt.
+The recommended final demo is **Agent 2** because it is more visual, creative, and immediately understandable while still satisfying the Bright Data MCP requirements.
 
 ## 10-Parameter Comparison
 
-| Parameter | Original Agentic GTM Radar | New Agent Ecosystem Opportunity Radar | Winner |
+| Parameter | Agent 1: Ecosystem Radar | Agent 2: Trend-to-Video Agent | Winner |
 | --- | --- | --- | --- |
-| Real-world specificity | Broad market research for GTM opportunities. Useful, but the user and decision were not urgent enough. | Clear user: product/DevRel/technical GTM. Clear decision: which coding-agent integration to build next. | New |
-| Decision value | Produced recommendations and outbound-style plays, but not a hard product decision. | Produces a ranked decision artifact and one 90-day bet. | New |
-| Bright Data job relevance | Relevant to GTM research and live web access. | Directly relevant to Bright Data's MCP, skills, integrations, and agent ecosystem adoption. | New |
-| Originality | Better than a basic scraper, but could still look like "search + summarize." | More unusual: evidence reconciliation for ecosystem integration strategy. | New |
-| Engineering challenge | Web discovery, scrape handling, LLM report generation. | Same plus deterministic ecosystem scoring, current-capability detection, competitor shipped-signal analysis, source-quality reasoning, wrong-entity filtering, and malformed-LLM fallback. | New |
-| Evidence requirements | Needed enough sources to support market GTM plays. | Needs official docs, community discussions, competitor integrations, current Bright Data coverage, current ecosystem support, and source conflict handling. | New |
-| Demo clarity | Easy to explain but could sound generic. | Very clear story: "we help Bright Data decide what to build next." | New |
-| Failure-mode relevance | Partial scrape handling was good but somewhat generic. | Handles MCP timeout, partial scrape, malformed LLM JSON, provider mismatch, and evidence insufficiency in a decision workflow. | New |
-| Business impact | Could help GTM teams identify opportunities. | Helps allocate engineering and DevRel capacity for a 90-day integration bet. Higher-stakes and more concrete. | New |
-| Risk | Lower risk because output is flexible and generic. | Higher risk because the ranking can be challenged; mitigated with evidence URLs and contradictory signals. | Original for safety, New for impressiveness |
+| Assignment fit | Strong Bright Data MCP decision agent. | Strong Bright Data MCP creative web agent. | Tie |
+| Demo clarity | Requires product/DevRel context. | Instantly understandable: business profile to video idea. | Agent 2 |
+| Bright Data relevance | Shows research and integration strategy. | Shows live-web/social evidence extraction under messy conditions. | Agent 2 |
+| Creativity | Strategic but B2B/niche. | More visual, consumer-facing, and memorable. | Agent 2 |
+| Evidence quality | Docs/GitHub/platform evidence. | Social/video/trend evidence, plus uncertainty handling. | Tie |
+| Failure handling | Timeout, partial scrape, malformed LLM, wrong-product results. | Metadata-only social pages, generic source pollution, malformed LLM, encoding repair. | Agent 2 |
+| Business value | Helps prioritize integrations. | Helps creators/businesses produce timely content. | Agent 2 |
+| Reviewer appeal | Shows strategic thinking. | Shows agent creativity and a production-quality vertical slice. | Agent 2 |
+| Extensibility | Monitoring, evals, integration kits. | Pro social extractors, scheduling, MoneyPrinterTurbo export. | Agent 2 |
+| Risk | More stable source ecosystem. | Social trend evidence is messier and harder to scrape. | Agent 1 |
 
-## Score
+## Scores
 
 | Idea | Score |
 | --- | ---: |
-| Original Agentic GTM Radar | 8.2/10 |
-| New Agent Ecosystem Opportunity Radar | 9.1/10 |
+| Agent 1: Ecosystem Opportunity Radar | 9.1/10 |
+| Agent 2: Trend-to-Video Agent | 9.3/10 |
 
-## Why the New Idea Is More Impressive
+## Why Agent 2 Wins for the Final Demo
 
-The new agent is not just summarizing pages. It is trying to answer:
+Agent 2 is more likely to impress in a short assignment review because the workflow is concrete:
 
-- Is this really the correct ecosystem?
-- Is the integration official or community-made?
-- What did competitors or comparables already ship?
-- What works well in those shipped examples, and what is weak?
-- What does Bright Data already have, so we do not recommend duplicate work?
-- Is the signal adoption, marketing, or actual usage?
-- Are competitors already showing up here?
-- Is there enough evidence to spend engineering time?
-- What should be shipped in 90 days, and what should be explicitly avoided?
+```text
+business profile -> live trend evidence -> ranked trends -> video concept -> script/scene plan
+```
 
-That makes the assignment feel closer to a production agentic GTM workflow.
+It still demonstrates engineering judgment: source normalization, social-page scrape failure handling, metadata-only evidence, relevance filtering, deterministic scoring, LLM fallback, and a future video-pipeline export shape.
 
 ## Remaining Weaknesses
 
-The new implementation is stronger, but not perfect:
+- Social evidence can be noisy or metadata-only without Pro/social extractors.
+- Trend scoring is heuristic rather than benchmarked against actual performance.
+- Engagement metrics and comments are not structured in the free-tier MVP.
+- MoneyPrinterTurbo is only prepared as an export contract, not integrated.
 
-- Live search can still pick noisy sources.
-- The deterministic fallback is robust but less nuanced than a clean LLM synthesis.
-- GitHub/package metrics are not yet integrated directly into Mission 1.
-- Source quality is scored heuristically rather than by a trained or deeply validated classifier.
-
-Those are good next steps rather than blockers.
+Those are acceptable tradeoffs for a polished assignment vertical slice.

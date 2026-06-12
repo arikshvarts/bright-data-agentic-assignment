@@ -1,17 +1,32 @@
-# Bright Data Agentic GTM Assignment
+# Bright Data Agentic Assignment
 
-This repository contains both deliverables for the Bright Data AI Engineer home assignment.
+This repository contains the Bright Data AI Engineer home assignment deliverables, plus two Mission 1 agent options.
 
 ## Structure
 
-- `part-1-agent/` - Agent Ecosystem Opportunity Radar, a runnable Bright Data MCP decision agent.
+- `agent-2-trend-video-agent/` - **Recommended final Mission 1 demo:** Trend-to-Video Agent, a location-aware social trend agent for short-form video ideas.
+- `part-1-agent/` - Original Agent Ecosystem Opportunity Radar, a runnable Bright Data MCP product-decision agent.
+- `agent-1-ecosystem-radar/` - Preserved copy of the original Agent 1 implementation.
 - `part-2-competitor-memo.md` - One-page memo on Firecrawl's competitive position.
-- `PART_1_AGENT_WRITEUP.md` - Detailed Part 1 explanation and additional requirement coverage.
+- `PART_1_AGENT_WRITEUP.md` - Detailed writeup for Agent 1.
+- `PART_1_AGENT_2_WRITEUP.md` - Detailed writeup for Agent 2.
 - `PART_2_COMPETITOR_MEMO_WRITEUP.md` - Detailed Part 2 explanation and memo reasoning.
-- `MISSION_1_IDEA_COMPARISON.md` - 10-parameter comparison of the old and new Mission 1 ideas.
+- `MISSION_1_IDEA_COMPARISON.md` - Comparison of Agent 1 and Agent 2.
 - `SUBMISSION_EVALUATION.md` - Reviewer-style self-evaluation and requirement coverage.
 
 ## Quick Start
+
+Recommended Agent 2 demo:
+
+```powershell
+cd agent-2-trend-video-agent
+npm install
+Copy-Item .env.example .env
+# Fill BRIGHT_DATA_API_TOKEN and either ANTHROPIC_API_KEY or OPENAI_API_KEY in .env
+npm run demo:live
+```
+
+Agent 1 demo:
 
 ```powershell
 cd part-1-agent
@@ -21,22 +36,29 @@ Copy-Item .env.example .env
 npm run demo:live
 ```
 
-Custom run:
+## Recommended Loom Flow
 
-```powershell
-npm run demo -- --company "Bright Data" --decision "next coding-agent integration"
+1. Show the repo structure and explain that Agent 2 is the recommended final demo.
+2. Open `agent-2-trend-video-agent/README.md`.
+3. Run `npm run demo:live` from `agent-2-trend-video-agent`.
+4. Point out the three Bright Data MCP tools used: `search_engine`, `discover`, and `scrape_as_markdown`.
+5. Open the generated trend-to-video report and explain the ranked trends, evidence links, metadata-only social evidence, and video concept.
+6. Close with the real failure modes handled, the free-tier tradeoff, and the future MoneyPrinterTurbo export path.
+
+## Samples
+
+Agent 2 live sample:
+
+```text
+agent-2-trend-video-agent/runs/sample-report.md
+agent-2-trend-video-agent/runs/sample-report.json
 ```
 
-The agent writes a Markdown report and JSON payload to `part-1-agent/runs/`.
+Agent 1 live sample:
 
-The committed sample report in `part-1-agent/runs/sample-report.md` was generated from a live run and uses `search_engine`, `discover`, and `scrape_as_markdown`.
+```text
+part-1-agent/runs/sample-report.md
+part-1-agent/runs/sample-report.json
+```
 
-## Video Walkthrough
-
-Recommended Loom flow:
-
-1. Show the assignment structure and the agent README.
-2. Run `npm run demo:live`.
-3. Point out the three Bright Data MCP tools used: `search_engine`, `discover`, and `scrape_as_markdown`.
-4. Open the generated decision report and explain the ranking criteria, contradictory signals, and 90-day bet.
-5. Close with the real failure modes handled and the key tradeoff.
+Both agents use Bright Data MCP `search_engine`, `discover`, and `scrape_as_markdown`.
