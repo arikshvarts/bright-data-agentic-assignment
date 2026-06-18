@@ -1,0 +1,19 @@
+{
+  "name": "bright-data-agentic-assignment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bright Data MCP Trend-to-Video agent and GTM assignment.",
+  "workspaces": [
+    "part-1-agent"
+  ],
+  "scripts": {
+    "demo": "npm run demo:live --workspace=trend-to-video-agent",
+    "demo:b2b": "npm run demo:b2b --workspace=trend-to-video-agent",
+    "demo:fitness": "npm run demo:fitness --workspace=trend-to-video-agent",
+    "demo:deep": "npm run demo:deep-social --workspace=trend-to-video-agent",
+    "check": "npm run check --workspace=trend-to-video-agent"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

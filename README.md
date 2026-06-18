@@ -30,7 +30,7 @@ The result is useful as a sales demo, solution-engineering reference, MCP
 integration example, and foundation for a production content-intelligence
 workflow.
 
-## Five-Minute Quick Start
+## Quick Start
 
 ### Requirements
 
@@ -39,26 +39,24 @@ workflow.
 - A Bright Data API token
 - Either an Anthropic or OpenAI API key
 
-### 1. Install
+### Install once
 
 ```powershell
 git clone https://github.com/arikshvarts/bright-data-agentic-assignment.git
-cd bright-data-agentic-assignment\part-1-agent
+cd bright-data-agentic-assignment
 npm install
-Copy-Item .env.example .env
+Copy-Item .\part-1-agent\.env.example .\part-1-agent\.env
 ```
 
 On macOS or Linux, replace the final command with:
 
 ```bash
-cp .env.example .env
+cp part-1-agent/.env.example part-1-agent/.env
 ```
 
-### 2. Configure
+Add credentials to `part-1-agent/.env`:
 
-Add credentials to `.env`:
-
-```dotenv
+```text
 BRIGHT_DATA_API_TOKEN=your_bright_data_token
 ANTHROPIC_API_KEY=your_anthropic_key
 
@@ -66,13 +64,14 @@ ANTHROPIC_API_KEY=your_anthropic_key
 # OPENAI_API_KEY=your_openai_key
 ```
 
-### 3. Run
+### Run end to end with one command
 
 ```powershell
-npm run demo:live
+npm run demo
 ```
 
-The command launches Bright Data MCP, runs the complete agent, and writes:
+That single command launches Bright Data MCP, discovers and validates live
+evidence, enriches TikTok data, synthesizes the recommendation, and writes:
 
 - A concise console decision
 - A human-readable Markdown report
@@ -80,6 +79,9 @@ The command launches Bright Data MCP, runs the complete agent, and writes:
 - A responsive HTML evidence dashboard
 
 No manual MCP server setup is required.
+
+> Assignment requirement: after `npm install` and credential configuration,
+> the complete agent is runnable with one command: `npm run demo`.
 
 ## Use It With Your Business
 
@@ -104,9 +106,10 @@ and edit these fields:
 }
 ```
 
-Run the custom profile:
+Run a custom profile from `part-1-agent/`:
 
 ```powershell
+cd part-1-agent
 npm run demo -- -- --profile-file .\samples\my-business.json `
   --max-sources 8 `
   --max-trends 5
@@ -133,7 +136,7 @@ The default demo uses the first four tools.
 Deep mode adds structured TikTok comments:
 
 ```powershell
-npm run demo:deep-social
+npm run demo:deep
 ```
 
 Successful tools are derived from real execution telemetry.
@@ -234,7 +237,7 @@ The Trend-to-Video Agent is the recommended evaluation path.
 | Check                                | Result                    |
 | ------------------------------------ | ------------------------- |
 | TypeScript typecheck                 | Passed                    |
-| Unit and mocked E2E tests            | 19 passed across 12 files |
+| Unit and mocked E2E tests            | 23 passed across 13 files |
 | Production build                     | Passed                    |
 | Dependency audit                     | 0 vulnerabilities         |
 | Live cafe, fitness, and B2B profiles | Passed                    |
@@ -248,7 +251,6 @@ both runnable agent packages.
 Run the same checks locally:
 
 ```powershell
-cd part-1-agent
 npm run check
 ```
 
@@ -260,6 +262,7 @@ npm run check
 |-- agent-1-ecosystem-radar/     # Preserved alternative concept
 |-- docs/                        # Integration, validation, and evaluation
 |-- part-2-competitor-memo.md    # Mission 2 leadership memo
+|-- package.json                 # Root one-command demo entry point
 `-- .github/                     # CI and dependency automation
 ```
 
