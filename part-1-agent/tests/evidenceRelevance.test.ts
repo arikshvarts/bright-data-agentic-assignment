@@ -5,29 +5,60 @@ import type { TrendEvidence } from "../src/types.js";
 
 describe("evidence relevance", () => {
   it("rejects a misleading SERP result after structured caption enrichment", () => {
-    const source = evidence("My final sign off from the Los Angeles news desk", "TikTok coffee trend result");
-    const scored = scoreEvidence(options(), { ...source, structuredDataStatus: "ok" });
+    const source = evidence(
+      "My final sign off from the Los Angeles news desk",
+      "TikTok coffee trend result",
+    );
+    const scored = scoreEvidence(options(), {
+      ...source,
+      structuredDataStatus: "ok",
+    });
     expect(scored.relevanceTier).toBe("weak");
   });
 
   it("keeps niche and location evidence", () => {
-    const cafe = scoreEvidence(options(), evidence("Specialty coffee and pastries in Tel Aviv", "Cafe video"));
+    const cafe = scoreEvidence(
+      options(),
+      evidence("Specialty coffee and pastries in Tel Aviv", "Cafe video"),
+    );
     expect(cafe.relevanceTier).toBe("direct");
   });
 
   it("keeps reputable supporting trend surfaces without pretending they are direct fit", () => {
     const article = {
-      ...evidence("2026 short-form creator trend report", "TikTok hook formats"),
+      ...evidence(
+        "2026 short-form creator trend report",
+        "TikTok hook formats",
+      ),
       platform: "trend_intel" as const,
-      url: "https://www.exolyt.com/blog/tiktok-trends"
+      url: "https://www.exolyt.com/blog/tiktok-trends",
     };
     const [result] = revalidateEvidence(options(), [article]);
     expect(result.relevanceTier).toBe("supporting");
   });
+
+  it("does not let thin social scrape boilerplate rescue an unrelated page", () => {
+    const source: TrendEvidence = {
+      ...evidence(
+        "Citizen TV soaps over the years",
+        "Television nostalgia clips",
+      ),
+      url: "https://www.tiktok.com/discover/citizen-tv-soaps-over-the-years",
+      content:
+        "Generic page boilerplate mentioning coffee, pastries, study, and Tel Aviv.",
+    };
+
+    expect(scoreEvidence(options(), source).relevanceTier).toBe("weak");
+  });
 });
 
 function options() {
-  return { profile: defaultProfile(), region: "il", maxSources: 6, maxTrends: 4 };
+  return {
+    profile: defaultProfile(),
+    region: "il",
+    maxSources: 6,
+    maxTrends: 4,
+  };
 }
 
 function evidence(title: string, snippet: string): TrendEvidence {
@@ -39,6 +70,6 @@ function evidence(title: string, snippet: string): TrendEvidence {
     snippet,
     confidence: 0.7,
     scrapeStatus: "metadata_only",
-    content: title
+    content: title,
   };
 }
