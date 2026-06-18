@@ -4,7 +4,10 @@ import { repairText } from "./textRepair.js";
 
 type UnknownRecord = Record<string, unknown>;
 
-export function normalizeToolResult(raw: unknown, sourceType: TrendEvidence["sourceType"]): TrendEvidence[] {
+export function normalizeToolResult(
+  raw: unknown,
+  sourceType: TrendEvidence["sourceType"],
+): TrendEvidence[] {
   const parsed = parseMaybeJson(raw);
   const records = collectRecords(parsed);
 
@@ -13,7 +16,10 @@ export function normalizeToolResult(raw: unknown, sourceType: TrendEvidence["sou
     .filter((source): source is TrendEvidence => Boolean(source));
 }
 
-export function dedupeEvidence(sources: TrendEvidence[], maxSources: number): TrendEvidence[] {
+export function dedupeEvidence(
+  sources: TrendEvidence[],
+  maxSources: number,
+): TrendEvidence[] {
   const seen = new Set<string>();
   const deduped: TrendEvidence[] = [];
 
@@ -28,12 +34,16 @@ export function dedupeEvidence(sources: TrendEvidence[], maxSources: number): Tr
   return deduped;
 }
 
-function toEvidence(record: UnknownRecord, sourceType: TrendEvidence["sourceType"]): TrendEvidence | null {
+function toEvidence(
+  record: UnknownRecord,
+  sourceType: TrendEvidence["sourceType"],
+): TrendEvidence | null {
   const url = firstString(record, ["url", "link", "href"]);
-  if (!url || !isHttpUrl(url)) return null;
+  if (!url || !isHttpUrl(url) || isOpaqueGoogleRedirect(url)) return null;
 
   const title = firstString(record, ["title", "name"]) ?? url;
-  const snippet = firstString(record, ["description", "snippet", "text", "content"]) ?? "";
+  const snippet =
+    firstString(record, ["description", "snippet", "text", "content"]) ?? "";
   const score = firstNumber(record, ["score", "confidence"]);
   const cleanTitle = repairText(title);
   const cleanSnippet = repairText(snippet).slice(0, 360);
@@ -44,13 +54,15 @@ function toEvidence(record: UnknownRecord, sourceType: TrendEvidence["sourceType
     title: cleanTitle,
     sourceType,
     snippet: cleanSnippet,
-    confidence: clampConfidence(score ?? (sourceType === "discover" ? 0.72 : 0.62)),
+    confidence: clampConfidence(
+      score ?? (sourceType === "discover" ? 0.72 : 0.62),
+    ),
     scrapeStatus: "not_attempted",
     recencyHint: extractRecency(cleanTitle, cleanSnippet),
     regionHint: extractRegion(cleanTitle, cleanSnippet),
     engagementHint: extractEngagement(cleanTitle, cleanSnippet),
     qualityNotes: [],
-    independentSourceKey: independentSourceKey(url)
+    independentSourceKey: independentSourceKey(url),
   };
 }
 
@@ -61,7 +73,9 @@ function collectRecords(value: unknown): UnknownRecord[] {
   const directUrl = firstString(value, ["url", "link", "href"]);
   if (directUrl) return [value];
 
-  return ["organic", "results", "items", "data", "result"].flatMap((key) => collectRecords(value[key]));
+  return ["organic", "results", "items", "data", "result"].flatMap((key) =>
+    collectRecords(value[key]),
+  );
 }
 
 function parseMaybeJson(raw: unknown): unknown {
@@ -73,7 +87,10 @@ function parseMaybeJson(raw: unknown): unknown {
   }
 }
 
-function firstString(record: UnknownRecord, keys: string[]): string | undefined {
+function firstString(
+  record: UnknownRecord,
+  keys: string[],
+): string | undefined {
   for (const key of keys) {
     const value = record[key];
     if (typeof value === "string" && value.trim()) return value.trim();
@@ -81,7 +98,10 @@ function firstString(record: UnknownRecord, keys: string[]): string | undefined 
   return undefined;
 }
 
-function firstNumber(record: UnknownRecord, keys: string[]): number | undefined {
+function firstNumber(
+  record: UnknownRecord,
+  keys: string[],
+): number | undefined {
   for (const key of keys) {
     const value = record[key];
     if (typeof value === "number" && Number.isFinite(value)) return value;
@@ -109,6 +129,18 @@ function isHttpUrl(url: string): boolean {
   }
 }
 
+function isOpaqueGoogleRedirect(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    return (
+      parsed.hostname.replace(/^www\./, "") === "google.com" &&
+      parsed.pathname === "/goto"
+    );
+  } catch {
+    return false;
+  }
+}
+
 function clampConfidence(value: number): number {
   if (value > 1) return Math.max(0, Math.min(1, value / 100));
   return Math.max(0, Math.min(1, value));
@@ -116,17 +148,23 @@ function clampConfidence(value: number): number {
 
 function extractRecency(...parts: string[]): string | undefined {
   const text = parts.join(" ");
-  return text.match(/\b(2026|2025|today|this week|recent|latest|new|viral)\b/i)?.[0];
+  return text.match(
+    /\b(2026|2025|today|this week|recent|latest|new|viral)\b/i,
+  )?.[0];
 }
 
 function extractRegion(...parts: string[]): string | undefined {
   const text = parts.join(" ");
-  return text.match(/\b(Tel Aviv|Israel|US|United States|UK|London|New York|Europe|local)\b/i)?.[0];
+  return text.match(
+    /\b(Tel Aviv|Israel|US|United States|UK|London|New York|Europe|local)\b/i,
+  )?.[0];
 }
 
 function extractEngagement(...parts: string[]): string | undefined {
   const text = parts.join(" ");
-  return text.match(/\b\d+(?:\.\d+)?\s?(?:k|m|b|million|billion)?\s?(?:views|likes|posts|videos|creations)\b/i)?.[0];
+  return text.match(
+    /\b\d+(?:\.\d+)?\s?(?:k|m|b|million|billion)?\s?(?:views|likes|posts|videos|creations)\b/i,
+  )?.[0];
 }
 
 function isRecord(value: unknown): value is UnknownRecord {
@@ -138,14 +176,20 @@ export function independentSourceKey(url: string): string {
     const parsed = new URL(url);
     const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
     const tiktokCreator = parsed.pathname.match(/^\/@([^/]+)/i)?.[1];
-    if (host.endsWith("tiktok.com") && tiktokCreator) return `tiktok:creator:${tiktokCreator.toLowerCase()}`;
-    if (host.endsWith("tiktok.com") && parsed.pathname.startsWith("/discover/")) {
+    if (host.endsWith("tiktok.com") && tiktokCreator)
+      return `tiktok:creator:${tiktokCreator.toLowerCase()}`;
+    if (
+      host.endsWith("tiktok.com") &&
+      parsed.pathname.startsWith("/discover/")
+    ) {
       return `tiktok:discover:${parsed.pathname.split("/").filter(Boolean)[1] ?? "unknown"}`;
     }
     const youtubeChannel = parsed.pathname.match(/^\/@([^/]+)/)?.[1];
-    if (host.endsWith("youtube.com") && youtubeChannel) return `youtube:channel:${youtubeChannel.toLowerCase()}`;
+    if (host.endsWith("youtube.com") && youtubeChannel)
+      return `youtube:channel:${youtubeChannel.toLowerCase()}`;
     const redditCommunity = parsed.pathname.match(/^\/r\/([^/]+)/i)?.[1];
-    if (host.endsWith("reddit.com") && redditCommunity) return `reddit:community:${redditCommunity.toLowerCase()}`;
+    if (host.endsWith("reddit.com") && redditCommunity)
+      return `reddit:community:${redditCommunity.toLowerCase()}`;
     return host;
   } catch {
     return url.toLowerCase();
