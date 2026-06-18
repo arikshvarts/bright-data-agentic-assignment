@@ -113,6 +113,14 @@ function canonicalUrl(url: string): string {
   try {
     const parsed = new URL(url);
     parsed.hash = "";
+    for (const key of [...parsed.searchParams.keys()]) {
+      if (
+        /^utm_/i.test(key) ||
+        ["srsltid", "gclid", "fbclid"].includes(key.toLowerCase())
+      ) {
+        parsed.searchParams.delete(key);
+      }
+    }
     parsed.searchParams.sort();
     return parsed.toString().replace(/\/$/, "");
   } catch {

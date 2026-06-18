@@ -19,16 +19,26 @@ describe("sourceNormalizer", () => {
             title: "Duplicate",
             description: "Duplicate",
           },
+          {
+            link: "https://example.com/coffee-trends?srsltid=tracking-a",
+            title: "Coffee trends",
+            description: "Canonical article",
+          },
+          {
+            link: "https://example.com/coffee-trends?srsltid=tracking-b",
+            title: "Same coffee trends",
+            description: "Same article with another tracking token",
+          },
         ],
       },
       "search",
     );
 
-    expect(sources).toHaveLength(2);
+    expect(sources).toHaveLength(4);
     expect(sources[0].platform).toBe("tiktok");
     expect(sources[0].engagementHint).toBe("1.2M views");
     expect(sources[0].independentSourceKey).toBe("tiktok:creator:barista");
-    expect(dedupeEvidence(sources, 10)).toHaveLength(1);
+    expect(dedupeEvidence(sources, 10)).toHaveLength(2);
   });
 
   it("drops opaque Google redirect wrappers from the evidence ledger", () => {
