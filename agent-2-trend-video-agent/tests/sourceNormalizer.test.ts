@@ -24,6 +24,7 @@ describe("sourceNormalizer", () => {
     expect(sources).toHaveLength(2);
     expect(sources[0].platform).toBe("tiktok");
     expect(sources[0].engagementHint).toBe("1.2M views");
+    expect(sources[0].independentSourceKey).toBe("tiktok:creator:barista");
     expect(dedupeEvidence(sources, 10)).toHaveLength(1);
   });
 });

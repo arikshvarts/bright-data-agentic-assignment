@@ -12,6 +12,7 @@ This repository contains the Bright Data AI Engineer home assignment deliverable
 - `PART_1_AGENT_2_WRITEUP.md` - Detailed writeup for Agent 2.
 - `AGENT_2_SOURCE_QUALITY_VALIDATION.md` - Practical live-run validation and source-quality improvements for Agent 2.
 - `AGENT_2_BRIGHT_DATA_PRO_UPGRADE_PATH.md` - How Agent 2 should use more of Bright Data's structured/social tool surface next.
+- `AGENT_2_IMPLEMENTATION_VALIDATION_2026-06-18.md` - Exact v2 architecture, failures, live tests, and remaining limits.
 - `PART_2_COMPETITOR_MEMO_WRITEUP.md` - Detailed Part 2 explanation and memo reasoning.
 - `MISSION_1_IDEA_COMPARISON.md` - Comparison of Agent 1 and Agent 2.
 - `SUBMISSION_EVALUATION.md` - Reviewer-style self-evaluation and requirement coverage.
@@ -31,6 +32,7 @@ npm run demo:live
 Optional Agent 2 validation demos:
 
 ```powershell
+npm run demo:deep-social
 npm run demo:fitness
 npm run demo:b2b
 ```
@@ -50,9 +52,10 @@ npm run demo:live
 1. Show the repo structure and explain that Agent 2 is the recommended final demo.
 2. Open `agent-2-trend-video-agent/README.md`.
 3. Run `npm run demo:live` from `agent-2-trend-video-agent`.
-4. Point out the three Bright Data MCP tools used: `search_engine`, `discover`, and `scrape_as_markdown`.
-5. Open the generated trend-to-video report and explain the ranked trends, evidence links, metadata-only social evidence, and video concept.
-6. Close with the real failure modes handled, the free-tier tradeoff, and the future MoneyPrinterTurbo export path.
+4. Point out the default tool composition: `search_engine`, `discover`, `scrape_as_markdown`, and structured `web_data_tiktok_posts`.
+5. Open the generated HTML dashboard and show the evidence ledger, real MCP execution trace, velocity/saturation basis, and storyboard.
+6. Mention that `npm run demo:deep-social` also calls `web_data_tiktok_comments`, but takes longer because dataset collection is asynchronous.
+7. Close with the real failure modes handled and the future MoneyPrinterTurbo export path.
 
 ## Samples
 
@@ -61,6 +64,7 @@ Agent 2 live sample:
 ```text
 agent-2-trend-video-agent/runs/sample-report.md
 agent-2-trend-video-agent/runs/sample-report.json
+agent-2-trend-video-agent/runs/sample-dashboard.html
 ```
 
 Agent 1 live sample:
@@ -70,4 +74,4 @@ part-1-agent/runs/sample-report.md
 part-1-agent/runs/sample-report.json
 ```
 
-Both agents use Bright Data MCP `search_engine`, `discover`, and `scrape_as_markdown`.
+Both agents use Bright Data MCP `search_engine`, `discover`, and `scrape_as_markdown`. Agent 2 also integrates Bright Data's structured TikTok post/comment tools through the MCP social group.

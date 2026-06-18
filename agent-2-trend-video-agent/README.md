@@ -2,11 +2,11 @@
 
 Trend-to-Video Agent is a Bright Data MCP-powered creative strategy agent for businesses, creators, and social-media managers.
 
-It answers a practical content decision:
+It answers:
 
-> What recent trend should this specific business adapt into a short-form video, and exactly how should they shoot it?
+> Which current short-form format fits this business, audience, location, goal, and production capability, and exactly how should it be produced?
 
-The default demo is TikTok-first because TikTok is the most natural place to show trend-to-video reasoning. YouTube Shorts, Reddit, search results, TikTok Creative Center-style pages, and reputable social/trend-intelligence articles are used as validation signals when available.
+The agent is TikTok-first, with Reddit, YouTube, trend-intelligence articles, and TikTok discovery pages used for independent validation.
 
 ## Run It
 
@@ -15,108 +15,172 @@ npm install
 Copy-Item .env.example .env
 ```
 
-Fill in:
+Add:
 
 ```text
 BRIGHT_DATA_API_TOKEN=...
 ANTHROPIC_API_KEY=...
 ```
 
-`OPENAI_API_KEY` is also supported. When both keys are present, the agent uses Anthropic first.
+`OPENAI_API_KEY` is also supported. Anthropic is preferred when both exist.
 
-Then run the live demo:
+Fast live demo:
 
 ```powershell
 npm run demo:live
 ```
 
-Additional validation demos:
+Deep social demo with two structured TikTok posts and one comment collection:
+
+```powershell
+npm run demo:deep-social
+```
+
+Additional validated profiles:
 
 ```powershell
 npm run demo:fitness
 npm run demo:b2b
 ```
 
-Custom profile:
+Custom profile on this tested Windows/npm setup:
 
 ```powershell
-npm run demo -- --profile-file .\samples\local-cafe.json --location "Tel Aviv, Israel" --goal "drive weekday foot traffic"
+npm run demo -- -- --profile-file .\samples\local-cafe.json --location "Tel Aviv, Israel" --goal "drive weekday foot traffic"
 ```
 
-Outputs are written to `runs/report-*.md` and `runs/report-*.json`.
+The additional `--` is required by the installed npm version to forward named options.
 
-## What It Produces
+## Outputs
 
-- Ranked trend candidates.
-- Evidence links to TikTok videos, TikTok Discover pages, YouTube Shorts, or trend-intelligence sources.
-- Fit reasoning for the business, audience, location, goal, and capabilities.
-- Conflict and uncertainty notes.
-- One recommended content opportunity.
-- Hook, format, caption, scene plan, shot list, and execution style.
-- Recommendation to produce as `human_shot`, `ai_generated`, or `hybrid`.
-- AI-video prompt when AI or hybrid production is appropriate.
-- Future MoneyPrinterTurbo-style export payload, without rendering video.
+Every successful run writes:
 
-## Bright Data MCP Tools Used
+- Console decision summary.
+- Detailed Markdown report.
+- Machine-readable JSON report.
+- Responsive HTML evidence dashboard.
 
-The live agent uses three Bright Data MCP tools:
+Committed sample:
 
-- `search_engine` for broad current trend discovery.
-- `discover` for intent-ranked source discovery.
-- `scrape_as_markdown` for extracting usable evidence from source URLs.
+```text
+runs/sample-report.md
+runs/sample-report.json
+runs/sample-dashboard.html
+```
 
-This exceeds the assignment requirement of at least two distinct Bright Data MCP tools.
+## Bright Data MCP Tools
 
-## How It Works
+The default live demo uses:
 
-1. Loads a creator/business profile from flags or a JSON/Markdown profile file.
-2. Plans location-aware TikTok-first trend queries.
-3. Calls Bright Data MCP `search_engine` and `discover`.
-4. Normalizes, dedupes, platform-classifies, and filters evidence.
-5. Scrapes selected sources with `scrape_as_markdown`.
-6. Marks evidence as `ok`, `partial`, `failed`, or `metadata_only`.
-7. Clusters trend candidates by format/topic signals.
-8. Scores candidates by evidence quality, niche fit, location fit, production feasibility, and brand safety.
-9. Uses an LLM to synthesize the ranked trends and creative concept.
-10. Falls back to a deterministic report if LLM JSON is malformed.
-11. Writes Markdown and JSON outputs.
+- `search_engine`
+- `discover`
+- `scrape_as_markdown`
+- `web_data_tiktok_posts` when a direct TikTok video is retained
 
-## Real Failure Modes Handled
+The deep social demo additionally uses:
 
-I hit these while building:
+- `web_data_tiktok_comments`
 
-- Social pages returned little scrapeable text.
-- Generic TikTok homepage, App Store, and Wikipedia results polluted search output.
-- Anthropic sometimes returned malformed JSON during live validation.
-- Some scraped/search snippets had broken text encoding.
-- Regional evidence was sometimes thin or indirect.
+The MCP server is launched with:
 
-The code handles those concretely:
+```text
+npx -y @brightdata/mcp
+GROUPS=social
+```
 
-- Social pages can be retained as `metadata_only` evidence instead of discarded.
-- Generic platform/app encyclopedia pages are filtered out.
-- The agent exits if fewer than three usable or metadata-valid sources remain.
-- LLM synthesis has a deterministic fallback.
-- Text is repaired before rendering reports.
-- Failure notes are shown in the final report.
+Actual successful tools are derived from execution telemetry. They are not hardcoded.
 
-## Biggest Tradeoff
+## Current Flow
 
-The default demo uses Bright Data MCP free-tier-friendly tools for reproducibility. Bright Data Pro/social extractors for TikTok, YouTube, X, and Reddit would improve structured metadata, engagement signals, creator profiles, and comment extraction in a production version.
+1. Parse and validate the business profile.
+2. Infer the search country from location unless `--region` is explicit.
+3. Build niche, location, language, goal, TikTok, Creative Center, and Reddit queries.
+4. Call Bright Data `search_engine` four times with `geo_location`.
+5. Call `discover` three times with country and language targeting.
+6. Normalize varying MCP result shapes.
+7. Classify platforms, canonicalize URLs, and deduplicate.
+8. Pre-rank sources by niche/location relevance.
+9. Scrape selected sources with `scrape_as_markdown`.
+10. Optionally enrich direct TikTok videos with structured post and comment tools.
+11. Revalidate evidence using structured captions so misleading search snippets can be rejected.
+12. Require at least three sources and a weighted evidence threshold; metadata-only sources count less.
+13. Cluster evidence into domain-neutral creative formats.
+14. Calculate independent-source corroboration, platform diversity, velocity, and saturation.
+15. Use prior version-compatible reports for real run-over-run velocity when they are at least 12 hours apart.
+16. Otherwise make no velocity claim, unless publication time plus engagement supports a labeled snapshot estimate.
+17. Ask Anthropic/OpenAI for the final strategy.
+18. Use deterministic, profile-specific synthesis if model JSON is malformed.
+19. Render Markdown, JSON, HTML dashboard, and future video-pipeline export.
+
+## Evidence and Scoring
+
+Evidence statuses:
+
+- `ok`: substantial scrape content.
+- `partial`: limited but usable content.
+- `metadata_only`: valid social URL with thin public text.
+- `failed`: unusable non-social scrape.
+
+Structured TikTok fields can include:
+
+- Caption and creator.
+- Publication time.
+- Views, likes, shares, and comments.
+- Hashtags and video URL.
+- High-engagement comment text in deep mode.
+
+Trend candidates expose:
+
+- Evidence, niche, location, production, and brand-safety fit.
+- Independent-source count and platform diversity.
+- Direct-video, platform-discovery, supporting, or weak validation.
+- Velocity score, label, and explicit basis.
+- Saturation score, label, and explicit basis.
+
+## Real Failures Encountered
+
+- Discover rejected a city value even though it accepted country/language. City targeting was removed; the city remains in the query.
+- MCP tool errors were initially returned with `isError` rather than thrown. The MCP wrapper now converts those results into real failures.
+- Search snippets looked relevant while structured TikTok captions revealed unrelated videos. Evidence is revalidated after enrichment.
+- Social pages returned little scrapeable text. They are retained as lower-weight `metadata_only` evidence.
+- Three metadata-only URLs were not enough for a report. Weighted evidence sufficiency stopped the run.
+- Anthropic returned malformed JSON repeatedly. Deterministic synthesis completed the reports.
+- Old scoring-model reports produced false acceleration. Time-series comparison is now versioned and excludes same-session runs.
+- `.env` region values contaminated other sample profiles. Region is now inferred from each profile unless explicitly supplied.
+- npm argument forwarding stripped named options. The documented custom command now uses the tested extra separator.
+- A new high-severity `form-data` advisory appeared during validation. `npm audit fix` updated the lockfile; the final audit reports zero vulnerabilities.
+
+## Fast vs Deep Mode
+
+`demo:live` enriches one TikTok post and skips comments. This preserves a meaningful structured-data demonstration while keeping runtime lower.
+
+`demo:deep-social` enriches two posts and one comment collection. Live validation proved that both social tools work, but Bright Data dataset collection is asynchronous and the deep run took several minutes.
 
 ## MoneyPrinterTurbo Compatibility
 
-This MVP does not render video and does not call MoneyPrinterTurbo.
+No video is rendered in this MVP. JSON includes `futureVideoPipelineDraft` with:
 
-It includes a future-compatible `futureVideoPipelineDraft` object with the video subject, language, vertical aspect ratio, voiceover/script text, scene plan, material keywords, caption, music mood, and production mode.
+- Subject and language.
+- 9:16 aspect ratio.
+- Voiceover/script.
+- Scene plan.
+- Material keywords.
+- Caption and music mood.
+- Human-shot, AI-generated, or hybrid mode.
 
-## Tests
+## Validation
 
 ```powershell
-npm test
 npm run typecheck
+npm test
 npm run build
 npm audit
 ```
 
-The unit and mocked end-to-end tests do not require Bright Data or LLM credentials.
+Current result:
+
+- 12 test files passed.
+- 19 tests passed.
+- Typecheck passed.
+- Build passed.
+- Audit passed with zero vulnerabilities.

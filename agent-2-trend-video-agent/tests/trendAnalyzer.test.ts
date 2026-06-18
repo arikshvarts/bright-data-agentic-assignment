@@ -15,7 +15,8 @@ describe("analyzeTrends", () => {
 
     expect(analysis.candidates.length).toBeGreaterThanOrEqual(3);
     expect(analysis.candidates[0].score).toBeGreaterThan(0);
-    expect(analysis.candidates.some((candidate) => candidate.name.includes("Cozy"))).toBe(true);
+    expect(analysis.candidates.some((candidate) => candidate.name.includes("POV"))).toBe(true);
+    expect(analysis.candidates.some((candidate) => (candidate.independentSourceCount ?? 0) > 0)).toBe(true);
   });
 });
 

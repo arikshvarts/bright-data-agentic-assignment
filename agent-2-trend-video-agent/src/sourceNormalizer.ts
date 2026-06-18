@@ -49,7 +49,8 @@ function toEvidence(record: UnknownRecord, sourceType: TrendEvidence["sourceType
     recencyHint: extractRecency(cleanTitle, cleanSnippet),
     regionHint: extractRegion(cleanTitle, cleanSnippet),
     engagementHint: extractEngagement(cleanTitle, cleanSnippet),
-    qualityNotes: []
+    qualityNotes: [],
+    independentSourceKey: independentSourceKey(url)
   };
 }
 
@@ -130,4 +131,23 @@ function extractEngagement(...parts: string[]): string | undefined {
 
 function isRecord(value: unknown): value is UnknownRecord {
   return typeof value === "object" && value !== null;
+}
+
+export function independentSourceKey(url: string): string {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
+    const tiktokCreator = parsed.pathname.match(/^\/@([^/]+)/i)?.[1];
+    if (host.endsWith("tiktok.com") && tiktokCreator) return `tiktok:creator:${tiktokCreator.toLowerCase()}`;
+    if (host.endsWith("tiktok.com") && parsed.pathname.startsWith("/discover/")) {
+      return `tiktok:discover:${parsed.pathname.split("/").filter(Boolean)[1] ?? "unknown"}`;
+    }
+    const youtubeChannel = parsed.pathname.match(/^\/@([^/]+)/)?.[1];
+    if (host.endsWith("youtube.com") && youtubeChannel) return `youtube:channel:${youtubeChannel.toLowerCase()}`;
+    const redditCommunity = parsed.pathname.match(/^\/r\/([^/]+)/i)?.[1];
+    if (host.endsWith("reddit.com") && redditCommunity) return `reddit:community:${redditCommunity.toLowerCase()}`;
+    return host;
+  } catch {
+    return url.toLowerCase();
+  }
 }

@@ -3,6 +3,7 @@ import type {
   AgentOptions,
   CreativeConcept,
   FutureVideoPipelineDraft,
+  ToolTelemetry,
   TrendCandidate,
   TrendEvidence,
   TrendVideoReport
@@ -20,7 +21,8 @@ export async function synthesizeTrendVideoReport(
   options: AgentOptions,
   evidence: TrendEvidence[],
   candidates: TrendCandidate[],
-  failureNotes: string[]
+  failureNotes: string[],
+  toolTelemetry: ToolTelemetry[]
 ): Promise<TrendVideoReport> {
   const parsed = completeReportShape(
     repairReportShape(await synthesizeReportShapeWithFallback(options, evidence, candidates, failureNotes)),
@@ -30,10 +32,12 @@ export async function synthesizeTrendVideoReport(
   const futureVideoPipelineDraft = buildFuturePipelineDraft(options, parsed.recommendedConcept);
 
   return {
+    analysisVersion: "2.0",
     profile: options.profile,
     region: options.region,
     generatedAt: new Date().toISOString(),
-    toolsUsed: ["search_engine", "discover", "scrape_as_markdown"],
+    toolsUsed: [...new Set(toolTelemetry.filter((entry) => entry.status === "ok").map((entry) => entry.name))],
+    toolTelemetry,
     summary: parsed.summary,
     rankedTrends: parsed.rankedTrends,
     recommendedConcept: parsed.recommendedConcept,
@@ -185,7 +189,15 @@ function completeReportShape(report: ReportShape, candidates: TrendCandidate[], 
       ...trend,
       trendStage: trend.trendStage ?? source?.trendStage ?? "unclear",
       validationLevel: trend.validationLevel ?? source?.validationLevel ?? "weak",
-      sourceDiversity: (trend.sourceDiversity ?? source?.sourceDiversity ?? new Set(trend.exampleUrls.map((url) => urlDomain(url))).size) || 1
+      sourceDiversity: (trend.sourceDiversity ?? source?.sourceDiversity ?? new Set(trend.exampleUrls.map((url) => urlDomain(url))).size) || 1,
+      platformDiversity: trend.platformDiversity ?? source?.platformDiversity ?? 1,
+      independentSourceCount: trend.independentSourceCount ?? source?.independentSourceCount ?? trend.sourceDiversity ?? 1,
+      velocityScore: trend.velocityScore ?? source?.velocityScore,
+      velocityLabel: trend.velocityLabel ?? source?.velocityLabel,
+      velocityBasis: trend.velocityBasis ?? source?.velocityBasis,
+      saturationScore: trend.saturationScore ?? source?.saturationScore,
+      saturationLabel: trend.saturationLabel ?? source?.saturationLabel,
+      saturationBasis: trend.saturationBasis ?? source?.saturationBasis
     };
   });
 
@@ -207,7 +219,9 @@ function normalizeTrend(trend: TrendCandidate): TrendCandidate {
     ...trend,
     trendStage: trend.trendStage ?? "unclear",
     validationLevel: trend.validationLevel ?? "weak",
-    sourceDiversity: (trend.sourceDiversity ?? new Set(trend.exampleUrls.map((url) => urlDomain(url))).size) || 1
+    sourceDiversity: (trend.sourceDiversity ?? new Set(trend.exampleUrls.map((url) => urlDomain(url))).size) || 1,
+    platformDiversity: trend.platformDiversity ?? 1,
+    independentSourceCount: trend.independentSourceCount ?? trend.sourceDiversity ?? 1
   };
 }
 
@@ -222,13 +236,15 @@ function urlDomain(url: string): string {
 function buildConceptFromCandidate(options: AgentOptions, candidate: TrendCandidate): CreativeConcept {
   const humanShot = candidate.productionFit === "high" || candidate.platform !== "cross_platform";
   const productionMode = humanShot ? candidate.platform === "creative_center" ? "hybrid" : "human_shot" : "hybrid";
-  const hook = `POV: you found the ${options.profile.location.split(",")[0]} spot that makes weekdays feel lighter.`;
+  const location = options.profile.location.split(",")[0];
+  const subject = options.profile.niche.split(",")[0].trim();
+  const hook = `The ${subject} mistake ${options.profile.audience} keep making - and the practical fix.`;
   const scenePlan = [
-    "0-2s: Open on the strongest visual: coffee pour, pastry close-up, or quiet table reveal.",
-    "2-7s: Show the problem: busy weekday, laptop open, viewer needs a small reset.",
-    `7-18s: Show ${options.profile.businessName} solving it with atmosphere, product, and one human moment.`,
-    "18-25s: Add a simple reason to visit this week.",
-    "25-30s: End with a soft call to action and location cue."
+    `0-2s: Open with the strongest proof, contrast, or audience pain related to ${subject}.`,
+    `2-7s: Name the specific problem experienced by ${options.profile.audience}.`,
+    `7-18s: Demonstrate how ${options.profile.businessName} addresses it using a real process, product, service, or expert action.`,
+    "18-25s: Show one credible detail, result, or human proof point.",
+    `25-30s: End with a direct action tied to the goal: ${options.profile.goal}.`
   ];
 
   return {
@@ -236,21 +252,21 @@ function buildConceptFromCandidate(options: AgentOptions, candidate: TrendCandid
     trendName: candidate.name,
     hook,
     format: candidate.format,
-    caption: `Your weekday reset in ${options.profile.location.split(",")[0]}. Save this for your next coffee-work break.`,
-    executionStyle: "Warm, quick-cut, phone-shot vertical video with natural light, close product details, and one staff/customer human moment.",
+    caption: `${candidate.name}, adapted for ${options.profile.businessName} in ${location}. Save this and take the next step.`,
+    executionStyle: "Fast, credible vertical video using real proof, readable text overlays, and a human or product-led demonstration.",
     productionMode,
     scenePlan,
     shotList: [
-      "Exterior or street sign establishing shot",
-      "Coffee pour or pastry close-up",
-      "Laptop/table/work corner detail",
-      "Staff smile or handoff",
-      "Final table spread with location text overlay"
+      `Opening proof or problem visual related to ${subject}`,
+      "Close-up of the product, workflow, service, or expert action",
+      "Human reaction, customer context, or interface/result detail",
+      "Credibility detail such as process step, comparison, or outcome",
+      `Final branded frame with ${location} and the call to action`
     ],
     aiVideoPrompt:
       productionMode === "human_shot"
         ? undefined
-        : `Vertical 9:16 cozy local cafe in ${options.profile.location}, warm natural light, close-up coffee pour, pastry plate, laptop on wooden table, authentic phone-shot feel, no logos, no surreal artifacts.`,
+        : `Vertical 9:16 short-form video for ${options.profile.businessName}, a ${options.profile.niche} brand in ${options.profile.location}. Show a credible problem-to-solution sequence for ${options.profile.audience}, authentic phone-shot texture, realistic people and objects, readable composition, no invented logos or unsupported outcomes.`,
     confidence: candidate.confidence
   };
 }
@@ -266,8 +282,8 @@ function buildFuturePipelineDraft(options: AgentOptions, concept: CreativeConcep
       options.profile.niche,
       options.profile.location,
       "vertical video",
-      "coffee",
-      "local business",
+      options.profile.audience,
+      options.profile.goal,
       concept.trendName
     ],
     caption: concept.caption,
@@ -278,17 +294,17 @@ function buildFuturePipelineDraft(options: AgentOptions, concept: CreativeConcep
 
 function fallbackCandidate(options: AgentOptions): TrendCandidate {
   return {
-    name: "Cozy work/study POV",
+    name: "Problem-to-solution POV",
     platform: "cross_platform",
     format: "POV micro-vlog",
-    topic: "show the business as a useful local ritual",
+    topic: "show the audience problem, credible intervention, and practical result",
     score: 12,
     evidenceStrength: "low",
     nicheFit: "medium",
     locationFit: "low",
     productionFit: "high",
     brandSafety: "high",
-    fitRationale: `Default fallback format for ${options.profile.businessName}.`,
+    fitRationale: `General-purpose fallback format grounded in ${options.profile.businessName}, ${options.profile.audience}, and ${options.profile.goal}.`,
     risks: ["No strong trend cluster was available."],
     exampleUrls: [],
     confidence: 0.52

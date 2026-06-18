@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nook &amp; Pour Trend Evidence Dashboard</title>
+  <style>
+    :root { --ink:#17202a; --muted:#5f6b76; --line:#d9e0e5; --paper:#f7f9fa; --white:#fff; --teal:#087f8c; --coral:#d95d39; --yellow:#f2c14e; --green:#27864f; --red:#b42318; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:Inter,Segoe UI,Arial,sans-serif; letter-spacing:0; }
+    a { color:var(--teal); }
+    header { background:var(--ink); color:var(--white); padding:32px max(24px,calc((100vw - 1180px)/2)); border-bottom:6px solid var(--yellow); }
+    header p { color:#d9e0e5; max-width:850px; margin:10px 0 0; line-height:1.5; }
+    h1 { margin:0; font-size:clamp(28px,4vw,48px); line-height:1.05; }
+    h2 { font-size:24px; margin:0 0 16px; }
+    h3 { margin:4px 0 8px; font-size:18px; }
+    main { width:min(1180px,calc(100% - 32px)); margin:24px auto 48px; }
+    section { margin-top:30px; }
+    .kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+    .kpi,.concept,.trend-card,.table-wrap,.storyboard { background:var(--white); border:1px solid var(--line); border-radius:6px; }
+    .kpi { padding:18px; border-top:4px solid var(--teal); }
+    .kpi:nth-child(2) { border-top-color:var(--coral); }
+    .kpi:nth-child(3) { border-top-color:var(--yellow); }
+    .kpi:nth-child(4) { border-top-color:var(--green); }
+    .kpi strong { display:block; font-size:28px; margin-top:6px; }
+    .label,.eyebrow { color:var(--muted); font-size:12px; text-transform:uppercase; font-weight:700; }
+    .concept { display:grid; grid-template-columns:1.2fr .8fr; gap:24px; padding:24px; border-left:6px solid var(--coral); }
+    .hook { font-size:22px; font-weight:750; line-height:1.3; }
+    .concept-meta { display:grid; gap:10px; align-content:start; }
+    .concept-meta div { border-bottom:1px solid var(--line); padding-bottom:10px; }
+    .concept-meta .label { display:block; margin-bottom:4px; }
+    .concept-meta strong { display:block; line-height:1.35; }
+    .trend-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .trend-card { position:relative; padding:20px; overflow:hidden; }
+    .rank { position:absolute; right:14px; top:8px; color:#d9e0e5; font-size:52px; font-weight:800; }
+    .trend-head { display:flex; justify-content:space-between; gap:16px; position:relative; }
+    .confidence { font-weight:800; color:var(--teal); padding-right:42px; }
+    .metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:18px 0; }
+    .metric-row { display:grid; grid-template-columns:1fr auto; gap:6px; font-size:13px; }
+    .bar { grid-column:1/-1; height:8px; background:#e8edf0; }
+    .bar span { display:block; height:100%; }
+    .bar .teal { background:var(--teal); } .bar .coral { background:var(--coral); }
+    .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .facts div { background:var(--paper); padding:9px; }
+    dt { color:var(--muted); font-size:11px; } dd { margin:4px 0 0; font-weight:700; }
+    .basis { font-size:12px; color:var(--muted); line-height:1.45; }
+    .links { display:flex; flex-wrap:wrap; gap:8px; }
+    .links a { font-size:12px; font-weight:700; }
+    .storyboard { display:grid; grid-template-columns:repeat(5,1fr); overflow:hidden; }
+    .scene { min-height:150px; padding:16px; border-right:1px solid var(--line); }
+    .scene:last-child { border-right:0; }
+    .scene strong { display:block; color:var(--coral); margin-bottom:10px; }
+    .table-wrap { overflow:auto; }
+    table { width:100%; border-collapse:collapse; min-width:820px; }
+    th,td { padding:12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:13px; }
+    th { background:#eef2f4; color:var(--muted); font-size:11px; text-transform:uppercase; position:sticky; top:0; }
+    .source-title { display:block; font-weight:700; max-width:420px; }
+    small { display:block; color:var(--muted); margin-top:4px; }
+    .status { display:inline-block; padding:3px 7px; border-radius:3px; font-size:11px; font-weight:800; text-transform:uppercase; background:#e8edf0; }
+    .status-ok { color:var(--green); background:#e8f5ed; }
+    .status-failed { color:var(--red); background:#fdecea; }
+    .status-partial,.status-metadata_only { color:#805b00; background:#fff4ce; }
+    code { font-family:Consolas,monospace; }
+    .notes { columns:2; padding-left:20px; }
+    .notes li { margin-bottom:8px; break-inside:avoid; }
+    @media (max-width:850px) {
+      .kpis,.trend-grid { grid-template-columns:1fr 1fr; }
+      .concept { grid-template-columns:1fr; }
+      .storyboard { grid-template-columns:1fr; }
+      .scene { border-right:0; border-bottom:1px solid var(--line); min-height:0; }
+    }
+    @media (max-width:540px) {
+      .kpis,.trend-grid,.metric-grid,.facts { grid-template-columns:1fr; }
+      .notes { columns:1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">Bright Data MCP · Trend-to-Video Agent</p>
+    <h1>Nook &amp; Pour</h1>
+    <p>Nook &amp; Pour should adapt &quot;POV routine or day-in-the-life&quot; into a short POV micro-vlog because it fits specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.</p>
+  </header>
+  <main>
+    <section class="kpis">
+      <article class="kpi"><span class="label">Evidence sources</span><strong>6</strong></article>
+      <article class="kpi"><span class="label">Structured social</span><strong>1</strong></article>
+      <article class="kpi"><span class="label">Successful MCP calls</span><strong>14</strong></article>
+      <article class="kpi"><span class="label">Top confidence</span><strong>90%</strong></article>
+    </section>
+    <section>
+      <h2>Recommended Opportunity</h2>
+      <article class="concept">
+        <div>
+          <p class="eyebrow">human_shot</p>
+          <h3>POV routine or day-in-the-life for Nook &amp; Pour</h3>
+          <p class="hook">The specialty coffee mistake students, remote workers, young professionals keep making - and the practical fix.</p>
+          <p>Fast, credible vertical video using real proof, readable text overlays, and a human or product-led demonstration.</p>
+        </div>
+        <div class="concept-meta">
+          <div><span class="label">Format</span><strong>POV micro-vlog</strong></div>
+          <div><span class="label">Caption</span><strong>POV routine or day-in-the-life, adapted for Nook &amp; Pour in Tel Aviv. Save this and take the next step.</strong></div>
+          <div><span class="label">Goal</span><strong>increase weekday visits</strong></div>
+          <div><span class="label">Location</span><strong>Tel Aviv, Israel</strong></div>
+        </div>
+      </article>
+    </section>
+    <section>
+      <h2>Storyboard</h2>
+      <div class="storyboard"><div class="scene"><strong>Scene 1</strong>0-2s: Open with the strongest proof, contrast, or audience pain related to specialty coffee.</div><div class="scene"><strong>Scene 2</strong>2-7s: Name the specific problem experienced by students, remote workers, young professionals.</div><div class="scene"><strong>Scene 3</strong>7-18s: Demonstrate how Nook &amp; Pour addresses it using a real process, product, service, or expert action.</div><div class="scene"><strong>Scene 4</strong>18-25s: Show one credible detail, result, or human proof point.</div><div class="scene"><strong>Scene 5</strong>25-30s: End with a direct action tied to the goal: increase weekday visits.</div></div>
+    </section>
+    <section>
+      <h2>Ranked Trend Opportunities</h2>
+      <div class="trend-grid">
+        <article class="trend-card">
+          <div class="rank">1</div>
+          <div class="trend-head">
+            <div>
+              <p class="eyebrow">cross_platform · platform_discovery</p>
+              <h3>POV routine or day-in-the-life</h3>
+            </div>
+            <span class="confidence">90%</span>
+          </div>
+          <p>POV routine or day-in-the-life fits Nook &amp; Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.</p>
+          <div class="metric-grid">
+            <div class="metric-row"><strong>Velocity</strong><span>unknown · 0</span><div class="bar"><span class="teal" style="width:0%"></span></div></div>
+            <div class="metric-row"><strong>Saturation</strong><span>crowded · 76</span><div class="bar"><span class="coral" style="width:76%"></span></div></div>
+          </div>
+          <dl class="facts">
+            <div><dt>Independent sources</dt><dd>4</dd></div>
+            <div><dt>Platforms</dt><dd>3</dd></div>
+            <div><dt>Production</dt><dd>high</dd></div>
+            <div><dt>Stage</dt><dd>unclear</dd></div>
+          </dl>
+          <p class="basis"><strong>Velocity:</strong> No prior run and no structured publication-time plus engagement data; no velocity claim is made.</p>
+          <p class="basis"><strong>Saturation:</strong> Current snapshot proxy: 4 independent source(s), 3 platform type(s), 0 post(s) above 500K views, 2 TikTok Discover page(s).</p>
+          <div class="links"><a href="https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/" target="_blank" rel="noreferrer">Open evidence</a><a href="https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh" target="_blank" rel="noreferrer">Open evidence</a><a href="https://www.tiktok.com/discover/best-cafes-to-study-in-ramallah" target="_blank" rel="noreferrer">Open evidence</a><a href="https://www.tiktok.com/discover/cafe-in-city" target="_blank" rel="noreferrer">Open evidence</a></div>
+        </article>
+        <article class="trend-card">
+          <div class="rank">2</div>
+          <div class="trend-head">
+            <div>
+              <p class="eyebrow">cross_platform · direct_video</p>
+              <h3>Comment-reply or audience reaction</h3>
+            </div>
+            <span class="confidence">90%</span>
+          </div>
+          <p>Comment-reply or audience reaction fits Nook &amp; Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.</p>
+          <div class="metric-grid">
+            <div class="metric-row"><strong>Velocity</strong><span>stable · 39</span><div class="bar"><span class="teal" style="width:39%"></span></div></div>
+            <div class="metric-row"><strong>Saturation</strong><span>crowded · 70</span><div class="bar"><span class="coral" style="width:70%"></span></div></div>
+          </div>
+          <dl class="facts">
+            <div><dt>Independent sources</dt><dd>4</dd></div>
+            <div><dt>Platforms</dt><dd>3</dd></div>
+            <div><dt>Production</dt><dd>high</dd></div>
+            <div><dt>Stage</dt><dd>evergreen</dd></div>
+          </dl>
+          <p class="basis"><strong>Velocity:</strong> Snapshot estimate from 1 structured post(s), 0 published within 45 days, median 60 views/day. Run history is not yet available.</p>
+          <p class="basis"><strong>Saturation:</strong> Current snapshot proxy: 4 independent source(s), 3 platform type(s), 0 post(s) above 500K views, 1 TikTok Discover page(s).</p>
+          <div class="links"><a href="https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/" target="_blank" rel="noreferrer">Open evidence</a><a href="https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh" target="_blank" rel="noreferrer">Open evidence</a><a href="https://www.tiktok.com/@birthrightisrael/video/7257549736591265070" target="_blank" rel="noreferrer">Open evidence</a><a href="https://www.tiktok.com/discover/best-cafes-to-study-in-ramallah" target="_blank" rel="noreferrer">Open evidence</a></div>
+        </article>
+        <article class="trend-card">
+          <div class="rank">3</div>
+          <div class="trend-head">
+            <div>
+              <p class="eyebrow">cross_platform · direct_video</p>
+              <h3>Mini guide / listicle</h3>
+            </div>
+            <span class="confidence">90%</span>
+          </div>
+          <p>Mini guide / listicle fits Nook &amp; Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.</p>
+          <div class="metric-grid">
+            <div class="metric-row"><strong>Velocity</strong><span>stable · 39</span><div class="bar"><span class="teal" style="width:39%"></span></div></div>
+            <div class="metric-row"><strong>Saturation</strong><span>crowded · 70</span><div class="bar"><span class="coral" style="width:70%"></span></div></div>
+          </div>
+          <dl class="facts">
+            <div><dt>Independent sources</dt><dd>4</dd></div>
+            <div><dt>Platforms</dt><dd>3</dd></div>
+            <div><dt>Production</dt><dd>high</dd></div>
+            <div><dt>Stage</dt><dd>evergreen</dd></div>
+          </dl>
+          <p class="basis"><strong>Velocity:</strong> Snapshot estimate from 1 structured post(s), 0 published within 45 days, median 60 views/day. Run history is not yet available.</p>
+          <p class="basis"><strong>Saturation:</strong> Current snapshot proxy: 4 independent source(s), 3 platform type(s), 0 post(s) above 500K views, 1 TikTok Discover page(s).</p>
+          <div class="links"><a href="https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/" target="_blank" rel="noreferrer">Open evidence</a><a href="https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh" target="_blank" rel="noreferrer">Open evidence</a><a href="https://www.tiktok.com/@birthrightisrael/video/7257549736591265070" target="_blank" rel="noreferrer">Open evidence</a><a href="https://www.tiktok.com/discover/best-cafes-to-study-in-ramallah" target="_blank" rel="noreferrer">Open evidence</a></div>
+        </article>
+        <article class="trend-card">
+          <div class="rank">4</div>
+          <div class="trend-head">
+            <div>
+              <p class="eyebrow">cross_platform · direct_video</p>
+              <h3>Local discovery or hidden gem</h3>
+            </div>
+            <span class="confidence">90%</span>
+          </div>
+          <p>Local discovery or hidden gem fits Nook &amp; Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.</p>
+          <div class="metric-grid">
+            <div class="metric-row"><strong>Velocity</strong><span>stable · 39</span><div class="bar"><span class="teal" style="width:39%"></span></div></div>
+            <div class="metric-row"><strong>Saturation</strong><span>growing · 54</span><div class="bar"><span class="coral" style="width:54%"></span></div></div>
+          </div>
+          <dl class="facts">
+            <div><dt>Independent sources</dt><dd>3</dd></div>
+            <div><dt>Platforms</dt><dd>3</dd></div>
+            <div><dt>Production</dt><dd>high</dd></div>
+            <div><dt>Stage</dt><dd>evergreen</dd></div>
+          </dl>
+          <p class="basis"><strong>Velocity:</strong> Snapshot estimate from 1 structured post(s), 0 published within 45 days, median 60 views/day. Run history is not yet available.</p>
+          <p class="basis"><strong>Saturation:</strong> Current snapshot proxy: 3 independent source(s), 3 platform type(s), 0 post(s) above 500K views, 0 TikTok Discover page(s).</p>
+          <div class="links"><a href="https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/" target="_blank" rel="noreferrer">Open evidence</a><a href="https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh" target="_blank" rel="noreferrer">Open evidence</a><a href="https://www.tiktok.com/@birthrightisrael/video/7257549736591265070" target="_blank" rel="noreferrer">Open evidence</a></div>
+        </article></div>
+    </section>
+    <section>
+      <h2>Evidence Ledger</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Status</th><th>Platform</th><th>Source</th><th>Views</th><th>Likes</th><th>Published</th><th>Evidence type</th></tr></thead>
+        <tbody>
+        <tr>
+          <td><span class="status status-ok">ok</span></td>
+          <td><span class="platform">reddit</span></td>
+          <td>
+            <a class="source-title" href="https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/" target="_blank" rel="noreferrer">Study spots in Tel Aviv : r/telaviv</a>
+            <small>reddit:community:telaviv</small>
+          </td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>search</td>
+        </tr>
+        <tr>
+          <td><span class="status status-ok">ok</span></td>
+          <td><span class="platform">article</span></td>
+          <td>
+            <a class="source-title" href="https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh" target="_blank" rel="noreferrer">2026 specialty coffee trends at home and at the office</a>
+            <small>pabloandrustys.com.au</small>
+          </td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>discover</td>
+        </tr>
+        <tr>
+          <td><span class="status status-metadata_only">metadata_only</span></td>
+          <td><span class="platform">tiktok</span></td>
+          <td>
+            <a class="source-title" href="https://www.tiktok.com/@birthrightisrael/video/7257549736591265070" target="_blank" rel="noreferrer">We&#039;ve got something brewing Join us in exploring the recommendations for coffee in Tel Aviv from the locals, themselves. Which would you head to first? #BirthrightIsrael #birthrigh</a>
+            <small>birthrightisrael</small>
+          </td>
+          <td>64K</td>
+          <td>3.5K</td>
+          <td>2023-07-19</td>
+          <td>structured</td>
+        </tr>
+        <tr>
+          <td><span class="status status-metadata_only">metadata_only</span></td>
+          <td><span class="platform">tiktok</span></td>
+          <td>
+            <a class="source-title" href="https://www.tiktok.com/discover/best-cafes-to-study-in-ramallah" target="_blank" rel="noreferrer">Best Cafes to Study in Ramallah</a>
+            <small>tiktok:discover:best-cafes-to-study-in-ramallah</small>
+          </td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>discover</td>
+        </tr>
+        <tr>
+          <td><span class="status status-metadata_only">metadata_only</span></td>
+          <td><span class="platform">tiktok</span></td>
+          <td>
+            <a class="source-title" href="https://www.tiktok.com/discover/nonni-cafe-toronto-israeli" target="_blank" rel="noreferrer">Nonni Cafe Toronto Israeli</a>
+            <small>tiktok:discover:nonni-cafe-toronto-israeli</small>
+          </td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>discover</td>
+        </tr>
+        <tr>
+          <td><span class="status status-metadata_only">metadata_only</span></td>
+          <td><span class="platform">tiktok</span></td>
+          <td>
+            <a class="source-title" href="https://www.tiktok.com/discover/cafe-in-city" target="_blank" rel="noreferrer">Cafe in City</a>
+            <small>tiktok:discover:cafe-in-city</small>
+          </td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>discover</td>
+        </tr></tbody>
+      </table></div>
+    </section>
+    <section>
+      <h2>MCP Execution Trace</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Tool</th><th>Status</th><th>Duration</th><th>Results</th><th>Error</th></tr></thead>
+        <tbody>
+        <tr>
+          <td><code>search_engine</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>1,447 ms</td>
+          <td>10</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>search_engine</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>1,729 ms</td>
+          <td>9</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>search_engine</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>4,331 ms</td>
+          <td>10</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>search_engine</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>3,181 ms</td>
+          <td>0</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>discover</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>4,018 ms</td>
+          <td>6</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>discover</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>6,299 ms</td>
+          <td>6</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>discover</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>5,138 ms</td>
+          <td>6</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>scrape_as_markdown</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>1,221 ms</td>
+          <td>0</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>scrape_as_markdown</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>2,054 ms</td>
+          <td>1</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>scrape_as_markdown</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>5,959 ms</td>
+          <td>1</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>scrape_as_markdown</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>1,258 ms</td>
+          <td>0</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>scrape_as_markdown</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>1,656 ms</td>
+          <td>0</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>scrape_as_markdown</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>2,135 ms</td>
+          <td>0</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>web_data_tiktok_posts</code></td>
+          <td><span class="status status-ok">ok</span></td>
+          <td>37,381 ms</td>
+          <td>1</td>
+          <td></td>
+        </tr></tbody>
+      </table></div>
+    </section>
+    <section>
+      <h2>Failure and Uncertainty Notes</h2>
+      <ul class="notes"><li>4 social source(s) were retained as metadata-only because the public page had limited scrapeable text.</li><li>No time-separated comparable trend record was available. Velocity remains unknown unless structured publication and engagement data support a snapshot estimate.</li></ul>
+    </section>
+  </main>
+</body>
+</html>

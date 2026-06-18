@@ -11,47 +11,68 @@ type TopicPattern = {
 
 const topicPatterns: TopicPattern[] = [
   {
-    name: "Cozy work/study POV",
+    name: "POV routine or day-in-the-life",
     format: "POV micro-vlog",
-    topic: "show the cafe as a tiny weekday productivity escape",
-    patterns: [/pov|study|work|remote|cafe|coffee shop|cozy|day in my life|vlog/i],
+    topic: "show how the offer fits into a recognizable audience routine",
+    patterns: [/pov|routine|day in my life|vlog|study|work|remote|morning|evening|with me/i],
     productionMode: "human_shot"
   },
   {
-    name: "Behind-the-counter ASMR",
-    format: "sensory process video",
-    topic: "close-up drink and pastry preparation",
-    patterns: [/asmr|behind the scenes|barista|latte|coffee|pastry|satisfying|process/i],
+    name: "Behind-the-scenes process",
+    format: "process reveal or ASMR",
+    topic: "make the work, craft, workflow, or transformation visible",
+    patterns: [/asmr|behind the scenes|process|workflow|making|build|how it works|satisfying|preparation|demo/i],
     productionMode: "human_shot"
   },
   {
-    name: "Local hidden gem",
+    name: "Local discovery or hidden gem",
     format: "neighborhood discovery",
-    topic: "position the business as a local place worth finding",
-    patterns: [/hidden gem|local|tel aviv|israel|neighborhood|where to go|places/i],
+    topic: "position the business, creator, or experience as locally relevant and worth discovering",
+    patterns: [/hidden gem|local|neighborhood|where to go|places|near me|city guide|community/i],
     productionMode: "human_shot"
   },
   {
-    name: "Nostalgia / 2016 reset",
-    format: "throwback remix",
-    topic: "use current nostalgia formats without forcing a dance trend",
-    patterns: [/2016|nostalgia|throwback|bringback|reset|retro|photobooth/i],
+    name: "Before-and-after transformation",
+    format: "contrast reveal",
+    topic: "show a clear change in state, result, workflow, or customer outcome",
+    patterns: [/before and after|before\/after|transformation|from .* to|result|upgrade|makeover|then vs now|chaos|calm/i],
     productionMode: "hybrid",
-    risk: "Nostalgia trends can feel forced if the business has no personal or visual connection to the era."
+    risk: "The transformation must be supportable and should not exaggerate the product or service outcome."
   },
   {
-    name: "Absurd low-stakes humor",
-    format: "brainrot-lite brand joke",
-    topic: "use unserious humor around coffee, studying, and weekday motivation",
-    patterns: [/brain rot|brainrot|unserious|meme|humor|funny|aura|aura farming/i],
+    name: "Myth-versus-fact explainer",
+    format: "expert reaction or correction",
+    topic: "turn a common misconception into a fast, useful explanation",
+    patterns: [/myth|mistake|wrong|truth|fact|expert|explainer|nobody tells you|stop doing|did you know/i],
+    productionMode: "human_shot"
+  },
+  {
+    name: "Comment-reply or audience reaction",
+    format: "reply-to-comment video",
+    topic: "use a real audience question or objection as the opening hook",
+    patterns: [/comment|question|asked|reply|reaction|people say|customer|review|community/i],
+    productionMode: "human_shot"
+  },
+  {
+    name: "Low-stakes native humor",
+    format: "brand-safe meme or relatable sketch",
+    topic: "translate an audience frustration into platform-native humor",
+    patterns: [/brain rot|brainrot|unserious|meme|humor|funny|relatable|aura|expectation vs reality/i],
     productionMode: "hybrid",
-    risk: "Humor should stay brand-safe and local; avoid copying insensitive formats."
+    risk: "Humor must match the brand voice and should not obscure the practical value."
   },
   {
     name: "Mini guide / listicle",
-    format: "3 reasons / 3 spots / 3 orders",
-    topic: "convert trend evidence into practical local recommendations",
-    patterns: [/guide|tips|best|top|three|3|list|things to do|where/i],
+    format: "3 tips / reasons / examples",
+    topic: "compress practical niche knowledge into a saveable sequence",
+    patterns: [/guide|tips|best|top|three|3|list|things to do|where|ways|reasons|steps/i],
+    productionMode: "human_shot"
+  },
+  {
+    name: "Challenge or constrained experiment",
+    format: "test, challenge, or timed experiment",
+    topic: "create curiosity by testing a claim or completing a useful constraint",
+    patterns: [/challenge|test|experiment|trying|for 7 days|in 30 seconds|under \$|can we|versus|vs\./i],
     productionMode: "human_shot"
   }
 ];
@@ -68,7 +89,7 @@ export function analyzeTrends(options: AgentOptions, evidence: TrendEvidence[]):
     .sort((a, b) => b.score - a.score)
     .slice(0, options.maxTrends);
 
-  const selected = candidates.length ? candidates : fallbackCandidates(options, evidence);
+  const selected = backfillCandidates(candidates, options, evidence);
   return {
     candidates: selected,
     failureNotes: buildFailureNotes(options, evidence, selected)
@@ -86,7 +107,8 @@ function buildCandidate(options: AgentOptions, evidence: TrendEvidence[], patter
   const score = evidenceScore + socialBoost + fitValue(nicheFit) + fitValue(locationFit) + fitValue(productionFit) + fitValue(brandSafety);
   const validationLevel = inferValidationLevel(matching);
   const trendStage = inferTrendStage(matching);
-  const sourceDiversity = new Set(matching.map((source) => source.platform)).size;
+  const independentSourceCount = new Set(matching.map((source) => source.independentSourceKey ?? source.url)).size;
+  const platformDiversity = new Set(matching.map((source) => source.platform)).size;
 
   return {
     name: pattern.name,
@@ -101,7 +123,9 @@ function buildCandidate(options: AgentOptions, evidence: TrendEvidence[], patter
     brandSafety,
     trendStage,
     validationLevel,
-    sourceDiversity,
+    sourceDiversity: independentSourceCount,
+    platformDiversity,
+    independentSourceCount,
     fitRationale: `${pattern.name} fits ${options.profile.businessName} because it maps the trend format to ${options.profile.niche}, ${options.profile.audience}, and the goal to ${options.profile.goal}.`,
     risks: pattern.risk ? [pattern.risk] : [],
     exampleUrls: [...new Set(matching.map((source) => source.url))].slice(0, 4),
@@ -110,10 +134,17 @@ function buildCandidate(options: AgentOptions, evidence: TrendEvidence[], patter
 }
 
 function fallbackCandidates(options: AgentOptions, evidence: TrendEvidence[]): TrendCandidate[] {
+  const fallbackFormats = [
+    { name: "Evidence-led POV adaptation", format: "POV micro-vlog" },
+    { name: "Evidence-led process reveal", format: "behind-the-scenes demonstration" },
+    { name: "Evidence-led mini explainer", format: "three-part educational short" },
+    { name: "Evidence-led audience response", format: "comment-reply video" },
+    { name: "Evidence-led transformation", format: "before-and-after contrast" }
+  ];
   return evidence.slice(0, Math.max(3, options.maxTrends)).map((source, index) => ({
-    name: `${source.platform === "unknown" ? "Cross-platform" : source.platform} trend adaptation`,
+    name: fallbackFormats[index % fallbackFormats.length].name,
     platform: source.platform === "unknown" ? "cross_platform" : source.platform,
-    format: index === 0 ? "POV micro-vlog" : index === 1 ? "sensory process video" : "mini guide",
+    format: fallbackFormats[index % fallbackFormats.length].format,
     topic: source.snippet || source.title,
     score: evidenceQuality(source) + 8 - index,
     evidenceStrength: source.scrapeStatus === "ok" ? "medium" : "low",
@@ -124,11 +155,28 @@ function fallbackCandidates(options: AgentOptions, evidence: TrendEvidence[]): T
     trendStage: source.recencyHint ? "rising" : "unclear",
     validationLevel: source.url.includes("/video/") || source.url.includes("youtube.com/shorts") ? "direct_video" : source.platform === "tiktok" ? "platform_discovery" : "supporting_signal",
     sourceDiversity: 1,
+    platformDiversity: 1,
+    independentSourceCount: 1,
     fitRationale: `Selected as a fallback because the source survived discovery and can be adapted to ${options.profile.niche}.`,
     risks: ["Trend label is inferred from limited evidence; manually review before posting."],
     exampleUrls: [source.url],
     confidence: 0.58
   }));
+}
+
+function backfillCandidates(candidates: TrendCandidate[], options: AgentOptions, evidence: TrendEvidence[]): TrendCandidate[] {
+  const target = Math.min(options.maxTrends, Math.max(3, candidates.length));
+  const result = [...candidates];
+  const seen = new Set(result.map((candidate) => candidate.name.toLowerCase()));
+
+  for (const fallback of fallbackCandidates(options, evidence)) {
+    if (result.length >= target) break;
+    if (seen.has(fallback.name.toLowerCase())) continue;
+    result.push(fallback);
+    seen.add(fallback.name.toLowerCase());
+  }
+
+  return result.slice(0, options.maxTrends);
 }
 
 function buildFailureNotes(options: AgentOptions, evidence: TrendEvidence[], candidates: TrendCandidate[]): string[] {
@@ -165,10 +213,10 @@ function inferValidationLevel(sources: TrendEvidence[]): ValidationLevel {
 }
 
 function inferTrendStage(sources: TrendEvidence[]): TrendStage {
-  const text = sources.map(evidenceText).join(" ").toLowerCase();
-  if (/\b(today|this week|4 days ago|new|latest|new to top|emerging)\b/.test(text)) return "emerging";
-  if (/\b(2026|recent|rising|trendline|growth|popular now)\b/.test(text)) return "rising";
-  if (/\b(guide|evergreen|how to|best|tips)\b/.test(text)) return "evergreen";
+  const dated = sources.filter((source) => source.publishedAt).map((source) => ageInDays(source.publishedAt!));
+  if (dated.some((days) => days <= 14)) return "emerging";
+  if (dated.some((days) => days <= 60)) return "rising";
+  if (sources.some((source) => source.structuredDataStatus === "ok" && (source.views ?? 0) > 0)) return "evergreen";
   return "unclear";
 }
 
@@ -195,4 +243,8 @@ function dominantPlatform(sources: TrendEvidence[]): Platform | "cross_platform"
 
 function hasHumanShotCapability(options: AgentOptions): boolean {
   return options.profile.capabilities.some((capability) => /phone|staff|camera|film|shot|reels|tiktok/i.test(capability));
+}
+
+function ageInDays(value: string): number {
+  return Math.max(0, (Date.now() - Date.parse(value)) / 86_400_000);
 }

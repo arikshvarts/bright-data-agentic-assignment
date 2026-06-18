@@ -1,46 +1,41 @@
 # Assignment Guideline Audit
 
-Date: June 12, 2026
-
-This file maps the Bright Data AI Engineer assignment requirements to the actual repo implementation and the practical checks I ran. It is intentionally explicit so a reviewer can see what was verified live and what remains a future improvement.
+Updated: June 18, 2026
 
 ## Executive Summary
 
-The repo now contains two runnable Bright Data MCP agents:
+The recommended Mission 1 submission is `agent-2-trend-video-agent/`.
 
-- **Recommended Mission 1 demo:** `agent-2-trend-video-agent/`
-- **Preserved previous Mission 1 agent:** `part-1-agent/` and `agent-1-ecosystem-radar/`
+It is a production-oriented CLI web agent that turns a business profile plus current web/social evidence into:
 
-Agent 2 is the recommended submission path because it is more visual and demo-friendly:
+- Ranked trend opportunities.
+- Traceable evidence links.
+- Structured TikTok metrics when available.
+- A production-ready concept and storyboard.
+- Markdown, JSON, and HTML dashboard outputs.
+- A future MoneyPrinterTurbo-compatible payload.
 
-```text
-business profile -> live social trend evidence -> ranked trends -> video concept -> script/scene plan
-```
+## Requirement Coverage
 
-It stays inside the assignment scope: it is a web agent, uses Bright Data MCP as the live-web infrastructure, composes multiple MCP tools, handles real web uncertainty, and produces Markdown/JSON outputs from a one-command CLI.
-
-## Requirement-by-Requirement Coverage
-
-| Assignment requirement | Practical coverage | Evidence |
+| Requirement | Current implementation | Practical verification |
 | --- | --- | --- |
-| Build a production-quality web agent | Agent 2 is a typed Node/TypeScript CLI with profile parsing, Bright Data MCP orchestration, source normalization, scrape policy, trend scoring, LLM synthesis, fallback synthesis, Markdown/JSON outputs, and tests. | `agent-2-trend-video-agent/src/` |
-| Use Bright Data MCP server | Agent 2 spawns Bright Data MCP with `npx -y @brightdata/mcp`. | `agent-2-trend-video-agent/src/mcpBrightData.ts` |
-| Use at least two distinct Bright Data MCP tools | Agent 2 uses three tools: `search_engine`, `discover`, and `scrape_as_markdown`. | Live run console and `toolsUsed` in sample report |
-| Runnable end-to-end with one command after install/env setup | `npm run demo:live` runs the full live flow. | `agent-2-trend-video-agent/package.json` |
-| Handle at least one real failure mode actually hit | Agent 2 handles metadata-only social pages, generic source pollution, malformed LLM JSON, broken text encoding, and weak evidence. These were encountered during live validation, not invented after the fact. | `scrapePolicy.ts`, `agent.ts`, `llm.ts`, `textRepair.ts`, sample report failure notes |
-| Produce clear output | Agent 2 writes console summary, Markdown report, and JSON report. | `agent-2-trend-video-agent/runs/sample-report.md` and `.json` |
-| Include evidence and links | The sample report includes TikTok/YouTube/trend evidence URLs and an evidence log with source status. | `agent-2-trend-video-agent/runs/sample-report.md` |
-| Explain tradeoff | The README and report explain the free-tier reproducibility tradeoff versus Pro/social extractors. | `agent-2-trend-video-agent/README.md`, sample report |
-| Keep deliverables organized | The root README explains Agent 2, Agent 1, Part 2 memo, writeups, comparison, and evaluation. | `README.md` |
-| Part 2 competitor memo | Firecrawl memo exists with current metrics, recent launches, and a 90-day Bright Data recommendation. | `part-2-competitor-memo.md` |
+| Production-quality web agent | Typed TypeScript CLI, Zod profile validation, MCP orchestration, evidence normalization, relevance validation, structured enrichment, deterministic scoring, LLM synthesis, fallback, reports, dashboard, tests. | Typecheck/build/live runs passed |
+| Bright Data MCP core infrastructure | Spawns `npx -y @brightdata/mcp` over MCP stdio with the `social` group. | Verified live |
+| At least two distinct Bright Data tools | Fast mode uses `search_engine`, `discover`, `scrape_as_markdown`, and `web_data_tiktok_posts`. Deep mode adds `web_data_tiktok_comments`. | All five succeeded in live validation |
+| One-command end-to-end | `npm run demo:live` after install and env setup. | Passed live |
+| Real failure handling | Handles MCP `isError`, invalid geo fields, thin social scrape, misleading snippets, weak evidence, malformed LLM JSON, old-model history, region contamination, and CLI forwarding behavior. | Each was encountered during development |
+| Evidence and links | Evidence ledger includes URLs, platform, source status, relevance, structured metrics, and uncertainty. | Committed sample |
+| Clear output | Console, Markdown, JSON, responsive HTML dashboard. | Generated live |
+| Location awareness | Search receives `geo_location`; Discover receives country/language; region is inferred from profile. | Israel and US profiles verified |
+| Social uncertainty | Metadata-only evidence has reduced weight and explicit status. | Weak one-source run correctly exited |
+| Creative deliverable | One concept with hook, caption, production mode, scenes, shots, and optional AI prompt. | All three profiles produced concepts |
+| Extensible video pipeline | `futureVideoPipelineDraft` contains subject, script, scenes, assets, caption, music mood, and 9:16 mode. | JSON sample |
+| Competitor memo | Firecrawl memo and supporting writeup remain in the root. | Present |
 
-## Practical Checks Run
-
-Agent 2 checks actually run:
+## Commands Verified
 
 ```powershell
 cd agent-2-trend-video-agent
-npm install
 npm run typecheck
 npm test
 npm run build
@@ -50,127 +45,89 @@ npm run demo:fitness
 npm run demo:b2b
 ```
 
-Results:
+Deep structured social validation was also run with two TikTok posts and one comments dataset, equivalent to:
 
-- `npm install`: passed; 0 vulnerabilities after audit.
-- `npm run typecheck`: passed.
-- `npm test`: passed, 8 test files and 9 tests.
-- `npm run build`: passed.
-- `npm audit`: passed, 0 vulnerabilities.
-- `npm run demo:live`: passed with live Bright Data MCP.
-- `npm run demo:fitness`: passed with live Bright Data MCP.
-- `npm run demo:b2b`: passed with live Bright Data MCP.
+```powershell
+npm run demo:deep-social
+```
 
-The live run used:
+Final automated status:
 
-- `search_engine`
-- `discover`
-- `scrape_as_markdown`
+- 12 test files passed.
+- 19 tests passed.
+- Typecheck passed.
+- Build passed.
+- Audit passed with zero vulnerabilities.
+- `git diff --check` passed.
 
-The final committed sample output is:
+## Real Failure Modes
+
+| Failure | Actual behavior | Implemented response |
+| --- | --- | --- |
+| MCP error returned as `isError` | Failed Discover calls appeared successful. | Wrapper now throws MCP error results; telemetry is truthful. |
+| Invalid Discover city | `city: Tel Aviv` returned HTTP 400. | City stays in query; official country/language fields remain. |
+| Thin TikTok page scrape | Public page returned little Markdown. | Retain as lower-weight `metadata_only`. |
+| Misleading search snippet | Unrelated video looked relevant in SERP text. | Revalidate after structured caption extraction and reject weak evidence. |
+| Insufficient evidence | One source remained with score `0.35`. | Exit with remediation instead of generating a report. |
+| Malformed Anthropic JSON | Multiple live responses were invalid. | Deterministic profile-specific report completed. |
+| False velocity from keywords | `2026/latest/rising` was treated as momentum. | Removed; velocity needs history or structured date plus engagement. |
+| False velocity across scoring versions | Old and new scores appeared to accelerate. | Added `analysisVersion: 2.0` and 12-hour separation. |
+| Wrong region from `.env` | New York profile queried Israel. | Infer region from profile unless `--region` is explicit. |
+| npm custom argument forwarding | Named flags were stripped with one separator. | Tested command uses `npm run demo -- -- --profile-file ...`. |
+| New dependency advisory | `form-data` high advisory appeared. | `npm audit fix`; final audit clean. |
+
+## Live Profile Results
+
+### Nook & Pour
+
+- Israel targeting.
+- Six evidence sources.
+- Structured TikTok post with 64K views.
+- Local Reddit study evidence.
+- Four trends.
+- Dashboard generated.
+
+### Maya Moves
+
+- US targeting.
+- Six fitness sources.
+- Structured beginner-fitness post.
+- Four generalized trends.
+- No cafe-shaped copy.
+
+### LedgerPilot
+
+- US targeting.
+- Six finance/bookkeeping sources.
+- Structured freelancer-invoicing TikTok.
+- Four trends, correcting the previous two-trend weakness.
+- No cafe-shaped copy.
+
+## Submission Artifacts
 
 ```text
 agent-2-trend-video-agent/runs/sample-report.md
 agent-2-trend-video-agent/runs/sample-report.json
+agent-2-trend-video-agent/runs/sample-dashboard.html
+AGENT_2_IMPLEMENTATION_VALIDATION_2026-06-18.md
+PART_1_AGENT_2_WRITEUP.md
+part-2-competitor-memo.md
 ```
 
-Agent 1 checks were previously run and passed:
+## GitHub Status
 
-```powershell
-cd part-1-agent
-npm run typecheck
-npm test
-npm run build
-npm audit
-npm run demo:live
-```
-
-The preserved Agent 1 copy exists in `agent-1-ecosystem-radar/` without local `.env`, `node_modules`, or `dist`.
-
-## Real Failure Modes Hit and How They Were Handled
-
-| Failure actually hit | What happened | Handling added |
-| --- | --- | --- |
-| Social pages returned little scrapeable text | TikTok/YouTube pages often returned empty or tiny scrape output. | Keep source as `metadata_only`, preserve URL/snippet, show uncertainty in report. |
-| Generic platform results polluted evidence | Search returned TikTok homepage, App Store, and Wikipedia pages. | Relevance filtering excludes generic platform/app/encyclopedia pages. |
-| Malformed LLM JSON | Anthropic returned invalid JSON during live runs. | Deterministic fallback report from scored trend candidates. |
-| Encoding artifacts | Some snippets had mojibake such as broken cafe/quote characters. | Text repair utility normalizes common mojibake and punctuation before rendering. |
-| Weak or indirect regional evidence | Some evidence was location-related but not perfect for the exact business. | Report includes failure/uncertainty notes and confidence values. |
-| Generic/non-JSON Bright Data search response | One live `search_engine` call returned an unexpected non-JSON response. | The agent continued with the remaining MCP calls and produced a report. |
-| PowerShell/npm argument forwarding | One custom profile validation accidentally reused the default profile. | Added stable `demo:fitness` and `demo:b2b` scripts. |
-| Secrets in local env | Existing Agent 1 `.env` was needed for live testing but must not be committed. | `.env` ignored; Agent 1 archive excludes `.env`; only `.env.example` committed. |
-
-## What I Did, Step by Step
-
-1. Preserved the original Agent 1 implementation by copying it to `agent-1-ecosystem-radar/`, excluding `node_modules`, `dist`, and `.env`.
-2. Created `agent-2-trend-video-agent/` as a new independent TypeScript package.
-3. Added CLI inputs for profile file, business name, profile, niche, audience, location, language, goal, capabilities, source limit, and trend limit.
-4. Added a default local-cafe sample profile at `samples/local-cafe.json`.
-5. Reused the proven Bright Data MCP stdio approach from Agent 1.
-6. Added TikTok-first, location-aware query planning.
-7. Added source normalization for messy `search_engine` and `discover` result shapes.
-8. Added platform classification for TikTok, YouTube, Reddit, X, Creative Center, trend-intelligence articles, articles, and unknown sources.
-9. Added scrape policy with `ok`, `partial`, `failed`, and `metadata_only` statuses.
-10. Added trend candidate scoring by evidence quality, niche fit, location fit, production fit, and brand safety.
-11. Added LLM synthesis through Anthropic/OpenAI with deterministic fallback.
-12. Added Markdown and JSON report rendering.
-13. Added future MoneyPrinterTurbo-compatible `futureVideoPipelineDraft` output without rendering video.
-14. Added unit tests and mocked end-to-end test.
-15. Ran practical validation commands and fixed issues found by TypeScript and live runs.
-16. Promoted the best live report to committed `sample-report.md` and `sample-report.json`.
-17. Updated root docs, writeups, comparison, and evaluation to make Agent 2 the recommended final demo.
-18. Committed all implemented changes locally.
-
-## Agent 1 vs Agent 2: 10-Parameter Comparison
-
-| Parameter | Agent 1: Ecosystem Opportunity Radar | Agent 2: Trend-to-Video Agent | Winner |
-| --- | --- | --- | --- |
-| Assignment fit | Strong. Uses Bright Data MCP for product-decision research. | Strong. Uses Bright Data MCP for creative trend-to-video research. | Tie |
-| Demo clarity | Requires explaining Bright Data/product/DevRel context. | Very easy: business profile goes in, video idea comes out. | Agent 2 |
-| Creativity | Strategic and timely around coding agents. | More visual, consumer-facing, and memorable. | Agent 2 |
-| Practical user value | Helps prioritize integrations and DevRel bets. | Helps a business produce timely short-form content today. | Agent 2 |
-| Bright Data tool usage | Uses `search_engine`, `discover`, `scrape_as_markdown`. | Uses the same three tools, plus a clearer social-web uncertainty story. | Agent 2 |
-| Failure handling | Handles timeouts, partial scrape, malformed LLM, wrong-product results. | Handles metadata-only social pages, generic social source pollution, malformed LLM, text artifacts, weak regional signals. | Agent 2 |
-| Evidence quality | More stable docs/GitHub/source ecosystem. | More dynamic but messier social/video evidence. | Agent 1 for stability, Agent 2 for realism |
-| Business judgment | Strong for Bright Data internal strategy. | Strong for creator/business operations and future video automation. | Tie |
-| Extensibility | Can become monitoring/evals/integration-kit product. | Can add Pro social extractors, scheduling, comments, engagement, MoneyPrinterTurbo export. | Agent 2 |
-| Reviewer memorability | Solid technical strategy agent. | More likely to stand out in a short review because the output is visual and concrete. | Agent 2 |
-
-Final recommendation: use **Agent 2** for the Loom/demo and keep **Agent 1** as proof of strategic range.
-
-## What Was Not Fully Checked
-
-- I did not push to GitHub because no repository remote is configured and `gh` is not installed.
-- I did not test Bright Data Pro/social extractor mode because the MVP is intentionally free-tier reproducible.
-- I did not integrate MoneyPrinterTurbo because the plan explicitly keeps video rendering out of MVP.
-- I did not benchmark actual TikTok engagement performance; the score is evidence-based, not performance-validated.
-- I did not build a web UI; the deliverable is a polished CLI vertical slice.
-
-## GitHub Publishing Status
-
-Local git status:
-
-- Latest commit: `b1dd7bf Add Trend-to-Video Agent`
-- Previous commit: `130b1c2 Build Bright Data agentic GTM submission`
-- Submission zip regenerated from `HEAD`.
-
-Publishing blocker:
-
-- `https://github.com/arikshvarts` is a GitHub profile URL, not a repository remote.
-- This local repo currently has no `origin` remote.
-- GitHub CLI `gh` is not installed, so I cannot create/push a repo automatically from this machine.
-
-To publish, create a GitHub repository under `arikshvarts` and provide its clone URL, for example:
+Remote:
 
 ```text
 https://github.com/arikshvarts/bright-data-agentic-assignment.git
 ```
 
-Then run:
+The implementation will be committed and pushed after the final visual/dashboard validation in this work session.
 
-```powershell
-git remote add origin https://github.com/arikshvarts/bright-data-agentic-assignment.git
-git push -u origin main
-```
+## Honest Remaining Limits
 
-Future best practice: commit after each coherent implementation milestone, run checks before each push, and push to GitHub immediately after the commit passes validation.
+- Deep TikTok dataset collection is slower than Rapid tools.
+- True velocity improves after scheduled repeated runs accumulate.
+- Snapshot saturation is a proxy, clearly labeled as such.
+- The current dashboard is a generated static report, not a persistent hosted application.
+- Video rendering remains intentionally outside MVP scope.

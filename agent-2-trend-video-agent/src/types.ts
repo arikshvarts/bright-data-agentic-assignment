@@ -14,6 +14,11 @@ export type Platform =
 export type ProductionMode = "human_shot" | "ai_generated" | "hybrid";
 export type TrendStage = "emerging" | "rising" | "evergreen" | "unclear";
 export type ValidationLevel = "direct_video" | "platform_discovery" | "supporting_signal" | "weak";
+export type ToolCallStatus = "ok" | "failed";
+export type StructuredDataStatus = "not_attempted" | "ok" | "failed" | "unavailable";
+export type VelocityLabel = "accelerating" | "rising" | "stable" | "declining" | "unknown";
+export type SaturationLabel = "whitespace" | "growing" | "crowded" | "unknown";
+export type RelevanceTier = "direct" | "supporting" | "weak";
 
 export type CreatorProfile = {
   businessName: string;
@@ -47,6 +52,19 @@ export type TrendEvidence = {
   regionHint?: string;
   engagementHint?: string;
   qualityNotes?: string[];
+  author?: string;
+  publishedAt?: string;
+  views?: number;
+  likes?: number;
+  shares?: number;
+  comments?: number;
+  hashtags?: string[];
+  videoUrl?: string;
+  structuredDataStatus?: StructuredDataStatus;
+  commentInsights?: string[];
+  independentSourceKey?: string;
+  relevanceTier?: RelevanceTier;
+  relevanceScore?: number;
 };
 
 export type TrendCandidate = {
@@ -63,6 +81,14 @@ export type TrendCandidate = {
   trendStage?: TrendStage;
   validationLevel?: ValidationLevel;
   sourceDiversity?: number;
+  platformDiversity?: number;
+  independentSourceCount?: number;
+  velocityScore?: number;
+  velocityLabel?: VelocityLabel;
+  velocityBasis?: string;
+  saturationScore?: number;
+  saturationLabel?: SaturationLabel;
+  saturationBasis?: string;
   fitRationale: string;
   risks: string[];
   exampleUrls: string[];
@@ -96,10 +122,12 @@ export type FutureVideoPipelineDraft = {
 };
 
 export type TrendVideoReport = {
+  analysisVersion: string;
   profile: CreatorProfile;
   region: string;
   generatedAt: string;
   toolsUsed: string[];
+  toolTelemetry: ToolTelemetry[];
   summary: string;
   rankedTrends: TrendCandidate[];
   recommendedConcept: CreativeConcept;
@@ -108,6 +136,14 @@ export type TrendVideoReport = {
   tradeoff: string;
   nextSteps: string[];
   futureVideoPipelineDraft: FutureVideoPipelineDraft;
+};
+
+export type ToolTelemetry = {
+  name: string;
+  status: ToolCallStatus;
+  durationMs: number;
+  resultCount: number;
+  error?: string;
 };
 
 export type ToolCall = {

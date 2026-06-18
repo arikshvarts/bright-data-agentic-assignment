@@ -1,158 +1,128 @@
 # Agent 2 Source Quality Validation
 
-Date: June 12, 2026
+Updated: June 18, 2026
 
-This document records the practical evidence-quality improvements made after live testing the Trend-to-Video Agent.
+This document summarizes the current source-quality policy. Full implementation and live-run details are in `AGENT_2_IMPLEMENTATION_VALIDATION_2026-06-18.md`.
 
-## Research-Informed Direction
+## Evidence Strategy
 
-The agent is now intentionally **TikTok-first** rather than generic social-first.
+Agent 2 is TikTok-first, with:
 
-Why:
+- Direct TikTok videos.
+- TikTok Discover pages.
+- Bright Data structured TikTok post/comment datasets.
+- Reddit community discussions.
+- YouTube video evidence.
+- Reputable trend and niche articles.
 
-- TikTok Creative Center/TikTok One emphasizes trends, top-performing ads, creative triggers, audience relevance, creator content, and AI-assisted creative production.
-- Exolyt positions TikTok trend work around social listening, trends, accounts, videos, audience insights, UGC sentiment, influencer discovery, and content ideation.
-- Brandwatch represents the broader enterprise pattern: social listening and consumer intelligence are useful, but they are heavier than the assignment MVP.
-- MoneyPrinterTurbo is a future pipeline target, so Agent 2 should output a strong creative brief and scene plan before any rendering is attempted.
+Instagram and Facebook are excluded from the default path because previous live runs produced weaker and less accessible evidence.
 
-Sources reviewed:
+## Two-Stage Relevance Validation
 
-- https://ads.tiktok.com/business/creativecenter/
-- https://exolyt.com/
-- https://www.brandwatch.com/
-- https://github.com/harry0703/MoneyPrinterTurbo
+Sources are evaluated twice:
 
-Additional research from the improvement prompt was selectively incorporated:
+1. Before scraping, using URL, title, snippet, niche terms, location, and source type.
+2. After scraping/social enrichment, using structured captions and extracted content.
 
-- Google Trends is treated as a future local-momentum adapter rather than a hard MVP dependency because official API access remains limited.
-- Reddit Pro Trends inspired future keyword/community monitoring but is not required for this CLI demo.
-- Pinterest Trends and Meta Ad Library are documented as future vertical-specific creative-intelligence sources.
-- Unofficial TikTok/Instagram wrappers are intentionally avoided as core dependencies.
+The second stage matters because SERP snippets sometimes described a source as relevant while the actual TikTok caption showed unrelated news or entertainment content.
 
-## What Was Improved
+Evidence is labeled:
 
-### 1. Removed Instagram From Default Evidence
+- `direct`: niche or location evidence.
+- `supporting`: a credible trend surface supporting format interpretation.
+- `weak`: rejected.
 
-Instagram links were often less reliable in the free-tier scrape flow, so the default evidence strategy now uses:
+## Evidence Strength
 
-- TikTok videos
-- TikTok Discover pages
-- YouTube Shorts when relevant
-- Reddit/search only as supporting discovery
-- reputable trend-intelligence pages
+Evidence does not use a simple source count.
 
-Instagram/Facebook URLs are filtered out by default.
+Weights:
 
-### 2. Stronger Source Relevance Filtering
+- Structured TikTok record: `1.2`
+- Successful scrape: `1.0`
+- Partial scrape: `0.7`
+- Metadata-only social source: `0.35`
+- Failed source: `0`
 
-Live runs exposed low-quality or off-brand evidence:
+A report requires:
 
-- generic TikTok homepage
-- App Store / Google Play pages
-- Wikipedia
-- dictionary pages
-- generic marketing pages
-- unrelated city TikTok Discover pages
-- off-brand entertainment/sports/history accounts
+- At least three usable sources.
+- Weighted evidence score of at least `1.5`.
 
-The agent now filters these before scraping. For local business profiles, TikTok evidence must show the target city in stable text such as the URL or title, not only in a noisy snippet.
+One live run stopped with only one usable source and score `0.35`, proving the quality gate works.
 
-### 3. Better Handling of Social Pages
+## Corroboration
 
-TikTok/YouTube pages often return little scrapeable text. Instead of treating that as a total failure, the agent marks them:
+The previous `sourceDiversity` value counted platforms. It now represents independent sources:
 
-```text
-metadata_only
-```
+- Different TikTok creators.
+- Different YouTube channels.
+- Different Reddit communities.
+- Different web domains.
+- Distinct TikTok Discover surfaces.
 
-This keeps the URL, title, snippet, platform, source type, and uncertainty note visible in the report.
+Platform diversity remains available separately.
 
-### 4. Ranked Trend Backfill
+## Structured TikTok Evidence
 
-During live validation, the LLM sometimes returned fewer than three trends. The agent now backfills missing rankings from deterministic trend scoring so the report still has a complete trend set.
+`web_data_tiktok_posts` can add:
 
-### 5. Stable Demo Scripts
+- Caption.
+- Creator.
+- Publication time.
+- Views, likes, shares, and comment count.
+- Hashtags.
+- Video URL.
 
-PowerShell/npm argument forwarding caused one attempted profile run to silently use the default profile. To avoid that, the package now includes explicit scripts:
+`web_data_tiktok_comments` can add top readable comments ordered by likes.
 
-```powershell
-npm run demo:live
-npm run demo:fitness
-npm run demo:b2b
-```
+These tools were successfully exercised live. The deep social run demonstrated real post and comment dataset collection.
 
-### 6. Trend Stage and Validation Level
+## Current Sample Quality
 
-The report now carries extra decision metadata:
+The committed cafe sample includes:
 
-- `trendStage`: `emerging`, `rising`, `evergreen`, or `unclear`
-- `validationLevel`: `direct_video`, `platform_discovery`, `supporting_signal`, or `weak`
-- `sourceDiversity`: number of represented platforms/source types
+- A structured Tel Aviv coffee recommendation TikTok.
+- A Tel Aviv study-spots Reddit discussion.
+- A specialty-coffee trend article.
+- Comparable cafe/study discovery surfaces.
+- Six retained sources and four ranked trends.
+- Real MCP telemetry and an HTML evidence dashboard.
 
-This makes the report more honest when a recommendation is supported by direct video URLs versus weaker platform discovery pages.
-
-## Live Profiles Tested
-
-### Local Cafe: Nook & Pour
-
-Command:
-
-```powershell
-npm run demo:live
-```
-
-Outcome:
-
-- Produced a cleaner TikTok/YouTube evidence set around Tel Aviv cafes, coworking cafes, coffee spots, and study/work locations.
-- Removed earlier bad sources such as Instagram, App Store, Wikipedia, dictionary pages, Cyberjaya/Adana/Leipzig Discover pages, and off-brand entertainment trends.
-- Recommended **Local hidden gem** / **Cozy work-study POV**.
-- Final committed sample:
+Files:
 
 ```text
 agent-2-trend-video-agent/runs/sample-report.md
 agent-2-trend-video-agent/runs/sample-report.json
+agent-2-trend-video-agent/runs/sample-dashboard.html
 ```
 
-### Fitness Coach: Maya Moves
+## Live Profiles
 
-Command:
+### Nook & Pour
 
-```powershell
-npm run demo:fitness
-```
+- Correct Israel targeting.
+- Local study/work and coffee evidence.
+- Structured post metrics.
+- Four trends.
 
-Outcome:
+### Maya Moves
 
-- Found TikTok evidence around beginner strength, office-worker mobility, women-focused strength training, and low-equipment workouts.
-- Generated a practical concept: **3 Desk Stretches That Actually Fix Office Posture**.
-- The run exposed weak source patterns from sports/entertainment and history accounts, which were added to the noisy-source filter.
-- The report explicitly noted weak regional evidence for New York and lowered confidence accordingly.
+- Correct US targeting.
+- Beginner fitness, women-focused training, and fitness-format evidence.
+- Structured fitness post.
+- No cafe-shaped fallback.
 
-### B2B SaaS: LedgerPilot
+### LedgerPilot
 
-Command:
+- Correct US targeting.
+- Freelancer accounting, invoicing, bookkeeping automation, and creator-finance evidence.
+- Structured invoicing post.
+- Four trends instead of the previous two.
 
-```powershell
-npm run demo:b2b
-```
+## Remaining Limits
 
-Outcome:
-
-- Found TikTok evidence around receipt workflows, invoice tracking, QuickBooks-style small-business expense content, and AI expense trackers.
-- Generated a non-obvious B2B creative concept: **Month-End Chaos AI Calm: Freelancer Admin Transformation**.
-- The output used screen recordings and founder on-camera footage rather than forcing a consumer-style trend.
-- The report correctly noted metadata-thin evidence and regional weakness.
-
-## What Still Needs Pro Mode
-
-The free-tier MCP tools are enough for a reproducible assignment demo, but production quality would improve with Bright Data Pro/social extractors:
-
-- structured TikTok video metadata
-- engagement counts
-- creator profile extraction
-- comment extraction
-- sound/hashtag extraction
-- location and language metadata
-- trend velocity across runs
-
-That is the clearest next step for using more of Bright Data's core advantage.
+- TikTok dataset snapshots add latency.
+- Discover pages are format evidence, not always local proof.
+- Comments are disabled in the fast default and enabled in `demo:deep-social`.
+- Reliable time-series velocity needs scheduled repeated runs.

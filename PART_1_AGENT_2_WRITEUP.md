@@ -31,13 +31,18 @@ It is not a generic trend list. The agent asks:
 
 ## Bright Data MCP Usage
 
-The live agent uses three distinct Bright Data MCP tools:
+The default live agent now uses four distinct Bright Data MCP tools:
 
 - `search_engine`
 - `discover`
 - `scrape_as_markdown`
+- `web_data_tiktok_posts`
 
-`search_engine` finds broad current trend and platform evidence. `discover` finds intent-ranked social and trend sources. `scrape_as_markdown` extracts source content or confirms when social pages only provide thin public metadata.
+The deep social mode also uses:
+
+- `web_data_tiktok_comments`
+
+`search_engine` receives geo targeting. `discover` receives country/language targeting and intent ranking. `scrape_as_markdown` extracts source content or confirms thin public metadata. Structured TikTok tools add captions, creator details, publication time, engagement, hashtags, video URLs, and comments.
 
 ## Architecture
 
@@ -47,9 +52,12 @@ The live agent uses three distinct Bright Data MCP tools:
 4. `sourceNormalizer.ts` normalizes result shapes into `TrendEvidence`.
 5. `platformClassifier.ts` detects TikTok, YouTube, Reddit, X, Creative Center, trend-intelligence articles, and unknown sources.
 6. `scrapePolicy.ts` calls `scrape_as_markdown` and marks evidence as `ok`, `partial`, `metadata_only`, or `failed`.
-7. `trendAnalyzer.ts` clusters/scored trend candidates deterministically.
-8. `llm.ts` synthesizes the final creative strategy, with fallback if the LLM returns malformed JSON.
-9. `reportRenderer.ts` writes Markdown and JSON reports.
+7. `socialEnrichment.ts` enriches direct TikTok videos with structured post/comment data.
+8. `evidenceRelevance.ts` revalidates sources after enrichment.
+9. `trendAnalyzer.ts` clusters and scores domain-neutral creative formats.
+10. `trendDynamics.ts` calculates versioned velocity and saturation.
+11. `llm.ts` synthesizes the final strategy, with profile-specific deterministic fallback.
+12. `reportRenderer.ts` writes Markdown, JSON, and an HTML dashboard.
 
 ## Real Failure Modes Actually Hit
 
@@ -58,6 +66,11 @@ The live agent uses three distinct Bright Data MCP tools:
 - **Malformed LLM JSON.** Anthropic returned invalid JSON in live runs. The agent falls back to deterministic trend scoring and concept generation.
 - **Encoding artifacts.** Some search/scrape snippets contained mojibake. I added text repair before rendering.
 - **Regional evidence can be thin.** The report shows uncertainty notes when location evidence is weak or mostly metadata-based.
+- **MCP errors can arrive as `isError` results.** The wrapper now converts them to real exceptions so telemetry is truthful.
+- **Discover rejected city targeting.** Country and language are passed through official fields; city remains in the query.
+- **Structured captions contradicted SERP snippets.** Post-enrichment revalidation removes misleading videos.
+- **Old scoring reports produced false velocity.** Historical comparison now requires analysis version `2.0` and at least 12 hours between runs.
+- **Profile region contamination.** Region is inferred from each profile unless explicitly supplied.
 
 ## Live Validation
 
@@ -91,6 +104,7 @@ Committed sample output:
 ```text
 agent-2-trend-video-agent/runs/sample-report.md
 agent-2-trend-video-agent/runs/sample-report.json
+agent-2-trend-video-agent/runs/sample-dashboard.html
 ```
 
 ## MoneyPrinterTurbo Compatibility
@@ -111,9 +125,9 @@ Agent 1 is a strong product-decision agent. Agent 2 is more visual, consumer-fac
 
 ## What I Would Improve Next
 
-- Use Bright Data Pro/social extractors for structured TikTok, YouTube, X, and Reddit data.
-- Add engagement extraction and creator-profile analysis.
-- Add comments/sentiment analysis to identify what viewers liked or rejected.
+- Schedule recurring collection so velocity becomes a real multi-period signal for every profile.
+- Add structured YouTube and Reddit enrichment beside the implemented TikTok datasets.
+- Add creator-profile analysis and stronger comment theme/sentiment clustering.
 - Add a weekly trend monitor by niche/location.
 - Add a human review UI for accepting/rejecting evidence.
 - Add direct export to MoneyPrinterTurbo once the creative brief format stabilizes.

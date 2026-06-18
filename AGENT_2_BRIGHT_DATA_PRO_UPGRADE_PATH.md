@@ -1,8 +1,8 @@
 # Agent 2 Bright Data Pro Upgrade Path
 
-Date: June 12, 2026
+Updated: June 18, 2026
 
-Agent 2 intentionally stays free-tier runnable for assignment reproducibility. The best production upgrade is not a new unofficial TikTok dependency; it is deeper Bright Data usage.
+Agent 2 now has both a Rapid-compatible path and implemented structured TikTok enrichment through Bright Data MCP.
 
 ## Why This Matters
 
@@ -12,7 +12,7 @@ The live MVP already proves the agent flow:
 profile -> Bright Data search/discover -> evidence normalization -> scrape/metadata status -> trend scoring -> video concept
 ```
 
-The main weakness is that public TikTok/YouTube pages often return limited scrapeable text. Bright Data's structured social tools and skills are the right next layer because they can provide metadata that free-form scraping cannot reliably infer.
+Public TikTok/YouTube pages still return limited scrapeable text, but direct TikTok URLs are now enriched with Bright Data's structured post/comment tools.
 
 Relevant Bright Data references:
 
@@ -20,11 +20,16 @@ Relevant Bright Data references:
 - Bright Data MCP tool surface: https://docs.brightdata.com/ai/mcp-server/tools
 - Bright Data MCP tools reference: https://github.com/brightdata/brightdata-mcp/blob/main/assets/Tools.md
 
-## Pro-Mode Sources to Add
+## Structured Sources Already Added
 
-Add optional adapters behind a `--pro-social` flag:
+- `web_data_tiktok_posts`
+- `web_data_tiktok_comments`
 
-- TikTok profiles and posts for direct video metadata.
+These provide captions, creator data, publication time, views, likes, shares, comments, hashtags, video URLs, and audience comment text.
+
+## Pro-Mode Sources to Add Next
+
+- TikTok profiles for creator authority and location.
 - YouTube videos and comments for cleaner video evidence.
 - Reddit posts/comments for pain language, objections, jokes, and repeated questions.
 - X/Twitter search for fast-moving meme phrasing when relevant.
@@ -47,17 +52,24 @@ The current agent now includes:
 
 - `trendStage`: `emerging`, `rising`, `evergreen`, or `unclear`
 - `validationLevel`: `direct_video`, `platform_discovery`, `supporting_signal`, or `weak`
-- `sourceDiversity`: number of represented platforms/source types
+- `sourceDiversity`: independent creator/community/domain count
+- `platformDiversity`: represented platform count
+- versioned velocity and saturation with explicit basis
 
-With Pro/social metadata, these should become quantitative:
+Current structured TikTok metadata already supports:
 
 - views, likes, comments, shares
 - upload date / trend age
-- sound/hashtag growth
-- creator authority
-- comment sentiment
+- hashtags
+- top comment text
 - country/language match
-- duplicate-video clustering
+
+Still to add:
+
+- sound growth
+- creator authority
+- stronger comment theme/sentiment clustering
+- duplicate-video/perceptual clustering
 
 ## What Not To Add Yet
 

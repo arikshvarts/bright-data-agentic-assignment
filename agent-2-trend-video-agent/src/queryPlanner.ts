@@ -7,14 +7,15 @@ export function planTrendQueries(options: AgentOptions): string[] {
   const location = profile.location.trim();
   const language = profile.language.trim();
   const goal = profile.goal.trim();
+  const region = options.region.toUpperCase();
 
   return [
-    `site:tiktok.com/@ ${niche} ${location} trend video ${audience}`,
-    `site:tiktok.com/discover ${niche} ${location} trending ${audience}`,
-    `TikTok Creative Center trends hashtags sounds ${niche} ${location}`,
-    `TikTok Creative Center trends ${niche} ${location} hashtags sounds`,
-    `TikTok trend tracker ${niche} ${location} creators formats examples`,
-    `2026 TikTok trends ${niche} short form video ideas local business ${goal}`,
-    `Reddit ${location} ${niche} TikTok trend video ideas audience ${audience}`
+    `site:tiktok.com/@ ${niche} ${location} ${language} trend video ${audience}`,
+    `site:tiktok.com/discover ${niche} ${location} ${language} trending ${audience}`,
+    `TikTok Creative Center trends hashtags sounds ${niche} ${location} ${language}`,
+    `TikTok Creative Center trends ${niche} ${location} ${language} hashtags sounds`,
+    `TikTok trend tracker ${niche} ${location} ${language} creators formats examples`,
+    `2026 TikTok trends ${niche} ${language} short form video ideas ${region} ${goal}`,
+    `site:reddit.com ${location} ${niche} ${language} TikTok trend video ideas ${audience}`
   ];
 }

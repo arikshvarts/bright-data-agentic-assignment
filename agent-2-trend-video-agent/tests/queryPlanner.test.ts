@@ -15,5 +15,7 @@ describe("planTrendQueries", () => {
     expect(queries.join(" ")).toContain("TikTok");
     expect(queries.join(" ")).toContain("Tel Aviv");
     expect(queries.join(" ")).toContain("specialty coffee");
+    expect(queries.join(" ")).toContain("English");
+    expect(queries.join(" ")).toContain("site:reddit.com");
   });
 });

@@ -19,6 +19,7 @@ export async function createBrightDataClient(): Promise<ToolClient> {
     env: {
       ...process.env,
       API_TOKEN: token,
+      GROUPS: process.env.BRIGHT_DATA_MCP_GROUPS || process.env.GROUPS || "social",
       BASE_TIMEOUT: process.env.BASE_TIMEOUT || "120",
       BASE_MAX_RETRIES: process.env.BASE_MAX_RETRIES || "1"
     }
@@ -43,6 +44,14 @@ export async function createBrightDataClient(): Promise<ToolClient> {
           resetTimeoutOnProgress: true
         }
       );
+      const errorResult = result as { isError?: boolean; content?: Array<{ type: string; text?: string }> };
+      if (errorResult.isError) {
+        const message = errorResult.content
+          ?.map((part) => (part.type === "text" ? part.text ?? "" : ""))
+          .filter(Boolean)
+          .join("\n");
+        throw new Error(message || `Bright Data MCP tool ${call.name} returned an error.`);
+      }
       return unwrapToolResult(result) as T;
     },
     async close(): Promise<void> {

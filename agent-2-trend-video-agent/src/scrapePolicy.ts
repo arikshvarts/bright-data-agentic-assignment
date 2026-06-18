@@ -63,11 +63,21 @@ export function usableEvidenceCount(sources: TrendEvidence[]): number {
 
 export function assertEnoughEvidence(sources: TrendEvidence[], minimum = 3): void {
   const usable = usableEvidenceCount(sources);
-  if (usable < minimum) {
+  const weighted = sources.reduce((total, source) => total + evidenceWeight(source), 0);
+  if (usable < minimum || weighted < 1.5) {
     throw new Error(
-      `Only ${usable} usable or metadata-valid sources remained. Try a broader niche, another location, or a higher --max-sources value.`
+      `Only ${usable} usable sources remained with a weighted evidence score of ${weighted.toFixed(2)}. ` +
+        "Metadata-only pages count less than successful scrapes. Try a broader niche, another location, or a higher --max-sources value."
     );
   }
+}
+
+export function evidenceWeight(source: TrendEvidence): number {
+  if (source.structuredDataStatus === "ok") return 1.2;
+  if (source.scrapeStatus === "ok") return 1;
+  if (source.scrapeStatus === "partial") return 0.7;
+  if (source.scrapeStatus === "metadata_only") return 0.35;
+  return 0;
 }
 
 function extractText(raw: unknown): string {

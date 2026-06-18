@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { assertEnoughEvidence, scrapeEvidence } from "../src/scrapePolicy.js";
+import { assertEnoughEvidence, evidenceWeight, scrapeEvidence } from "../src/scrapePolicy.js";
 import type { ToolClient, TrendEvidence } from "../src/types.js";
 
 const baseSource: TrendEvidence = {
@@ -28,5 +28,21 @@ describe("scrapeEvidence", () => {
 
   it("rejects weak evidence sets", () => {
     expect(() => assertEnoughEvidence([{ ...baseSource, scrapeStatus: "failed" }], 3)).toThrow(/Only 0 usable/);
+  });
+
+  it("weights metadata-only evidence below successful scrapes", () => {
+    expect(evidenceWeight({ ...baseSource, scrapeStatus: "metadata_only" })).toBeLessThan(
+      evidenceWeight({ ...baseSource, scrapeStatus: "ok" })
+    );
+    expect(() =>
+      assertEnoughEvidence(
+        [
+          { ...baseSource, url: `${baseSource.url}1`, scrapeStatus: "metadata_only" },
+          { ...baseSource, url: `${baseSource.url}2`, scrapeStatus: "metadata_only" },
+          { ...baseSource, url: `${baseSource.url}3`, scrapeStatus: "metadata_only" }
+        ],
+        3
+      )
+    ).toThrow(/weighted evidence score/);
   });
 });

@@ -5,6 +5,7 @@ import { persistReport, runTrendVideoAgent } from "./agent.js";
 import { loadCreatorProfile } from "./profile.js";
 import { renderConsoleSummary } from "./reportRenderer.js";
 import type { AgentOptions } from "./types.js";
+import { inferRegion } from "./region.js";
 
 const program = new Command()
   .name("trend-to-video-agent")
@@ -18,9 +19,11 @@ const program = new Command()
   .option("--language <language>", "Output/content language")
   .option("--goal <goal>", "Content goal")
   .option("--capability <capability>", "Production capability; repeatable", collect, [] as string[])
-  .option("--region <region>", "Two-letter search region", process.env.REGION || "il")
+  .option("--region <region>", "Two-letter search region; inferred from location when omitted")
   .option("--max-sources <number>", "Maximum evidence sources to scrape", process.env.MAX_SOURCES || "10")
   .option("--max-trends <number>", "Maximum trend candidates to return", process.env.MAX_TRENDS || "5")
+  .option("--social-posts <number>", "Maximum direct TikTok posts to enrich", process.env.SOCIAL_ENRICH_MAX_POSTS || "1")
+  .option("--social-comments <number>", "Maximum TikTok videos to enrich with comments", process.env.SOCIAL_ENRICH_MAX_COMMENTS || "0")
   .parse(process.argv);
 
 const parsed = program.opts<{
@@ -33,10 +36,15 @@ const parsed = program.opts<{
   language?: string;
   goal?: string;
   capability: string[];
-  region: string;
+  region?: string;
   maxSources: string;
   maxTrends: string;
+  socialPosts: string;
+  socialComments: string;
 }>();
+
+process.env.SOCIAL_ENRICH_MAX_POSTS = parsed.socialPosts;
+process.env.SOCIAL_ENRICH_MAX_COMMENTS = parsed.socialComments;
 
 const profile = await loadCreatorProfile({
   businessName: parsed.businessName,
@@ -52,7 +60,7 @@ const profile = await loadCreatorProfile({
 
 const options: AgentOptions = {
   profile,
-  region: parsed.region.toLowerCase(),
+  region: (parsed.region ?? inferRegion(profile.location)).toLowerCase(),
   maxSources: Number.parseInt(parsed.maxSources, 10),
   maxTrends: Number.parseInt(parsed.maxTrends, 10)
 };
@@ -67,6 +75,17 @@ if (!Number.isInteger(options.maxTrends) || options.maxTrends < 3 || options.max
   process.exit(1);
 }
 
+for (const [flag, value, maximum] of [
+  ["--social-posts", parsed.socialPosts, 8],
+  ["--social-comments", parsed.socialComments, 4]
+] as const) {
+  const parsedValue = Number.parseInt(value, 10);
+  if (!Number.isInteger(parsedValue) || parsedValue < 0 || parsedValue > maximum) {
+    console.error(`${flag} must be an integer between 0 and ${maximum}.`);
+    process.exit(1);
+  }
+}
+
 const client = await createBrightDataClient();
 
 try {
@@ -75,6 +94,7 @@ try {
   console.log(renderConsoleSummary(report));
   console.log(`Markdown report: ${paths.markdownPath}`);
   console.log(`JSON report: ${paths.jsonPath}`);
+  console.log(`Evidence dashboard: ${paths.dashboardPath}`);
 } catch (error) {
   console.error(error instanceof Error ? error.message : String(error));
   process.exitCode = 1;
