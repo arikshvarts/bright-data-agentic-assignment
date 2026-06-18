@@ -8,4 +8,5 @@ part-1-agent/runs/*
 !part-1-agent/runs/sample-report.json
 Home Assignment - AI Engineer.pdf
 first_prompt.txt
+prompt_contiue.txt
 *.zip
