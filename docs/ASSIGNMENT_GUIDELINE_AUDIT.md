@@ -109,8 +109,8 @@ Final automated status:
 agent-2-trend-video-agent/runs/sample-report.md
 agent-2-trend-video-agent/runs/sample-report.json
 agent-2-trend-video-agent/runs/sample-dashboard.html
-AGENT_2_IMPLEMENTATION_VALIDATION_2026-06-18.md
-PART_1_AGENT_2_WRITEUP.md
+docs/AGENT_2_IMPLEMENTATION_VALIDATION_2026-06-18.md
+docs/PART_1_AGENT_2_WRITEUP.md
 part-2-competitor-memo.md
 ```
 
@@ -122,7 +122,7 @@ Remote:
 https://github.com/arikshvarts/bright-data-agentic-assignment.git
 ```
 
-The implementation will be committed and pushed after the final visual/dashboard validation in this work session.
+The implementation is committed and pushed to `main`. GitHub Actions validates both runnable agent packages on pushes and pull requests.
 
 ## Honest Remaining Limits
 

@@ -4,11 +4,7 @@
 
 I wrote a one-page leadership memo on **Firecrawl** as Bright Data's competitor in agentic web access.
 
-The memo is in:
-
-```text
-part-2-competitor-memo.md
-```
+The memo is in [`../part-2-competitor-memo.md`](../part-2-competitor-memo.md).
 
 It covers:
 
