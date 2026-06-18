@@ -1,22 +1,30 @@
 import { describe, expect, it } from "vitest";
-import { dedupeSources, normalizeToolResult } from "../src/sourceNormalizer.js";
+import { dedupeEvidence, normalizeToolResult } from "../src/sourceNormalizer.js";
 
 describe("sourceNormalizer", () => {
-  it("normalizes nested search results and removes duplicate URLs", () => {
-    const raw = JSON.stringify({
-      organic: [
-        { url: "https://example.com/a?b=1", title: "A", description: "First" },
-        { url: "https://example.com/a?b=1", title: "A duplicate", description: "Duplicate" },
-        { link: "https://example.com/b", title: "B", snippet: "Second" }
-      ]
-    });
+  it("normalizes nested search results and dedupes canonical URLs", () => {
+    const sources = normalizeToolResult(
+      {
+        organic: [
+          {
+            url: "https://www.tiktok.com/@barista/video/1?utm_source=x",
+            title: "Coffee ASMR trend",
+            snippet: "Barista process video with 1.2M views"
+          },
+          {
+            link: "https://www.tiktok.com/@barista/video/1?utm_source=x",
+            title: "Duplicate",
+            description: "Duplicate"
+          }
+        ]
+      },
+      "search"
+    );
 
-    const normalized = normalizeToolResult(raw, "search");
-    const deduped = dedupeSources(normalized, 8);
-
-    expect(normalized).toHaveLength(3);
-    expect(deduped).toHaveLength(2);
-    expect(deduped[0]?.scrapeStatus).toBe("not_attempted");
+    expect(sources).toHaveLength(2);
+    expect(sources[0].platform).toBe("tiktok");
+    expect(sources[0].engagementHint).toBe("1.2M views");
+    expect(sources[0].independentSourceKey).toBe("tiktok:creator:barista");
+    expect(dedupeEvidence(sources, 10)).toHaveLength(1);
   });
 });
-

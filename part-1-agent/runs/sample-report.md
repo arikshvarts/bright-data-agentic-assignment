@@ -1,146 +1,303 @@
-# Agent Ecosystem Opportunity Radar: Bright Data
+# Trend-to-Video Agent: Nook & Pour
 
-Generated: 2026-06-12T08:50:58.225Z  
-Region: us  
-Decision: next coding-agent integration  
-Tools used: search_engine, discover, scrape_as_markdown
+Generated: 2026-06-18T10:43:59.914Z
+Location: Tel Aviv, Israel
+Language: English
+Goal: increase weekday visits
+Tools used: search_engine, discover, scrape_as_markdown, web_data_tiktok_posts
+
+## Profile
+
+A cozy independent specialty coffee shop with pastries, two quiet work tables, and a warm neighborhood feel.
+
+**Niche:** specialty coffee, pastries, cozy work/study spot
+**Audience:** students, remote workers, young professionals
+**Capabilities:** phone-shot vertical video; staff can appear on camera; can film drinks and pastries; no paid creator budget; can post TikTok and YouTube Shorts
 
 ## Decision Summary
 
-Bright Data should treat "next coding-agent integration" as an integration-capacity decision, not a broad market-research task. The strongest selected signal points to GitHub Copilot, with priority based on source count, official-like evidence, community evidence, competitor mentions, and developer-pain terms.
+Nook & Pour should adapt "POV routine or day-in-the-life" into a short POV micro-vlog because it fits specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.
 
-## Current Bright Data Coverage
+## Recommended Content Opportunity
 
-- **VS Code / GitHub Copilot MCP connection** (already_exists): Do not recommend a generic VS Code MCP setup as the main bet; recommend packaging, validation, recipes, or an ecosystem-specific kit on top. Evidence: [source](https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data)
-- **Broad Bright Data MCP tool surface** (already_exists): The gap is not raw capability; it is discoverability, first-run setup, ecosystem-specific instructions, and proof that the tools work inside coding-agent workflows. Evidence: [source](https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data)
+**POV routine or day-in-the-life for Nook & Pour**
 
-## Competitor / Comparable Signals
+**Trend:** POV routine or day-in-the-life
 
-- **CopilotKit:** CopilotKit shipped agent-oriented coding workflow support or content. Works well: It packages agent building as developer-facing docs and reusable project skills. Gap: It is not primarily a web data infrastructure provider. Implication: Bright Data should ship copy-paste recipes and project skills, not only platform documentation. Evidence: [source](https://docs.copilotkit.ai/google-adk/build-with-agents)
+**Hook:** The specialty coffee mistake students, remote workers, young professionals keep making - and the practical fix.
 
-## Recommended 90-Day Bet
+**Format:** POV micro-vlog
 
-**Build a first-party GitHub Copilot integration kit**
+**Caption:** POV routine or day-in-the-life, adapted for Nook & Pour in Tel Aviv. Save this and take the next step.
 
-**Target developer:** Developer relations, platform engineers, and coding-agent power users
+**Execution style:** Fast, credible vertical video using real proof, readable text overlays, and a human or product-led demonstration.
 
-**Problem solved:** Reduce setup friction for reliable Bright Data live-web access inside coding-agent workflows.
+**Production mode:** human_shot
 
-**Why now:** Coding-agent ecosystems are competing on tool access, MCP interoperability, and first-run developer experience.
+**Scene plan:**
+- 0-2s: Open with the strongest proof, contrast, or audience pain related to specialty coffee.
+- 2-7s: Name the specific problem experienced by students, remote workers, young professionals.
+- 7-18s: Demonstrate how Nook & Pour addresses it using a real process, product, service, or expert action.
+- 18-25s: Show one credible detail, result, or human proof point.
+- 25-30s: End with a direct action tied to the goal: increase weekday visits.
 
-**Minimum viable scope:**
-- Preconfigured Bright Data MCP setup
-- Reusable agent instructions for the target ecosystem
-- Three production recipes using search, discovery, and scraping
-- Connectivity validation command
-- Short troubleshooting guide for common MCP failures
+**Shot list:**
+- Opening proof or problem visual related to specialty coffee
+- Close-up of the product, workflow, service, or expert action
+- Human reaction, customer context, or interface/result detail
+- Credibility detail such as process step, comparison, or outcome
+- Final branded frame with Tel Aviv and the call to action
 
-**Success metric:** 50 successful first-run demos and 10 external developer feedback sessions within 30 days of release.
 
-**What not to build yet:**
-- A full native SDK before validating activation
-- A broad UI before proving command-line workflow demand
-- Pro-mode-only features that block free-account evaluation
+**Confidence:** 90%
 
-**Confidence:** 75%
+## Ranked Trends
 
-**Evidence:** [source](https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data), [source](https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B), [source](https://docs.copilotkit.ai/google-adk/build-with-agents)
+## 1. POV routine or day-in-the-life
 
-## Ranked Integration Opportunities
+**Platform:** cross_platform
 
-## 1. GitHub Copilot integration kit
+**Format:** POV micro-vlog
 
-**Ecosystem:** GitHub Copilot
+**Topic:** show how the offer fits into a recognizable audience routine
 
 **Evidence strength:** high
 
-**Developer pain:** high
+**Niche fit:** high
 
-**Adoption signal:** high
+**Location fit:** high
 
-**Implementation effort:** medium
+**Production fit:** high
 
-**Rationale:** GitHub Copilot has 3 selected evidence source(s), 1 official-like signal(s), 0 community signal(s), and 2 developer-pain signal(s).
+**Brand safety:** high
 
-**Confidence:** 75%
+**Trend stage:** unclear
 
-**Evidence:** [source](https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data), [source](https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B), [source](https://docs.copilotkit.ai/google-adk/build-with-agents)
+**Validation level:** platform_discovery
 
-**Contradictory signals:** None found in selected evidence.
+**Independent source diversity:** 4
 
-## 2. Codex integration kit
+**Platform diversity:** 3
 
-**Ecosystem:** Codex
+**Independent sources:** 4
 
-**Evidence strength:** medium
+**Velocity:** unknown (0/100)
 
-**Developer pain:** high
+**Velocity basis:** No prior run and no structured publication-time plus engagement data; no velocity claim is made.
 
-**Adoption signal:** high
+**Saturation:** crowded (76/100)
 
-**Implementation effort:** medium
+**Saturation basis:** Current snapshot proxy: 4 independent source(s), 3 platform type(s), 0 post(s) above 500K views, 2 TikTok Discover page(s).
 
-**Rationale:** Codex has 2 selected evidence source(s), 0 official-like signal(s), 0 community signal(s), and 2 developer-pain signal(s).
+**Why it fits:** POV routine or day-in-the-life fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.
 
-**Confidence:** 64%
+**Risks / conflicts:** None found in selected evidence.
 
-**Evidence:** [source](https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B), [source](https://docs.copilotkit.ai/google-adk/build-with-agents)
+**Confidence:** 90%
 
-**Contradictory signals:** No official source was selected for this ecosystem.
+**Examples:** [source](https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/), [source](https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh), [source](https://www.tiktok.com/discover/best-cafes-to-study-in-ramallah), [source](https://www.tiktok.com/discover/cafe-in-city)
 
-## 3. Claude Code integration kit
+## 2. Comment-reply or audience reaction
 
-**Ecosystem:** Claude Code
+**Platform:** cross_platform
 
-**Evidence strength:** medium
+**Format:** reply-to-comment video
 
-**Developer pain:** high
+**Topic:** use a real audience question or objection as the opening hook
 
-**Adoption signal:** high
+**Evidence strength:** high
 
-**Implementation effort:** medium
+**Niche fit:** high
 
-**Rationale:** Claude Code has 2 selected evidence source(s), 0 official-like signal(s), 0 community signal(s), and 2 developer-pain signal(s).
+**Location fit:** high
 
-**Confidence:** 61%
+**Production fit:** high
 
-**Evidence:** [source](https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B), [source](https://docs.copilotkit.ai/google-adk/build-with-agents)
+**Brand safety:** high
 
-**Contradictory signals:** No official source was selected for this ecosystem.
+**Trend stage:** evergreen
 
-## 4. Cursor integration kit
+**Validation level:** direct_video
 
-**Ecosystem:** Cursor
+**Independent source diversity:** 4
 
-**Evidence strength:** medium
+**Platform diversity:** 3
 
-**Developer pain:** high
+**Independent sources:** 4
 
-**Adoption signal:** high
+**Velocity:** stable (39/100)
 
-**Implementation effort:** medium
+**Velocity basis:** Snapshot estimate from 1 structured post(s), 0 published within 45 days, median 60 views/day. Run history is not yet available.
 
-**Rationale:** Cursor has 2 selected evidence source(s), 0 official-like signal(s), 0 community signal(s), and 2 developer-pain signal(s).
+**Saturation:** crowded (70/100)
 
-**Confidence:** 58%
+**Saturation basis:** Current snapshot proxy: 4 independent source(s), 3 platform type(s), 0 post(s) above 500K views, 1 TikTok Discover page(s).
 
-**Evidence:** [source](https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B), [source](https://docs.copilotkit.ai/google-adk/build-with-agents)
+**Why it fits:** Comment-reply or audience reaction fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.
 
-**Contradictory signals:** No official source was selected for this ecosystem.
+**Risks / conflicts:** None found in selected evidence.
+
+**Confidence:** 90%
+
+**Examples:** [source](https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/), [source](https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh), [source](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070), [source](https://www.tiktok.com/discover/best-cafes-to-study-in-ramallah)
+
+## 3. Mini guide / listicle
+
+**Platform:** cross_platform
+
+**Format:** 3 tips / reasons / examples
+
+**Topic:** compress practical niche knowledge into a saveable sequence
+
+**Evidence strength:** high
+
+**Niche fit:** high
+
+**Location fit:** high
+
+**Production fit:** high
+
+**Brand safety:** high
+
+**Trend stage:** evergreen
+
+**Validation level:** direct_video
+
+**Independent source diversity:** 4
+
+**Platform diversity:** 3
+
+**Independent sources:** 4
+
+**Velocity:** stable (39/100)
+
+**Velocity basis:** Snapshot estimate from 1 structured post(s), 0 published within 45 days, median 60 views/day. Run history is not yet available.
+
+**Saturation:** crowded (70/100)
+
+**Saturation basis:** Current snapshot proxy: 4 independent source(s), 3 platform type(s), 0 post(s) above 500K views, 1 TikTok Discover page(s).
+
+**Why it fits:** Mini guide / listicle fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.
+
+**Risks / conflicts:** None found in selected evidence.
+
+**Confidence:** 90%
+
+**Examples:** [source](https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/), [source](https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh), [source](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070), [source](https://www.tiktok.com/discover/best-cafes-to-study-in-ramallah)
+
+## 4. Local discovery or hidden gem
+
+**Platform:** cross_platform
+
+**Format:** neighborhood discovery
+
+**Topic:** position the business, creator, or experience as locally relevant and worth discovering
+
+**Evidence strength:** high
+
+**Niche fit:** high
+
+**Location fit:** high
+
+**Production fit:** high
+
+**Brand safety:** high
+
+**Trend stage:** evergreen
+
+**Validation level:** direct_video
+
+**Independent source diversity:** 3
+
+**Platform diversity:** 3
+
+**Independent sources:** 3
+
+**Velocity:** stable (39/100)
+
+**Velocity basis:** Snapshot estimate from 1 structured post(s), 0 published within 45 days, median 60 views/day. Run history is not yet available.
+
+**Saturation:** growing (54/100)
+
+**Saturation basis:** Current snapshot proxy: 3 independent source(s), 3 platform type(s), 0 post(s) above 500K views, 0 TikTok Discover page(s).
+
+**Why it fits:** Local discovery or hidden gem fits Nook & Pour because it maps the trend format to specialty coffee, pastries, cozy work/study spot, students, remote workers, young professionals, and the goal to increase weekday visits.
+
+**Risks / conflicts:** None found in selected evidence.
+
+**Confidence:** 90%
+
+**Examples:** [source](https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/), [source](https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh), [source](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070)
 
 ## Evidence Log
 
-- OK | discover | [Claude Code and Codex do not replace Copilot and Cursor.](https://www.linkedin.com/posts/svpino_claude-code-and-codex-do-not-replace-copilot-activity-7384244184297242624-YR7B) | Even better, you can use these with MCP servers to integrate directly with your IDE. You can record a session, test your changes, and if ...
-- OK | search | [Build with agents](https://docs.copilotkit.ai/google-adk/build-with-agents) | This installs the skills into your project, where any coding agent working there (Claude Code, Codex, Cursor, or Gemini CLI) discovers them automatically.Read more
-- PARTIAL | discover | [Boost GitHub Copilot CLI with Bright Data's Web MCP Server](https://brightdata.com/blog/ai/github-copilot-cli-with-bright-data) | May 27, 2026 - Learn how to connect Bright Data's MCP server and Agent Skills to GitHub Copilot CLI for real-time web search, scraping, ...
+- OK | reddit | search | [Study spots in Tel Aviv : r/telaviv](https://www.reddit.com/r/telaviv/comments/14hbmrt/study_spots_in_tel_aviv/) | Ariella public library is great. It's the main library of Tel Aviv, recently renovated with state of the art study rooms!
+- OK | article | discover | [2026 specialty coffee trends at home and at the office](https://pabloandrustys.com.au/blogs/drinkbettercoffee/2026-specialty-coffee-trends-at-home-and-at-the-office?srsltid=AfmBOopAkq2vpAEj0aIaBPHrKjR6nTqiqtzuTSMW7Y4JbPfJkFRoFMXh) | 8 Jan 2026 - Discover how at home and workplace coffee is evolving in 2026, from automation and cold coffee to customisation, sustainability and better ...
+- METADATA_ONLY | tiktok | structured | [We've got something brewing Join us in exploring the recommendations for coffee in Tel Aviv from the locals, themselves. Which would you head to first? #BirthrightIsrael #birthrigh](https://www.tiktok.com/@birthrightisrael/video/7257549736591265070) | 3494 Likes, 50 Comments. TikTok video from Birthright Israel (@birthrightisrael): "Join us in discovering the best coffee spots in Tel Aviv ... | 64,000 views | 3,511 likes | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+- METADATA_ONLY | tiktok | discover | [Best Cafes to Study in Ramallah](https://www.tiktok.com/discover/best-cafes-to-study-in-ramallah) | 3 days ago - Explore Laylo Cafe, the perfect blend of tasty pastries and a great atmosphere for remote work or studying! 6932 Likes, 27 Comments. TikTok ...Read more | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+- METADATA_ONLY | tiktok | discover | [Nonni Cafe Toronto Israeli](https://www.tiktok.com/discover/nonni-cafe-toronto-israeli) | 11 May 2026 - Enjoy amazing coffee, freshly baked pastries, and the ultimate cozy atmosphere. A perfect spot for foodies and cafe lovers! Nonni Cafe in ...Read more | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+- METADATA_ONLY | tiktok | discover | [Cafe in City](https://www.tiktok.com/discover/cafe-in-city) | The new space is bright and inviting, designed for casual coffee dates or productive remote work and study sessions-there are accessible plugs ...Read more | Social page returned little scrapeable text; retaining URL and search/discover metadata as evidence.
+
+## MCP Execution Trace
+
+- OK | `search_engine` | 1447ms | 10 result(s)
+- OK | `search_engine` | 1729ms | 9 result(s)
+- OK | `search_engine` | 4331ms | 10 result(s)
+- OK | `search_engine` | 3181ms | 0 result(s)
+- OK | `discover` | 4018ms | 6 result(s)
+- OK | `discover` | 6299ms | 6 result(s)
+- OK | `discover` | 5138ms | 6 result(s)
+- OK | `scrape_as_markdown` | 1221ms | 0 result(s)
+- OK | `scrape_as_markdown` | 2054ms | 1 result(s)
+- OK | `scrape_as_markdown` | 5959ms | 1 result(s)
+- OK | `scrape_as_markdown` | 1258ms | 0 result(s)
+- OK | `scrape_as_markdown` | 1656ms | 0 result(s)
+- OK | `scrape_as_markdown` | 2135ms | 0 result(s)
+- OK | `web_data_tiktok_posts` | 37381ms | 1 result(s)
+
+## Failure / Uncertainty Notes
+
+- 4 social source(s) were retained as metadata-only because the public page had limited scrapeable text.
+- No time-separated comparable trend record was available. Velocity remains unknown unless structured publication and engagement data support a snapshot estimate.
+
+## Future Video Pipeline Draft
+
+This is compatible with a future MoneyPrinterTurbo-style pipeline, but no video is rendered in this MVP.
+
+```json
+{
+  "videoSubject": "POV routine or day-in-the-life for Nook & Pour",
+  "language": "en",
+  "aspectRatio": "9:16",
+  "voiceoverScript": "0-2s: Open with the strongest proof, contrast, or audience pain related to specialty coffee. 2-7s: Name the specific problem experienced by students, remote workers, young professionals. 7-18s: Demonstrate how Nook & Pour addresses it using a real process, product, service, or expert action. 18-25s: Show one credible detail, result, or human proof point. 25-30s: End with a direct action tied to the goal: increase weekday visits.",
+  "scenePlan": [
+    "0-2s: Open with the strongest proof, contrast, or audience pain related to specialty coffee.",
+    "2-7s: Name the specific problem experienced by students, remote workers, young professionals.",
+    "7-18s: Demonstrate how Nook & Pour addresses it using a real process, product, service, or expert action.",
+    "18-25s: Show one credible detail, result, or human proof point.",
+    "25-30s: End with a direct action tied to the goal: increase weekday visits."
+  ],
+  "materialKeywords": [
+    "specialty coffee, pastries, cozy work/study spot",
+    "Tel Aviv, Israel",
+    "vertical video",
+    "students, remote workers, young professionals",
+    "increase weekday visits",
+    "POV routine or day-in-the-life"
+  ],
+  "caption": "POV routine or day-in-the-life, adapted for Nook & Pour in Tel Aviv. Save this and take the next step.",
+  "bgmMood": "warm upbeat lo-fi",
+  "productionMode": "human_shot"
+}
+```
 
 ## Tradeoff
 
-Used free-tier-friendly Bright Data MCP tools for reproducibility, then applied deterministic ecosystem scoring before LLM synthesis.
+Defaulted to Bright Data MCP free-tier tools for reproducibility. Pro/social extractors would improve structured TikTok, YouTube, X, and Reddit metadata in production.
 
 ## Next Steps
 
-- Manually review the top evidence URLs for source quality and official-vs-community status.
-- Prototype the recommended integration kit with a one-command connectivity check.
-- Recruit five developers from the target ecosystem to run the kit cold and report setup friction.
-- Track activation, successful MCP tool calls, and time-to-first-useful-report.
+- Open the top evidence links and manually review the visual format before posting.
+- Film a 20-35 second vertical version with the hook in the first two seconds.
+- Post the same concept to TikTok and optionally YouTube Shorts, then compare saves, comments, and profile visits.
+- Rerun the agent weekly to avoid stale trend copying.

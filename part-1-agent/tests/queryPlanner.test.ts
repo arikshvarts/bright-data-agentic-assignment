@@ -1,18 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { planQueries } from "../src/queryPlanner.js";
+import { defaultProfile } from "../src/profile.js";
+import { planTrendQueries } from "../src/queryPlanner.js";
 
-describe("planQueries", () => {
-  it("creates focused integration-decision queries around the company and region", () => {
-    const queries = planQueries({
-      company: "Bright Data",
-      decision: "next coding-agent integration",
-      region: "us",
-      maxSources: 8
+describe("planTrendQueries", () => {
+  it("creates TikTok-first, location-aware trend queries", () => {
+    const queries = planTrendQueries({
+      profile: defaultProfile(),
+      region: "il",
+      maxSources: 6,
+      maxTrends: 4
     });
 
-    expect(queries).toHaveLength(5);
-    expect(queries[0]).toContain("Bright Data");
-    expect(queries[0]).toContain("Codex");
-    expect(queries[0]).toContain("us");
+    expect(queries.length).toBeGreaterThanOrEqual(5);
+    expect(queries.join(" ")).toContain("TikTok");
+    expect(queries.join(" ")).toContain("Tel Aviv");
+    expect(queries.join(" ")).toContain("specialty coffee");
+    expect(queries.join(" ")).toContain("English");
+    expect(queries.join(" ")).toContain("site:reddit.com");
   });
 });

@@ -7,13 +7,13 @@ updates:
     open-pull-requests-limit: 2
 
   - package-ecosystem: npm
-    directory: /agent-2-trend-video-agent
+    directory: /part-1-agent
     schedule:
       interval: weekly
     open-pull-requests-limit: 3
 
   - package-ecosystem: npm
-    directory: /part-1-agent
+    directory: /agent-1-ecosystem-radar
     schedule:
       interval: weekly
     open-pull-requests-limit: 3

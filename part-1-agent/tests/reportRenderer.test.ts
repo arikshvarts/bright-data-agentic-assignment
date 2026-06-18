@@ -1,81 +1,88 @@
 import { describe, expect, it } from "vitest";
-import { renderMarkdownReport } from "../src/reportRenderer.js";
-import type { RadarReport } from "../src/types.js";
+import { defaultProfile } from "../src/profile.js";
+import { renderHtmlDashboard, renderMarkdownReport } from "../src/reportRenderer.js";
+import type { TrendVideoReport } from "../src/types.js";
 
-describe("reportRenderer", () => {
-  it("renders a readable Markdown report with evidence links", () => {
+describe("renderMarkdownReport", () => {
+  it("renders trend, concept, evidence, and future pipeline sections", () => {
+    const report: TrendVideoReport = {
+      analysisVersion: "2.0",
+      profile: defaultProfile(),
+      region: "il",
+      generatedAt: "2026-06-12T00:00:00.000Z",
+      toolsUsed: ["search_engine", "discover", "scrape_as_markdown"],
+      toolTelemetry: [
+        { name: "search_engine", status: "ok", durationMs: 120, resultCount: 4 },
+        { name: "discover", status: "ok", durationMs: 240, resultCount: 3 },
+        { name: "scrape_as_markdown", status: "failed", durationMs: 90, resultCount: 0, error: "blocked page" }
+      ],
+      summary: "Use a cozy POV trend.",
+      rankedTrends: [
+        {
+          name: "Cozy work/study POV",
+          platform: "tiktok",
+          format: "POV micro-vlog",
+          topic: "weekday reset",
+          score: 20,
+          evidenceStrength: "medium",
+          nicheFit: "high",
+          locationFit: "high",
+          productionFit: "high",
+          brandSafety: "high",
+          fitRationale: "Fits the cafe.",
+          risks: [],
+          exampleUrls: ["https://www.tiktok.com/@a/video/1"],
+          confidence: 0.75
+        }
+      ],
+      recommendedConcept: {
+        title: "Cozy work/study POV for Nook & Pour",
+        trendName: "Cozy work/study POV",
+        hook: "POV: you found the weekday reset.",
+        format: "POV micro-vlog",
+        caption: "Save this for your next coffee break.",
+        executionStyle: "Phone-shot vertical.",
+        productionMode: "human_shot",
+        scenePlan: ["Open", "Problem", "Cafe solves", "CTA"],
+        shotList: ["Coffee", "Pastry", "Table"],
+        confidence: 0.75
+      },
+      evidenceLog: [
+        {
+          url: "https://www.tiktok.com/@a/video/1",
+          platform: "tiktok",
+          title: "Example",
+          sourceType: "search",
+          snippet: "POV cafe",
+          confidence: 0.7,
+          scrapeStatus: "metadata_only"
+        }
+      ],
+      failureNotes: ["One social source was metadata-only."],
+      tradeoff: "Free-tier tools.",
+      nextSteps: ["Film", "Post", "Measure"],
+      futureVideoPipelineDraft: {
+        videoSubject: "Cozy work/study POV",
+        language: "en",
+        aspectRatio: "9:16",
+        voiceoverScript: "Open. Problem. Cafe solves. CTA.",
+        scenePlan: ["Open", "Problem", "Cafe solves", "CTA"],
+        materialKeywords: ["coffee"],
+        caption: "Save this.",
+        bgmMood: "lo-fi",
+        productionMode: "human_shot"
+      }
+    };
+
     const markdown = renderMarkdownReport(report);
-
-    expect(markdown).toContain("# Agent Ecosystem Opportunity Radar: Bright Data");
-    expect(markdown).toContain("Current Bright Data Coverage");
-    expect(markdown).toContain("Competitor / Comparable Signals");
-    expect(markdown).toContain("Recommended 90-Day Bet");
-    expect(markdown).toContain("[source](https://example.com/a)");
+    expect(markdown).toContain("Future Video Pipeline Draft");
     expect(markdown).toContain("search_engine, discover, scrape_as_markdown");
+    expect(markdown).toContain("Cozy work/study POV");
+
+    const dashboard = renderHtmlDashboard(report);
+    expect(dashboard).toContain("<!doctype html>");
+    expect(dashboard).toContain("Evidence Ledger");
+    expect(dashboard).toContain("MCP Execution Trace");
+    expect(dashboard).toContain("Storyboard");
   });
 });
-
-const report: RadarReport = {
-  company: "Bright Data",
-  decision: "next coding-agent integration",
-  region: "us",
-  generatedAt: "2026-06-10T00:00:00.000Z",
-  summary: "Bright Data should prioritize a coding-agent integration decision.",
-  toolsUsed: ["search_engine", "discover", "scrape_as_markdown"],
-  currentCapabilities: [
-    {
-      capability: "VS Code / GitHub Copilot MCP connection",
-      status: "already_exists",
-      implication: "Build on top of this instead of recommending a generic VS Code setup.",
-      evidenceUrls: ["https://example.com/a"]
-    }
-  ],
-  competitorAnalysis: [
-    {
-      competitor: "Dawn",
-      shipped: "Cross-ecosystem MCP workflow.",
-      whatWorksWell: "Clear Codex/Cursor/Copilot packaging.",
-      weaknessOrGap: "Does not prove Bright Data-level web data depth.",
-      implicationForBrightData: "Ship comparable packaging with stronger live-web tooling.",
-      evidenceUrls: ["https://example.com/a"]
-    }
-  ],
-  rankedOpportunities: [
-    {
-      opportunity: "Codex integration kit",
-      ecosystem: "Codex",
-      evidenceStrength: "high",
-      developerPain: "high",
-      adoptionSignal: "high",
-      implementationEffort: "medium",
-      priority: 1,
-      rationale: "Codex has enough source evidence to justify a first-party kit.",
-      evidenceUrls: ["https://example.com/a"],
-      contradictorySignals: [],
-      confidence: 0.81
-    }
-  ],
-  recommendedBet: {
-    title: "Build a first-party Codex integration kit",
-    targetDeveloper: "Developer relations and platform engineers",
-    problemSolved: "Reliable live-web access setup inside coding agents",
-    whyNow: "Coding-agent ecosystems are competing on integration quality.",
-    minimumViableScope: ["MCP config", "Reusable instructions", "Connectivity validation"],
-    successMetric: "50 successful demo runs in 30 days",
-    whatNotToBuildYet: ["Full SDK", "Complex UI"],
-    evidenceUrls: ["https://example.com/a"],
-    confidence: 0.84
-  },
-  evidenceSources: [
-    {
-      url: "https://example.com/a",
-      title: "Example",
-      sourceType: "search",
-      signal: "A signal",
-      confidence: 0.7,
-      scrapeStatus: "ok"
-    }
-  ],
-  tradeoff: "Used free-tier tools.",
-  nextSteps: ["Validate with one ICP", "Add CRM export", "Schedule weekly runs"]
-};

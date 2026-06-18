@@ -123,8 +123,8 @@ It produced a recommendation to build a first-party **GitHub Copilot integration
 The committed sample output is:
 
 ```text
-part-1-agent/runs/sample-report.md
-part-1-agent/runs/sample-report.json
+agent-1-ecosystem-radar/runs/sample-report.md
+agent-1-ecosystem-radar/runs/sample-report.json
 ```
 
 ## Biggest Tradeoff

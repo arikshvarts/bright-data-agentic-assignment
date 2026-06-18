@@ -22,8 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          - agent-2-trend-video-agent
           - part-1-agent
+          - agent-1-ecosystem-radar
 
     defaults:
       run:

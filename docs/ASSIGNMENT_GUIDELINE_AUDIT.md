@@ -4,7 +4,7 @@ Updated: June 18, 2026
 
 ## Executive Summary
 
-The recommended Mission 1 submission is `agent-2-trend-video-agent/`.
+The recommended Mission 1 submission is `part-1-agent/`.
 
 It is a production-oriented CLI web agent that turns a business profile plus current web/social evidence into:
 
@@ -35,7 +35,7 @@ It is a production-oriented CLI web agent that turns a business profile plus cur
 ## Commands Verified
 
 ```powershell
-cd agent-2-trend-video-agent
+cd part-1-agent
 npm run typecheck
 npm test
 npm run build
@@ -106,9 +106,9 @@ Final automated status:
 ## Submission Artifacts
 
 ```text
-agent-2-trend-video-agent/runs/sample-report.md
-agent-2-trend-video-agent/runs/sample-report.json
-agent-2-trend-video-agent/runs/sample-dashboard.html
+part-1-agent/runs/sample-report.md
+part-1-agent/runs/sample-report.json
+part-1-agent/runs/sample-dashboard.html
 docs/AGENT_2_IMPLEMENTATION_VALIDATION_2026-06-18.md
 docs/PART_1_AGENT_2_WRITEUP.md
 part-2-competitor-memo.md

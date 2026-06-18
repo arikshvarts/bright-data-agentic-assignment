@@ -30,7 +30,8 @@ The recommended final demo is **Agent 2** because it is more visual, more creati
 
 ## Requirement Coverage
 
-- **Part 1 runnable agent:** Covered by `agent-2-trend-video-agent`; Agent 1 remains in `part-1-agent`.
+- **Part 1 runnable agent:** Covered by `part-1-agent`; the earlier concept
+  remains in `agent-1-ecosystem-radar`.
 - **Uses Bright Data MCP:** Covered through spawned `@brightdata/mcp`.
 - **At least two distinct MCP tools:** Covered; fast mode uses four tools and deep mode successfully adds `web_data_tiktok_comments`.
 - **Single command after install:** Covered by `npm run demo:live`.

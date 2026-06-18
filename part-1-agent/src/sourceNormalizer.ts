@@ -1,23 +1,21 @@
-import type { EvidenceSource } from "./types.js";
+import type { TrendEvidence } from "./types.js";
+import { classifyPlatform } from "./platformClassifier.js";
 import { repairText } from "./textRepair.js";
 
 type UnknownRecord = Record<string, unknown>;
 
-export function normalizeToolResult(
-  raw: unknown,
-  sourceType: EvidenceSource["sourceType"]
-): EvidenceSource[] {
+export function normalizeToolResult(raw: unknown, sourceType: TrendEvidence["sourceType"]): TrendEvidence[] {
   const parsed = parseMaybeJson(raw);
   const records = collectRecords(parsed);
 
   return records
-    .map((record) => toSource(record, sourceType))
-    .filter((source): source is EvidenceSource => Boolean(source));
+    .map((record) => toEvidence(record, sourceType))
+    .filter((source): source is TrendEvidence => Boolean(source));
 }
 
-export function dedupeSources(sources: EvidenceSource[], maxSources: number): EvidenceSource[] {
+export function dedupeEvidence(sources: TrendEvidence[], maxSources: number): TrendEvidence[] {
   const seen = new Set<string>();
-  const deduped: EvidenceSource[] = [];
+  const deduped: TrendEvidence[] = [];
 
   for (const source of sources) {
     const key = canonicalUrl(source.url);
@@ -30,36 +28,40 @@ export function dedupeSources(sources: EvidenceSource[], maxSources: number): Ev
   return deduped;
 }
 
-function toSource(record: UnknownRecord, sourceType: EvidenceSource["sourceType"]): EvidenceSource | null {
+function toEvidence(record: UnknownRecord, sourceType: TrendEvidence["sourceType"]): TrendEvidence | null {
   const url = firstString(record, ["url", "link", "href"]);
   if (!url || !isHttpUrl(url)) return null;
 
   const title = firstString(record, ["title", "name"]) ?? url;
-  const description = firstString(record, ["description", "snippet", "text", "content"]) ?? "";
+  const snippet = firstString(record, ["description", "snippet", "text", "content"]) ?? "";
   const score = firstNumber(record, ["score", "confidence"]);
+  const cleanTitle = repairText(title);
+  const cleanSnippet = repairText(snippet).slice(0, 360);
 
   return {
     url,
-    title: cleanInline(title),
+    platform: classifyPlatform(url, cleanTitle),
+    title: cleanTitle,
     sourceType,
-    signal: cleanInline(description).slice(0, 320),
+    snippet: cleanSnippet,
     confidence: clampConfidence(score ?? (sourceType === "discover" ? 0.72 : 0.62)),
-    scrapeStatus: "not_attempted"
+    scrapeStatus: "not_attempted",
+    recencyHint: extractRecency(cleanTitle, cleanSnippet),
+    regionHint: extractRegion(cleanTitle, cleanSnippet),
+    engagementHint: extractEngagement(cleanTitle, cleanSnippet),
+    qualityNotes: [],
+    independentSourceKey: independentSourceKey(url)
   };
 }
 
 function collectRecords(value: unknown): UnknownRecord[] {
-  if (Array.isArray(value)) {
-    return value.flatMap(collectRecords);
-  }
-
+  if (Array.isArray(value)) return value.flatMap(collectRecords);
   if (!isRecord(value)) return [];
 
   const directUrl = firstString(value, ["url", "link", "href"]);
   if (directUrl) return [value];
 
-  const candidateKeys = ["organic", "results", "items", "data", "result"];
-  return candidateKeys.flatMap((key) => collectRecords(value[key]));
+  return ["organic", "results", "items", "data", "result"].flatMap((key) => collectRecords(value[key]));
 }
 
 function parseMaybeJson(raw: unknown): unknown {
@@ -107,15 +109,45 @@ function isHttpUrl(url: string): boolean {
   }
 }
 
-function cleanInline(text: string): string {
-  return repairText(text);
-}
-
 function clampConfidence(value: number): number {
   if (value > 1) return Math.max(0, Math.min(1, value / 100));
   return Math.max(0, Math.min(1, value));
 }
 
+function extractRecency(...parts: string[]): string | undefined {
+  const text = parts.join(" ");
+  return text.match(/\b(2026|2025|today|this week|recent|latest|new|viral)\b/i)?.[0];
+}
+
+function extractRegion(...parts: string[]): string | undefined {
+  const text = parts.join(" ");
+  return text.match(/\b(Tel Aviv|Israel|US|United States|UK|London|New York|Europe|local)\b/i)?.[0];
+}
+
+function extractEngagement(...parts: string[]): string | undefined {
+  const text = parts.join(" ");
+  return text.match(/\b\d+(?:\.\d+)?\s?(?:k|m|b|million|billion)?\s?(?:views|likes|posts|videos|creations)\b/i)?.[0];
+}
+
 function isRecord(value: unknown): value is UnknownRecord {
   return typeof value === "object" && value !== null;
+}
+
+export function independentSourceKey(url: string): string {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
+    const tiktokCreator = parsed.pathname.match(/^\/@([^/]+)/i)?.[1];
+    if (host.endsWith("tiktok.com") && tiktokCreator) return `tiktok:creator:${tiktokCreator.toLowerCase()}`;
+    if (host.endsWith("tiktok.com") && parsed.pathname.startsWith("/discover/")) {
+      return `tiktok:discover:${parsed.pathname.split("/").filter(Boolean)[1] ?? "unknown"}`;
+    }
+    const youtubeChannel = parsed.pathname.match(/^\/@([^/]+)/)?.[1];
+    if (host.endsWith("youtube.com") && youtubeChannel) return `youtube:channel:${youtubeChannel.toLowerCase()}`;
+    const redditCommunity = parsed.pathname.match(/^\/r\/([^/]+)/i)?.[1];
+    if (host.endsWith("reddit.com") && redditCommunity) return `reddit:community:${redditCommunity.toLowerCase()}`;
+    return host;
+  } catch {
+    return url.toLowerCase();
+  }
 }

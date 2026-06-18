@@ -92,9 +92,9 @@ The committed cafe sample includes:
 Files:
 
 ```text
-agent-2-trend-video-agent/runs/sample-report.md
-agent-2-trend-video-agent/runs/sample-report.json
-agent-2-trend-video-agent/runs/sample-dashboard.html
+part-1-agent/runs/sample-report.md
+part-1-agent/runs/sample-report.json
+part-1-agent/runs/sample-dashboard.html
 ```
 
 ## Live Profiles

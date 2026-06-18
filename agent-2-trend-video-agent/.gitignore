@@ -1,7 +1,0 @@
-node_modules/
-dist/
-.env
-runs/*
-!runs/sample-report.md
-!runs/sample-report.json
-!runs/sample-dashboard.html

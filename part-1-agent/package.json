@@ -1,15 +1,19 @@
 {
-  "name": "agent-ecosystem-opportunity-radar",
+  "name": "trend-to-video-agent",
   "version": "1.0.0",
-  "description": "A Bright Data MCP-powered decision agent for ranking coding-agent ecosystem integrations.",
+  "description": "A Bright Data MCP-powered trend-to-video agent for location-aware social video concepts.",
   "type": "module",
   "private": true,
   "scripts": {
     "demo": "tsx src/cli.ts",
-    "demo:live": "tsx src/cli.ts --company \"Bright Data\" --decision \"next coding-agent integration\" --max-sources 3",
+    "demo:live": "tsx src/cli.ts --profile-file ./samples/local-cafe.json --max-sources 6 --max-trends 4",
+    "demo:deep-social": "tsx src/cli.ts --profile-file ./samples/local-cafe.json --max-sources 6 --max-trends 4 --social-posts 2 --social-comments 1",
+    "demo:fitness": "tsx src/cli.ts --profile-file ./samples/boutique-fitness-coach.json --max-sources 6 --max-trends 4",
+    "demo:b2b": "tsx src/cli.ts --profile-file ./samples/b2b-ai-bookkeeping.json --max-sources 6 --max-trends 4",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsc",
+    "check": "npm run typecheck && npm test && npm run build && npm audit --audit-level=high"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.13.0",

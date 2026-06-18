@@ -1,46 +1,48 @@
 import { describe, expect, it } from "vitest";
-import { assertEnoughEvidence, scrapeSources } from "../src/scrapePolicy.js";
-import type { EvidenceSource, ToolCall, ToolClient } from "../src/types.js";
+import { assertEnoughEvidence, evidenceWeight, scrapeEvidence } from "../src/scrapePolicy.js";
+import type { ToolClient, TrendEvidence } from "../src/types.js";
 
-const sources: EvidenceSource[] = [
-  source("https://example.com/a"),
-  source("https://example.com/b"),
-  source("https://example.com/c")
-];
+const baseSource: TrendEvidence = {
+  url: "https://www.tiktok.com/@creator/video/123",
+  platform: "tiktok",
+  title: "Coffee trend",
+  sourceType: "search",
+  snippet: "A coffee video trend",
+  confidence: 0.7,
+  scrapeStatus: "not_attempted"
+};
 
-describe("scrapePolicy", () => {
-  it("marks failed scrapes and keeps processing remaining sources", async () => {
+describe("scrapeEvidence", () => {
+  it("keeps inaccessible social sources as metadata-only evidence", async () => {
     const client: ToolClient = {
-      async callTool<T>(call: ToolCall) {
-        if (call.args.url === "https://example.com/b") throw new Error("403 blocked");
-        return "Useful content ".repeat(80) as T;
+      async callTool() {
+        throw new Error("blocked page");
       },
       async close() {}
     };
 
-    const enriched = await scrapeSources(client, sources);
-
-    expect(enriched.map((item) => item.scrapeStatus)).toEqual(["ok", "failed", "ok"]);
-    expect(() => assertEnoughEvidence(enriched, 2)).not.toThrow();
+    const [source] = await scrapeEvidence(client, [baseSource]);
+    expect(source.scrapeStatus).toBe("metadata_only");
+    expect(source.error).toContain("blocked page");
   });
 
-  it("fails clearly when too few sources are usable", () => {
+  it("rejects weak evidence sets", () => {
+    expect(() => assertEnoughEvidence([{ ...baseSource, scrapeStatus: "failed" }], 3)).toThrow(/Only 0 usable/);
+  });
+
+  it("weights metadata-only evidence below successful scrapes", () => {
+    expect(evidenceWeight({ ...baseSource, scrapeStatus: "metadata_only" })).toBeLessThan(
+      evidenceWeight({ ...baseSource, scrapeStatus: "ok" })
+    );
     expect(() =>
       assertEnoughEvidence(
-        sources.map((item) => ({ ...item, scrapeStatus: "failed" })),
+        [
+          { ...baseSource, url: `${baseSource.url}1`, scrapeStatus: "metadata_only" },
+          { ...baseSource, url: `${baseSource.url}2`, scrapeStatus: "metadata_only" },
+          { ...baseSource, url: `${baseSource.url}3`, scrapeStatus: "metadata_only" }
+        ],
         3
       )
-    ).toThrow(/Only 0 usable sources/);
+    ).toThrow(/weighted evidence score/);
   });
 });
-
-function source(url: string): EvidenceSource {
-  return {
-    url,
-    title: url,
-    sourceType: "search",
-    signal: "signal",
-    confidence: 0.7,
-    scrapeStatus: "not_attempted"
-  };
-}

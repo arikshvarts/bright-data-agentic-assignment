@@ -280,7 +280,7 @@ The dashboard includes:
 Committed sample:
 
 ```text
-agent-2-trend-video-agent/runs/sample-dashboard.html
+part-1-agent/runs/sample-dashboard.html
 ```
 
 ## Remaining Honest Limits
