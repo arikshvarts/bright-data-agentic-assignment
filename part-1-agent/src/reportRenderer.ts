@@ -46,20 +46,20 @@ export function renderMarkdownReport(report: TrendVideoReport): string {
 **Confidence:** ${formatPercent(trend.confidence)}
 
 **Examples:** ${trend.exampleUrls.length ? trend.exampleUrls.map((url) => `[source](${url})`).join(", ") : "No direct example URL retained."}
-`
+`,
     )
     .join("\n");
 
   const evidence = report.evidenceLog
     .map(
       (source) =>
-        `- ${source.scrapeStatus.toUpperCase()} | ${source.platform} | ${source.structuredDataStatus === "ok" ? "structured" : source.sourceType} | [${source.title}](${source.url}) | ${source.snippet || "No snippet."}${source.views !== undefined ? ` | ${source.views.toLocaleString()} views` : ""}${source.likes !== undefined ? ` | ${source.likes.toLocaleString()} likes` : ""}${source.error ? ` | ${source.error}` : ""}`
+        `- ${source.scrapeStatus.toUpperCase()} | ${source.platform} | ${source.structuredDataStatus === "ok" ? "structured" : source.sourceType} | [${source.title}](${source.url}) | ${source.snippet || "No snippet."}${source.views !== undefined ? ` | ${source.views.toLocaleString()} views` : ""}${source.likes !== undefined ? ` | ${source.likes.toLocaleString()} likes` : ""}${source.error ? ` | ${source.error}` : ""}`,
     )
     .join("\n");
   const telemetry = report.toolTelemetry
     .map(
       (entry) =>
-        `- ${entry.status.toUpperCase()} | \`${entry.name}\` | ${entry.durationMs}ms | ${entry.resultCount} result(s)${entry.error ? ` | ${entry.error}` : ""}`
+        `- ${entry.status.toUpperCase()} | \`${entry.name}\` | ${entry.durationMs}ms | ${entry.resultCount} result(s)${entry.error ? ` | ${entry.error}` : ""}`,
     )
     .join("\n");
 
@@ -165,8 +165,12 @@ ${topTrends}
 }
 
 export function renderHtmlDashboard(report: TrendVideoReport): string {
-  const successfulCalls = report.toolTelemetry.filter((entry) => entry.status === "ok").length;
-  const structuredSources = report.evidenceLog.filter((source) => source.structuredDataStatus === "ok").length;
+  const successfulCalls = report.toolTelemetry.filter(
+    (entry) => entry.status === "ok",
+  ).length;
+  const structuredSources = report.evidenceLog.filter(
+    (source) => source.structuredDataStatus === "ok",
+  ).length;
   const topTrend = report.rankedTrends[0];
   const trendCards = report.rankedTrends
     .map(
@@ -194,7 +198,7 @@ export function renderHtmlDashboard(report: TrendVideoReport): string {
           <p class="basis"><strong>Velocity:</strong> ${escapeHtml(trend.velocityBasis ?? "Not calculated.")}</p>
           <p class="basis"><strong>Saturation:</strong> ${escapeHtml(trend.saturationBasis ?? "Not calculated.")}</p>
           <div class="links">${trend.exampleUrls.map((url) => `<a href="${escapeAttribute(url)}" target="_blank" rel="noreferrer">Open evidence</a>`).join("")}</div>
-        </article>`
+        </article>`,
     )
     .join("");
 
@@ -212,7 +216,7 @@ export function renderHtmlDashboard(report: TrendVideoReport): string {
           <td>${formatCompactNumber(source.likes)}</td>
           <td>${source.publishedAt ? escapeHtml(source.publishedAt.slice(0, 10)) : "n/a"}</td>
           <td>${source.structuredDataStatus === "ok" ? "structured" : escapeHtml(source.sourceType)}</td>
-        </tr>`
+        </tr>`,
     )
     .join("");
 
@@ -225,7 +229,7 @@ export function renderHtmlDashboard(report: TrendVideoReport): string {
           <td>${entry.durationMs.toLocaleString()} ms</td>
           <td>${entry.resultCount}</td>
           <td>${escapeHtml(entry.error ?? "")}</td>
-        </tr>`
+        </tr>`,
     )
     .join("");
 
@@ -310,7 +314,7 @@ export function renderHtmlDashboard(report: TrendVideoReport): string {
   <header>
     <p class="eyebrow">Bright Data MCP · Trend-to-Video Agent</p>
     <h1>${escapeHtml(report.profile.businessName)}</h1>
-    <p>${escapeHtml(report.summary)}</p>
+    <p>${escapeDisplayText(report.summary)}</p>
   </header>
   <main>
     <section class="kpis">
@@ -339,7 +343,10 @@ export function renderHtmlDashboard(report: TrendVideoReport): string {
     <section>
       <h2>Storyboard</h2>
       <div class="storyboard">${report.recommendedConcept.scenePlan
-        .map((scene, index) => `<div class="scene"><strong>Scene ${index + 1}</strong>${escapeHtml(scene)}</div>`)
+        .map(
+          (scene, index) =>
+            `<div class="scene"><strong>Scene ${index + 1}</strong>${escapeHtml(scene)}</div>`,
+        )
         .join("")}</div>
     </section>
     <section>
@@ -373,7 +380,12 @@ function formatPercent(value: number): string {
   return `${Math.round(value * 100)}%`;
 }
 
-function metricBar(label: string, value: number, status: string, color: "teal" | "coral"): string {
+function metricBar(
+  label: string,
+  value: number,
+  status: string,
+  color: "teal" | "coral",
+): string {
   const width = Math.max(0, Math.min(100, Math.round(value)));
   return `<div class="metric-row"><strong>${escapeHtml(label)}</strong><span>${escapeHtml(status)} · ${width}</span><div class="bar"><span class="${color}" style="width:${width}%"></span></div></div>`;
 }
@@ -384,7 +396,10 @@ function kpi(label: string, value: string): string {
 
 function formatCompactNumber(value?: number): string {
   if (value === undefined) return "n/a";
-  return new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(value);
+  return new Intl.NumberFormat("en", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value);
 }
 
 function escapeHtml(value: string): string {
@@ -394,6 +409,15 @@ function escapeHtml(value: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function escapeDisplayText(value: string): string {
+  return escapeHtml(
+    value
+      .replace(/\*\*([^*]+)\*\*/g, "$1")
+      .replace(/__([^_]+)__/g, "$1")
+      .replace(/`([^`]+)`/g, "$1"),
+  );
 }
 
 function escapeAttribute(value: string): string {

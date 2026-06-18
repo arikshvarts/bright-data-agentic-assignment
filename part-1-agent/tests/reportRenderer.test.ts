@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { defaultProfile } from "../src/profile.js";
-import { renderHtmlDashboard, renderMarkdownReport } from "../src/reportRenderer.js";
+import {
+  renderHtmlDashboard,
+  renderMarkdownReport,
+} from "../src/reportRenderer.js";
 import type { TrendVideoReport } from "../src/types.js";
 
 describe("renderMarkdownReport", () => {
@@ -12,11 +15,22 @@ describe("renderMarkdownReport", () => {
       generatedAt: "2026-06-12T00:00:00.000Z",
       toolsUsed: ["search_engine", "discover", "scrape_as_markdown"],
       toolTelemetry: [
-        { name: "search_engine", status: "ok", durationMs: 120, resultCount: 4 },
+        {
+          name: "search_engine",
+          status: "ok",
+          durationMs: 120,
+          resultCount: 4,
+        },
         { name: "discover", status: "ok", durationMs: 240, resultCount: 3 },
-        { name: "scrape_as_markdown", status: "failed", durationMs: 90, resultCount: 0, error: "blocked page" }
+        {
+          name: "scrape_as_markdown",
+          status: "failed",
+          durationMs: 90,
+          resultCount: 0,
+          error: "blocked page",
+        },
       ],
-      summary: "Use a cozy POV trend.",
+      summary: "Use a **cozy POV** trend.",
       rankedTrends: [
         {
           name: "Cozy work/study POV",
@@ -32,8 +46,8 @@ describe("renderMarkdownReport", () => {
           fitRationale: "Fits the cafe.",
           risks: [],
           exampleUrls: ["https://www.tiktok.com/@a/video/1"],
-          confidence: 0.75
-        }
+          confidence: 0.75,
+        },
       ],
       recommendedConcept: {
         title: "Cozy work/study POV for Nook & Pour",
@@ -45,7 +59,7 @@ describe("renderMarkdownReport", () => {
         productionMode: "human_shot",
         scenePlan: ["Open", "Problem", "Cafe solves", "CTA"],
         shotList: ["Coffee", "Pastry", "Table"],
-        confidence: 0.75
+        confidence: 0.75,
       },
       evidenceLog: [
         {
@@ -55,8 +69,8 @@ describe("renderMarkdownReport", () => {
           sourceType: "search",
           snippet: "POV cafe",
           confidence: 0.7,
-          scrapeStatus: "metadata_only"
-        }
+          scrapeStatus: "metadata_only",
+        },
       ],
       failureNotes: ["One social source was metadata-only."],
       tradeoff: "Free-tier tools.",
@@ -70,8 +84,8 @@ describe("renderMarkdownReport", () => {
         materialKeywords: ["coffee"],
         caption: "Save this.",
         bgmMood: "lo-fi",
-        productionMode: "human_shot"
-      }
+        productionMode: "human_shot",
+      },
     };
 
     const markdown = renderMarkdownReport(report);
@@ -84,5 +98,7 @@ describe("renderMarkdownReport", () => {
     expect(dashboard).toContain("Evidence Ledger");
     expect(dashboard).toContain("MCP Execution Trace");
     expect(dashboard).toContain("Storyboard");
+    expect(dashboard).toContain("Use a cozy POV trend.");
+    expect(dashboard).not.toContain("Use a **cozy POV** trend.");
   });
 });
