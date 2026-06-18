@@ -1,10 +1,10 @@
 const replacements: Array<[RegExp, string]> = [
   [/\u2018|\u2019/g, "'"],
-  [/\u201c|\u201d/g, "\""],
+  [/\u201c|\u201d/g, '"'],
   [/\u2013|\u2014/g, "-"],
   [/\u2026/g, "..."],
   [/â€™/g, "'"],
-  [/â€œ|â€|â€ť/g, "\""],
+  [/â€œ|â€|â€ť/g, '"'],
   [/â€“|â€”/g, "-"],
   [/â€¦/g, "..."],
   [/Ã—/g, "x"],
@@ -18,14 +18,18 @@ const replacements: Array<[RegExp, string]> = [
   [/ï¸/g, ""],
   [/\bInstagram Reels\b/g, "YouTube Shorts"],
   [/\bInstagram\b/g, "YouTube Shorts"],
-  [/Â/g, ""]
+  [/Â/g, ""],
 ];
 
 export function repairText(value: string): string {
   const decoded = maybeDecodeMojibake(value);
   return replacements
-    .reduce((text, [pattern, replacement]) => text.replace(pattern, replacement), decoded)
-    .replace(/[^\x09\x0a\x0d\x20-\x7e]/g, "")
+    .reduce(
+      (text, [pattern, replacement]) => text.replace(pattern, replacement),
+      decoded,
+    )
+    .replace(/\uFFFD/g, "")
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "")
     .replace(/\s+/g, " ")
     .trim();
 }
